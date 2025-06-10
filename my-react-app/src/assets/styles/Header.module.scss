@@ -1,0 +1,39 @@
+.container{
+    position: fixed;
+    background-color: aliceblue;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 4vw 20px 4vw 80px;
+    gap: 120px;
+
+    nav{
+        display: flex;
+        align-items: center;
+    }
+
+    h1{
+        font-size: 2.1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    h1::after {
+        content: "";
+        display: inline-block;
+        width: 3.5rem;
+        height: 3.5rem;
+        background-image: url(/logo/logo.png); 
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-left: 8px; 
+}
+
+    ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 1.1rem;
+    }
+}

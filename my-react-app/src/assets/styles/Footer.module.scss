@@ -1,0 +1,133 @@
+.section__subscript{
+    background-color: #543019;
+    color: #fff;
+    margin-bottom: 80px;
+}
+
+.container{
+    max-width: 1280px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.subscript_content{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 70px 0 52px;
+    align-items: start;
+    justify-content: center;
+}
+
+.subscript_desc{
+    box-sizing: border-box;
+    word-wrap: break-word;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: calc(25% - 40px);
+    
+
+    h2{
+        margin-bottom: 32px;
+        font-size: 1.1rem;
+    }
+
+    p {
+        max-width: 262px;
+        font-size: 0.7rem;
+        font-weight: 100;
+    }
+}
+
+.subscript_form{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: calc(50% - 40px);
+    padding-right: 28px;
+    display: flex;
+    flex-wrap: wrap;
+
+    input{
+    margin-right: 20px;
+    }
+    
+    label {
+        font-weight: lighter;
+        font-size: small;
+    }
+}
+
+.subscript_form_input{
+    background-color: #6b3919;
+    padding: 20px 50px 20px 20px;
+    margin-bottom: 24px;
+    border-radius: 5px;
+}
+
+.subscript_social li {
+    margin-bottom: 40px;
+    max-width: 140px;
+    a{
+        color: #fff;
+    }
+    
+}
+
+.link_vk::before{
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-image: url(/ico/vk-social-network-logo.png); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+}
+
+.link_tg::before{
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-image: url(/ico/telegram-logo.png); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+}
+
+.subscript_form_btn::after{
+    content: '';
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    background-image: url(/ico/right-arrow-angle.png); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 8px;
+}
+
+.section__menu{
+    margin-bottom: 40px;
+    padding: 30px;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.menu_item__title{
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+
+    
+}
+
+.menu_item__list{
+
+    li{ margin-bottom: 15px;};
+    font-size: 0.9rem;
+    font-weight: light;
+}
