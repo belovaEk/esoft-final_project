@@ -59,7 +59,7 @@ function Footer(){
                         <ul className={styles.menu_item__list}>
                             <li>Доставка и оплата</li>
                             <li>Скидки и акции</li>
-                            <li> <img src="/ico/user.svg" alt="" /> Кабинет</li>
+                            <li><img src="/ico/user.svg" alt="" />Кабинет</li>
                         </ul>
                     </div>
                     </div>        

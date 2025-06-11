@@ -127,7 +127,13 @@
 
 .menu_item__list{
 
-    li{ margin-bottom: 15px;};
+    li{ 
+        margin-bottom: 15px;
+
+        img{
+            margin-right: 8px;
+        }
+    };
     font-size: 0.9rem;
     font-weight: light;
 }

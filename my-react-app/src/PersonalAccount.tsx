@@ -2,7 +2,8 @@ import styles from '/src/assets/styles/PersonalAccount.module.scss'
 
 function PersonalAccount(){
     return (
-        <main>
+        <>
+         <main>
             <div className={styles.main_container}>
                 <div className={styles.lk_container}>
                     <div className={styles.lk_aside}>
@@ -68,6 +69,26 @@ function PersonalAccount(){
                 </div>
             </div>
         </main>
+
+        {/* <div className={styles.overlay}></div> */}
+        {/* <div className={styles.modal}>
+            <button className={styles.btn_exit}></button>
+            <div className={styles.modal_container}>
+                <h2>Личные данные</h2>
+                <form action="">
+                    <label htmlFor="name">Имя</label>
+                    <input type="text" id='name' placeholder='name'/>
+                    <label htmlFor="email">Почта</label>
+                    <input type="email" placeholder='email' id='email'/>
+                    <button>Сохранить</button>
+                </form>
+
+                <button className={[styles.ico, styles.logout].join(' ')}>Выйти</button>
+                <button className={styles.delete_btn}>Удалить профиль</button>
+            </div>
+        </div> */}
+        </>
+       
     )
 }
 
