@@ -51,7 +51,7 @@
         align-items: center;
     }
 
-    h1::after {
+    .title::after {
         content: "";
         display: inline-block;
         width: 3.5rem;

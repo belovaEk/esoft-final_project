@@ -5,9 +5,8 @@ function Authorization(){
     return(
         <div className='main'>
         <div className={styles.container}>
-            <h1>TeaTime</h1>
+            <h1 className={styles.title}>TeaTime</h1>
             <form action="">
-                <div></div>
                 <label htmlFor="email">Введите почту</label>
                 <input type="e-mail" name="" id="email" />
 

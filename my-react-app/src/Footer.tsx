@@ -1,6 +1,11 @@
 import styles from '/src/assets/styles/Footer.module.scss'
 
+import { useNavigate } from 'react-router-dom'
+
 function Footer(){
+
+    const navigate = useNavigate();
+
     return (
         <footer>
         <section className={styles.section__subscript}>
@@ -34,7 +39,7 @@ function Footer(){
                         <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>Контакты</h3>
                         <ul className={styles.menu_item__list}>
-                            <li>Контакты</li>
+                            <li onClick={()=> navigate('/contacts')}>Контакты</li>
                             <li>Магазины</li>
                             <li>Офисы</li>
                         </ul>
@@ -42,24 +47,21 @@ function Footer(){
                     <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>О компании</h3>
                         <ul className={styles.menu_item__list}>
-                            <li>Вакансии</li>
-                            <li>О нас</li>
+                            <li onClick={()=> navigate('/vacancies')}>Вакансии</li>
+                            <li onClick={()=> navigate('/about')}>О нас</li>
                         </ul>
                     </div>
                     <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>Бизнесу</h3>
                         <ul className={styles.menu_item__list}>
-                            <li>Поставщикам</li>
-                            <li>Франчайзинг</li>
-                            <li>Корпоративные подарки</li>
+                            <li onClick={()=> navigate('/supplier')}>Поставщикам</li>
                         </ul>
                     </div>
                     <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>Клиентам</h3>
                         <ul className={styles.menu_item__list}>
-                            <li>Доставка и оплата</li>
-                            <li>Скидки и акции</li>
-                            <li><img src="/ico/user.svg" alt="" />Кабинет</li>
+                            <li onClick={()=> navigate('/delivery')}>Доставка и оплата</li>
+                            <li onClick={()=> navigate('/account')}><img src="/ico/user.svg" alt="" />Кабинет</li>
                         </ul>
                     </div>
                     </div>        

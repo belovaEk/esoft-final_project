@@ -1,21 +1,23 @@
 
 import styles from '/src/assets/styles/Header.module.scss'
-
+import { useNavigate } from 'react-router-dom'
 
 function Header(){
+    const navidate = useNavigate()
+
     return(
         <header className={styles.container}>
             <div>
                 <h1>TeaTime</h1>
             </div>
             <nav>
-                    <ul>
-                        <li>Главная</li>
-                        <li>Каталог</li>
-                        <li><img src="/ico/heart.png" alt="" /></li>
-                        <li><img src="/ico/cart.svg" alt="корзина" /></li>
-                        <li><img src="/ico/user.svg" alt="личный кабинет" /></li>
-                    </ul>
+                <ul>
+                    <li onClick={() => navidate('/')}>Главная</li>
+                    <li onClick={() => navidate('/')}>Каталог</li>
+                    <li onClick={() => navidate('/')}><img src="/ico/heart.png" alt="избранное" /></li>
+                    <li onClick={() => navidate('/')}><img src="/ico/cart.svg" alt="корзина" /></li>
+                    <li onClick={() => navidate('/account')}><img src="/ico/user.svg" alt="личный кабинет" /></li>
+                </ul>
 
             </nav>
         </header>

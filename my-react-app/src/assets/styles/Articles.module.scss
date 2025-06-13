@@ -1,0 +1,76 @@
+.container{
+    margin: 0 20%;
+     h1{
+        margin-bottom: 80px;
+     }
+}
+
+.ContactCity_container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 80px;
+    min-height: 300px;
+    h2{
+        align-self: center;
+        font-size: 1.6rem;
+        margin-bottom: 40px;
+    }
+
+    p{
+       font-size: 1rem; 
+       margin-bottom: 20px;
+    }
+
+    .ContactCity_item{
+        display: flex;
+        font-size: 0.7rem;
+
+        h3{
+            flex-basis: 300px;
+            font-weight: 500;
+        }
+
+        span{
+            color: rgb(77, 76, 76);
+        }
+
+        
+    }
+}
+
+.vacancies_title{
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #543019;
+}
+
+.vacancies_list{
+    li{
+        font-size: 0.8rem;
+    }
+}
+
+.about_item{
+    font-size: 0.9rem;
+    margin-left: 40px;
+}
+
+.about_item::before{
+    content: '';
+    background-image: url(/ico/leaf_color.png);
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+}
+
+.about_title{
+    margin-bottom: 40px;
+     margin-top: 40px;
+}
+
+.delivery_container{
+    margin-bottom: 0;
+}
