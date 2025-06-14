@@ -1,6 +1,10 @@
 import styles from '/src/assets/styles/PersonalAccount.module.scss'
 
+import { useNavigate } from 'react-router-dom'
+
 function PersonalAccount(){
+    const navigate = useNavigate();
+
     return (
         <>
          <main>
@@ -28,7 +32,7 @@ function PersonalAccount(){
                         <div className={styles.lk_wrapper}>
                             <ul>
                                 <li>
-                                    <div>
+                                    <div onClick={()=> navigate('/favourites')}>
                                         <h2>Избранное</h2>
                                         <p>{56} товаров</p>
                                     </div>
@@ -36,7 +40,7 @@ function PersonalAccount(){
                                 </li>
                                 <li>
                                     <div>
-                                        <h2>Покупки</h2>
+                                        <h2 onClick={()=> navigate('/shopping')}>Покупки</h2>
                                         <p>Смотреть</p>
                                     </div>
                                     <img src="/ico/bag_color.png" alt="" />

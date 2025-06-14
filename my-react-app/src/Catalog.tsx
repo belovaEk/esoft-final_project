@@ -1,5 +1,7 @@
 import styles from '/src/assets/styles/Catalog.module.scss'
 
+import ProductCart from './ProductCart'
+
 function Catalog(){
     return (
         <main>
@@ -99,19 +101,19 @@ function Catalog(){
                     <div className={styles.sort_container}>
                         <h3>Сортировка:</h3>
                         <ul>
-                            <li>популярные</li>
-                            <li>высокий рейтинг</li>
-                            <li>цена</li>
+                            <li className={styles.sort_popular}>популярные</li>
+                            <li className={styles.sort_rating}>высокий рейтинг</li>
+                            <li className={styles.sort_price}>цена</li>
                         </ul>
                     </div>
 
                     <div className={styles.catalog_container}>
-                        <div>карточка</div>
-                        <div>карточка</div>
-
-                        <div>карточка</div>
-                        <div>карточка</div>
-                        <div>карточка</div>
+                        <ProductCart />
+                        <ProductCart />
+                        <ProductCart />
+                        <ProductCart />
+                        <ProductCart />
+                        <ProductCart />
 
                     </div>
                  </div>

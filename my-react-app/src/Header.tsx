@@ -3,7 +3,7 @@ import styles from '/src/assets/styles/Header.module.scss'
 import { useNavigate } from 'react-router-dom'
 
 function Header(){
-    const navidate = useNavigate()
+    const navigate = useNavigate()
 
     return(
         <header className={styles.container}>
@@ -12,11 +12,11 @@ function Header(){
             </div>
             <nav>
                 <ul>
-                    <li onClick={() => navidate('/')}>Главная</li>
-                    <li onClick={() => navidate('/catalog')}>Каталог</li>
-                    <li onClick={() => navidate('/')}><img src="/ico/heart.png" alt="избранное" /></li>
-                    <li onClick={() => navidate('/')}><img src="/ico/cart.svg" alt="корзина" /></li>
-                    <li onClick={() => navidate('/account')}><img src="/ico/user.svg" alt="личный кабинет" /></li>
+                    <li onClick={() => navigate('/')}>Главная</li>
+                    <li onClick={() => navigate('/catalog')}>Каталог</li>
+                    <li onClick={() => navigate('/favourites')}><img src="/ico/heart.png" alt="избранное" /></li>
+                    <li onClick={() => navigate('/')}><img src="/ico/cart.svg" alt="корзина" /></li>
+                    <li onClick={() => navigate('/account')}><img src="/ico/user.svg" alt="личный кабинет" /></li>
                 </ul>
 
             </nav>
