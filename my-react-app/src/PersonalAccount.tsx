@@ -39,8 +39,8 @@ function PersonalAccount(){
                                     <img src="ico/heart_color.png" alt="" />
                                 </li>
                                 <li>
-                                    <div>
-                                        <h2 onClick={()=> navigate('/shopping')}>Покупки</h2>
+                                    <div onClick={()=> navigate('/shopping')}>
+                                        <h2>Покупки</h2>
                                         <p>Смотреть</p>
                                     </div>
                                     <img src="/ico/bag_color.png" alt="" />
@@ -60,9 +60,6 @@ function PersonalAccount(){
                             <ul>
                                 <li>
                                     <span className={[styles.ico, styles.support].join(' ')}>Написать в поддержку</span>
-                                </li>
-                                <li>
-                                    <span className={[styles.ico, styles.return].join(' ')}>Вернуть товар</span>
                                 </li>
                                 <li>
                                     <span className={[styles.ico, styles.faq].join(' ')}>Частые вопросы</span>

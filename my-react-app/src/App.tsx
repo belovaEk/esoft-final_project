@@ -12,7 +12,9 @@ import Vacancies from './article_footer/Vacancies'
 import About from './article_footer/About'
 import Supplier from './article_footer/Supplier'
 import Delivery from './article_footer/Delivery'
-import Shopping from './Shopping'
+import Shopping from './Shopping/Shopping'
+import Orders from './Shopping/Orders'
+import Purchases from './Shopping/Purchases'
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -29,7 +31,11 @@ function App() {
       <Route path="/account" element={<PersonalAccount />} />
       <Route path='/catalog' element={<Catalog />}/>
       <Route path='/favourites' element={<Favourites />}/>
-      <Route path='/dhopping' element={<Shopping/>}/>
+      <Route path='/shopping' element={<Shopping/>}>
+        <Route path='orders' element={<Orders/>} />
+        <Route path='purchases' element={<Purchases/>} />
+        <Route index element={<Orders/>} />
+      </Route>
 
       <Route path="/contacts" element={<Contacts />} />
       <Route path="/vacancies" element={<Vacancies />} />
