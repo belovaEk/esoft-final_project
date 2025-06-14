@@ -13,7 +13,7 @@ function Header(){
             <nav>
                 <ul>
                     <li onClick={() => navidate('/')}>Главная</li>
-                    <li onClick={() => navidate('/')}>Каталог</li>
+                    <li onClick={() => navidate('/catalog')}>Каталог</li>
                     <li onClick={() => navidate('/')}><img src="/ico/heart.png" alt="избранное" /></li>
                     <li onClick={() => navidate('/')}><img src="/ico/cart.svg" alt="корзина" /></li>
                     <li onClick={() => navidate('/account')}><img src="/ico/user.svg" alt="личный кабинет" /></li>

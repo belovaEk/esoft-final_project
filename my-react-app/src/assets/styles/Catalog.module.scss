@@ -1,0 +1,97 @@
+.container{
+    margin: 0 20%;
+    
+    display: flex;
+    
+    .filters{
+        border: 0.3px solid #54301934;
+        border-radius: 8px;
+        padding: 40px 30px;
+        flex-basis: 300px;
+
+        .filters_inner{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .filters__btn{
+                height: 50px;
+                font-size: 0.7rem;
+            }
+            .btn_show{
+                background-color: #543019;
+                color: white;  
+            }
+        }
+
+        
+
+        .filters__item{
+            min-height: 40px;
+
+            details ul{
+                max-height: 150px;
+                overflow-y: scroll;
+            }
+
+            summary{
+            list-style: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+   
+            }
+
+            summary::after{
+                content: '';
+                display: inline-block;
+                width: 0.6rem;
+                height: 0.6rem;
+                background-image: url(/public/ico/down-arrow.png); 
+                background-size: contain;
+                background-repeat: no-repeat;
+                margin-left: 8px;
+                top: 2px;
+            }
+                
+            }
+        }
+        }
+    
+
+    .content{
+        padding: 20px;
+        margin-left: 80px;
+ 
+
+        .sort_container{
+            display: flex;
+            font-size: 0.8rem;
+
+            h3{
+                margin-right: 20px;
+            }
+
+            ul{
+                display: flex;
+                gap: 15px;
+                color: #808080;
+            }
+        }
+
+        .catalog_container{
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+              gap: 50px 20px;
+        }
+    }
+
+.filters__item_li label {
+    color: #543019;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+

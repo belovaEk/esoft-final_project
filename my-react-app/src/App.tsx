@@ -4,6 +4,7 @@ import MainContent from "./MainContent"
 import Footer from './Footer'
 import Authorization from './Authorization'
 import PersonalAccount from './PersonalAccount'
+import Catalog from './Catalog'
 
 import Contacts from './article_footer/Contacts'
 import Vacancies from './article_footer/Vacancies'
@@ -24,6 +25,8 @@ function App() {
       <Route path="/" element={<MainContent />} />
       <Route path="/auth" element={<Authorization />} />
       <Route path="/account" element={<PersonalAccount />} />
+      <Route path='catalog' element={<Catalog />}/>
+
       <Route path="/contacts" element={<Contacts />} />
       <Route path="/vacancies" element={<Vacancies />} />
       <Route path="/about" element={<About />} />
