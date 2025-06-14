@@ -61,6 +61,7 @@ function Footer(){
                         <h3 className={styles.menu_item__title}>Клиентам</h3>
                         <ul className={styles.menu_item__list}>
                             <li onClick={()=> navigate('/delivery')}>Доставка и оплата</li>
+                            <li onClick={()=> navigate('/faq')}>Частые вопросы</li>
                             <li onClick={()=> navigate('/account')}><img src="/ico/user.svg" alt="" />Кабинет</li>
                         </ul>
                     </div>

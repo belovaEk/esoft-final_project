@@ -6,6 +6,7 @@ import Authorization from './Authorization'
 import PersonalAccount from './PersonalAccount'
 import Catalog from './Catalog'
 import Favourites from './Favourites'
+import Faq from './FAQ'
 
 import Contacts from './article_footer/Contacts'
 import Vacancies from './article_footer/Vacancies'
@@ -36,6 +37,7 @@ function App() {
         <Route path='purchases' element={<Purchases/>} />
         <Route index element={<Orders/>} />
       </Route>
+      <Route path='/faq' element={<Faq/>}/>
 
       <Route path="/contacts" element={<Contacts />} />
       <Route path="/vacancies" element={<Vacancies />} />
