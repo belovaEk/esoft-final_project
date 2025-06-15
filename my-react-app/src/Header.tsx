@@ -15,7 +15,7 @@ function Header(){
                     <li onClick={() => navigate('/')}>Главная</li>
                     <li onClick={() => navigate('/catalog')}>Каталог</li>
                     <li onClick={() => navigate('/favourites')}><img src="/ico/heart.png" alt="избранное" /></li>
-                    <li onClick={() => navigate('/')}><img src="/ico/cart.svg" alt="корзина" /></li>
+                    <li onClick={() => navigate('/cart')}><img src="/ico/cart.svg" alt="корзина" /></li>
                     <li onClick={() => navigate('/account')}><img src="/ico/user.svg" alt="личный кабинет" /></li>
                 </ul>
 

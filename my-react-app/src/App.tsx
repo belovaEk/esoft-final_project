@@ -6,7 +6,7 @@ import Authorization from './Authorization'
 import PersonalAccount from './PersonalAccount'
 import Catalog from './Catalog'
 import Favourites from './Favourites'
-import Faq from './FAQ'
+import Faq from './Faq'
 
 import Contacts from './article_footer/Contacts'
 import Vacancies from './article_footer/Vacancies'
@@ -16,6 +16,9 @@ import Delivery from './article_footer/Delivery'
 import Shopping from './Shopping/Shopping'
 import Orders from './Shopping/Orders'
 import Purchases from './Shopping/Purchases'
+import ProductPage from './ProductPage'
+import Cart from './Cart'
+import Order from './Order'
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -38,12 +41,17 @@ function App() {
         <Route index element={<Orders/>} />
       </Route>
       <Route path='/faq' element={<Faq/>}/>
+      <Route path='/cart' element={<Cart />}/>
+      <Route path='/order' element={<Order />}/>
+
+      <Route path='/catalog/chay' element={<ProductPage />}/>
 
       <Route path="/contacts" element={<Contacts />} />
       <Route path="/vacancies" element={<Vacancies />} />
       <Route path="/about" element={<About />} />
       <Route path='/supplier' element={<Supplier />}/>
       <Route path='/delivery' element={<Delivery />}/>
+
     </Routes>
     <Footer />
 
