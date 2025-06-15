@@ -2,7 +2,12 @@ import styles from '/src/assets/styles/Catalog.module.scss'
 
 import ProductCart from './ProductCart'
 
+import { useNavigate } from 'react-router-dom'
+
 function Catalog(){
+
+    const navigate = useNavigate();
+
     return (
         <main>
             <div className={styles.container}>
@@ -108,12 +113,13 @@ function Catalog(){
                     </div>
 
                     <div className={styles.catalog_container}>
-                        <ProductCart />
-                        <ProductCart />
-                        <ProductCart />
-                        <ProductCart />
-                        <ProductCart />
-                        <ProductCart />
+                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
+                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
+                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
+                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
+                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
+                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
+                    
 
                     </div>
                  </div>

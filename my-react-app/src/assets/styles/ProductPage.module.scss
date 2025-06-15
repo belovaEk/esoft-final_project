@@ -1,0 +1,139 @@
+.container{
+    margin: 0 20%;
+
+    .back_btn{
+        background-color: #543019;
+        border-radius: 5px;
+        padding: 5px 10px;
+        color: #E1E1E1;
+    }
+
+    h1{
+        display: block;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .main_content{
+        display: grid;
+        grid-template-columns: (1fr 1fr 0.8fr);
+
+        .tea_description{
+            padding: 10px;
+            margin-right: 20px;
+            .tea_text{
+                padding-bottom: 20px;
+                font-size: 0.7rem;
+                border-bottom: 1px solid rgba(71, 71, 71, 0.212);
+            }
+
+            .tea_composition{
+                margin: 20px 0;
+                font-size: 0.7rem;
+                padding-bottom: 20px;
+                border-bottom: 1px solid rgba(71, 71, 71, 0.212);
+                
+                h2{
+                    font-size: 0.8rem;
+                    margin-bottom: 10px;
+                    font-weight: 300;
+                }
+
+                p{
+                    color: rgb(141, 141, 141);
+                }
+            }
+
+            .tea_about{
+                .tea_about__item{
+                    h3{
+                        font-size: 0.67rem;
+                        color: rgb(141, 141, 141);
+                    }
+
+                    h3::after{
+                        content: '';
+                        background-image: url(/ico/point.png);
+                        background-repeat: repeat;
+                        display: inline-block;
+                        width: 100%;
+                        height: 16px;
+                        
+                    }
+
+                    span{
+                        font-size: 0.8rem;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+        }
+
+        .tea_price__block{
+            display: flex;
+            border: 1px solid #E1E1E1;
+            padding: 20px;
+            flex-direction: column;
+            max-height: 300px;
+            justify-content: space-between;
+
+            .like_btn{
+                align-self: flex-end;
+                width: 24px;
+                height: 24px;
+                background-image: url(/ico/heart_lineColor.png);
+            }
+
+            .tea_price{
+                font-size: 2rem;
+                margin-bottom: 0;
+            }
+
+            .tea_price::after{
+                content: 'Р/унц.';
+                font-size: 0.8rem;
+                color: rgb(88, 88, 88);
+                margin-left: 5px;
+            }
+
+            p{
+                font-size: 0.8rem;
+                font-weight: 300;
+                margin-bottom: 30px;
+            }
+
+            
+            .cart_btn{
+                margin: 0 20%;
+                background-color: #543019;
+                border-radius: 5px;
+                padding: 5px 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                
+                span{
+                    color: #E1E1E1;
+                    margin-bottom: 0;
+                }
+
+                span::before{
+                    content: '';
+                    background-image: url(/ico/bag_white.png);
+                    display: inline-block;
+                    width: 1rem;
+                    height: 1rem;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    margin-right: 10px;
+                }
+            }
+           
+        }
+    }
+
+
+    
+}
