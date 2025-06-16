@@ -24,11 +24,27 @@ import ThanksOrder from './ThanksOrder'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Прокрутка вверх при изменении пути
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
  
   return (
     <>
+    
     <Router>
+      <ScrollToTop />
       <Header />
       <Routes>
       <Route path="/" element={<MainContent />} />

@@ -1,9 +1,15 @@
+
 import styles from '/src/assets/styles/Authorization.module.scss'
 
+import { useNavigate } from 'react-router-dom'
+
 function Authorization(){
+
+    const navigate = useNavigate()
  
     return(
-        <div className='main'>
+        <div className={styles.main}>
+            <div className={styles.background}></div>
         <div className={styles.container}>
             <h1 className={styles.title}>TeaTime</h1>
             <form action="">
@@ -13,7 +19,7 @@ function Authorization(){
                 <label htmlFor="password">Введите пароль</label>
                 <input type="password" name="" id="password" />
 
-                <button>Войти</button>
+                <button onClick={()=> navigate('/')}>Войти</button>
             </form>
         </div>
         </div>
