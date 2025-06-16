@@ -41,7 +41,6 @@ function Footer(){
                         <ul className={styles.menu_item__list}>
                             <li onClick={()=> navigate('/contacts')}>Контакты</li>
                             <li>Магазины</li>
-                            <li>Офисы</li>
                         </ul>
                     </div>
                     <div className={styles.menu_item}>

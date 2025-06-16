@@ -107,7 +107,7 @@ function Catalog(){
                         <h3>Сортировка:</h3>
                         <ul>
                             <li className={styles.sort_popular}>популярные</li>
-                            <li className={styles.sort_rating}>высокий рейтинг</li>
+                            {/* <li className={styles.sort_rating}>высокий рейтинг</li> */}
                             <li className={styles.sort_price}>цена</li>
                         </ul>
                     </div>

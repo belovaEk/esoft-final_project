@@ -19,6 +19,7 @@ import Purchases from './Shopping/Purchases'
 import ProductPage from './ProductPage'
 import Cart from './Cart'
 import Order from './Order'
+import ThanksOrder from './ThanksOrder'
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -51,6 +52,7 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path='/supplier' element={<Supplier />}/>
       <Route path='/delivery' element={<Delivery />}/>
+      <Route path='/thanks' element={<ThanksOrder />}/>
 
     </Routes>
     <Footer />

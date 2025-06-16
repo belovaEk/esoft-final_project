@@ -17,7 +17,7 @@ function Cart(){
                         <Item/>
                     </div>
                     <div className={styles.order_container}>
-                        <button className={styles.mk_order_btn}>оформить заказ</button>
+                        <button className={styles.mk_order_btn} onClick={()=> navigate('/order')}>оформить заказ</button>
                         <div className={styles.order_price}>
                             <p>Общая стоимость</p>
                             <span><i>1000 P</i></span>

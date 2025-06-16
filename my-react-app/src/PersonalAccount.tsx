@@ -51,13 +51,13 @@ function PersonalAccount(){
                                     </div>
                                     <img src="/ico/bag_color.png" alt="" />
                                 </li>
-                                <li>
+                                {/* <li>
                                     <div>
                                         <h2>Ждут оценки</h2>
                                         <p>{11} товаров</p>
                                     </div>
                                     <img src="/ico/star_color.png" alt="" />
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
 
@@ -145,7 +145,7 @@ function PersonalAccount(){
                         <div className={styles.modal_container}>
                             <h2>Настройки</h2>
                             <form action="" className={styles.settings_form}>
-                                <label htmlFor="mailing" className={styles.settings_lable}>Получать СМС‑рассылки</label>
+                                <label htmlFor="mailing" className={styles.settings_lable}>Получать рассылки по почте</label>
                                 <input type="checkbox" id='mailing' className={styles.settings_checkbox}/>
                             </form>
                             <p className={styles.settings_email}>bbb@mail.ri</p>
