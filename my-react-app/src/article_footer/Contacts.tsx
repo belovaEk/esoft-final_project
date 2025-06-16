@@ -11,11 +11,11 @@ function Contacts(){
                             phone_shop='8 (800) 555-28-35'
                             email='info@TeaTime.info'
                 />
-                <ContactCity city='Санкт-Петербург' 
-                            adress=' Санкт-Петербург, Большая Конюшенная ул. 29'
+                <ContactCity city='Казань' 
+                            adress='г. Казань, ул. Баумена, 29'
                             phone_ofice='+7 (495) 625-45-47'
                             phone_shop='8 (800) 555-28-35'
-                            email='info@TeaTime_SP.info'
+                            email='info@TeaTime_Kz.info'
                 />
 
                 <div className={styles.ContactCity_container}>
