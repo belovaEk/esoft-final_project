@@ -2,11 +2,11 @@ import styles from '/src/assets/styles/Catalog.module.scss'
 
 import ProductCart from './ProductCart'
 
-import { useNavigate } from 'react-router-dom'
+
 
 function Catalog(){
 
-    const navigate = useNavigate();
+
 
     return (
         <main>
@@ -113,12 +113,12 @@ function Catalog(){
                     </div>
 
                     <div className={styles.catalog_container}>
-                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
-                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
-                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
-                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
-                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
-                        <div onClick={()=> navigate('/catalog/chay')}><ProductCart /></div>
+                        <div><ProductCart /></div>
+                        <div><ProductCart /></div>
+                        <div><ProductCart /></div>
+                        <div><ProductCart /></div>
+                        <div><ProductCart /></div>
+                        <div><ProductCart /></div>
                     
 
                     </div>

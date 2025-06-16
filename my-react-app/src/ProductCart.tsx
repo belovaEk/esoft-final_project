@@ -1,9 +1,13 @@
 import styles from '/src/assets/styles/ProductCart.module.scss'
 
-
+import { useNavigate } from 'react-router-dom'
 function ProductCart(){
+
+
+    const navigate = useNavigate();
+    
     return(
-        <article className={styles.cart}>
+        <article className={styles.cart} onClick={()=> navigate('/catalog/chay')}>
             <div className={styles.cart_inner}>
                 <div className={styles.cart_header}>
                     <img src="/ico/heart_lineColor.png" alt=""/>
