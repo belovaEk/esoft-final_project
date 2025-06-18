@@ -1,10 +1,30 @@
 import styles from '/src/assets/styles/Footer.module.scss'
 
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
 
 function Footer(){
 
     const navigate = useNavigate();
+
+    const [subscriptionButtonText, setSubscriptionButtonText] = useState('Отправить');
+    const [isChecked, setIsChecked] = useState(false);
+    const [isWarning, setIsWarning] = useState(false);
+
+     const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault(); 
+
+        if (!isChecked) {
+            setIsWarning(true)
+            setTimeout(() => setIsWarning(false), 2000)
+            return;
+            
+        }
+        setSubscriptionButtonText('Готово!');
+        setTimeout(() => setSubscriptionButtonText('Отправить'), 3000);
+        
+       
+    };
 
     return (
         <footer>
@@ -16,19 +36,20 @@ function Footer(){
                         <p>Подпишитесь на нашу рассылку и будьте в курсе последних новостей, акций и эксклюзивных предложений нашего чайного магазина.</p>
                     </div>
                     <div className={styles.subscript_form}>
-                        <form>
-                            <input type="text" placeholder='e-mail' id='form_input' className={styles.subscript_form_input}/>
-                            <button className={styles.subscript_form_btn}>Отправить</button>
+                        <form onSubmit={handleSubmit}>
+                            <input type="text" placeholder='e-mail' id='form_input' className={styles.subscript_form_input} />
+                            <button className={styles.subscript_form_btn}  type="submit">{subscriptionButtonText}</button>
                         </form>
                         <div>
-                            <input type="checkbox" id='approval'/>
+                            <input type="checkbox" id='approval' checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)}/>
                             <label htmlFor="approval">Cогласие на обработку персональных данных.</label>
+                            {isWarning && (<p className=''>↑ Это обязательно ↑</p>)}
                         </div>
                         
                     </div>
                     <ul className={styles.subscript_social}>
-                        <li><a href="/" className={styles.link_vk}>Vkontakte</a></li>
-                        <li><a href="/" className={styles.link_tg}>Telegram</a></li>
+                        <li><a href="https://vk.com/moreslez_0" className={styles.link_vk} target='_blank'>Vkontakte</a></li>
+                        <li><a href="https://t.me/moreslez0" className={styles.link_tg} target='_blank'>Telegram</a></li>
                     </ul>
                 </div>
             </div>
