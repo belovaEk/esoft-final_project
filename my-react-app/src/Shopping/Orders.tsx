@@ -1,4 +1,4 @@
-import styles from '/src/assets/styles/Shopping.module.scss'
+import styles from './Shopping.module.scss'
 
 function Orders(){
     return(

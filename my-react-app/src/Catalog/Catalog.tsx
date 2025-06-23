@@ -1,4 +1,4 @@
-import styles from '/src/assets/styles/Catalog.module.scss'
+import styles from './Catalog.module.scss'
 
 import ProductCart from './ProductCart'
 

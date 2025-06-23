@@ -1,6 +1,6 @@
-import styles from '/src/assets/styles/Favourites.module.scss'
+import styles from './Favourites.module.scss'
 
-import ProductCart from './ProductCart'
+import ProductCart from '../Catalog/ProductCart'
 
 function Favourites(){
     return(

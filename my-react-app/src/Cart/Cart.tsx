@@ -1,4 +1,4 @@
-import styles from '/src/assets/styles/Cart.module.scss'
+import styles from './Cart.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 

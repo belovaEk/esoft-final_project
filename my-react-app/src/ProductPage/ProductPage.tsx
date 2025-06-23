@@ -1,4 +1,4 @@
-import styles from '/src/assets/styles/ProductPage.module.scss'
+import styles from './ProductPage.module.scss'
 
 function ProductPage(){
     return (

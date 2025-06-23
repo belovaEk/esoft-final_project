@@ -53,7 +53,7 @@
 
                     h3::after{
                         content: '';
-                        background-image: url(/ico/point.png);
+                        background: url(/ico/point.png);
                         background-repeat: repeat;
                         display: inline-block;
                         width: 100%;
@@ -82,7 +82,7 @@
                 align-self: flex-end;
                 width: 24px;
                 height: 24px;
-                background-image: url(/ico/heart_lineColor.png);
+                background: url(/ico/heart_lineColor.png);
             }
 
             .tea_price{
@@ -122,7 +122,7 @@
 
                 span::before{
                     content: '';
-                    background-image: url(/ico/bag_white.png);
+                    background: url(/ico/bag_white.png);
                     display: inline-block;
                     width: 1rem;
                     height: 1rem;

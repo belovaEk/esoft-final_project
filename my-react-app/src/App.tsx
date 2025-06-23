@@ -1,12 +1,12 @@
 import '/src/assets/styles/App.css'
-import Header from "./Header"
-import MainContent from "./MainContent"
-import Footer from './Footer'
-import Authorization from './Authorization'
-import PersonalAccount from './PersonalAccount'
-import Catalog from './Catalog'
-import Favourites from './Favourites'
-import Faq from './Faq'
+import Header from "./Header/Header"
+import MainContent from "./MainContent/MainContent"
+import Footer from './Footer/Footer'
+import Authorization from './Authorization/Authorization'
+import PersonalAccount from './PersonalAccount/PersonalAccount'
+import Catalog from './Catalog/Catalog'
+import Favourites from './Favourites/Favourites'
+import Faq from './article_footer/Faq'
 
 import Contacts from './article_footer/Contacts'
 import Vacancies from './article_footer/Vacancies'
@@ -15,11 +15,11 @@ import Supplier from './article_footer/Supplier'
 import Delivery from './article_footer/Delivery'
 import Shopping from './Shopping/Shopping'
 import Orders from './Shopping/Orders'
-import Purchases from './Shopping/Purchases'
-import ProductPage from './ProductPage'
-import Cart from './Cart'
-import Order from './Order'
-import ThanksOrder from './ThanksOrder'
+import Purchases from './Favourites/Purchases'
+import ProductPage from './ProductPage/ProductPage'
+import Cart from './Cart/Cart'
+import Order from './Order/Order'
+import ThanksOrder from './Order/ThanksOrder'
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

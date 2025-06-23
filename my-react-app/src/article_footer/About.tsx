@@ -1,4 +1,4 @@
-import styles from '/src/assets/styles/Articles.module.scss'
+import styles from './Articles.module.scss'
 
 function About(){
     return(

@@ -1,4 +1,4 @@
-import styles from '/src/assets/styles/PersonalAccount.module.scss'
+import styles from './PersonalAccount.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';

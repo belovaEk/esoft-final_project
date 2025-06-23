@@ -1,5 +1,5 @@
-import styles from '/src/assets/styles/Favourites.module.scss'
-import ProductCart from '../ProductCart'
+import styles from './Favourites.module.scss'
+import ProductCart from '../Catalog/ProductCart'
 
 function Purchases(){
     return (

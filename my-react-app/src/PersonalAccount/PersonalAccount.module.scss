@@ -34,14 +34,14 @@ main {
         .user_info::before{
             width: 1.3rem;
             height: 1.3rem;
-            background-image: url(/ico/user_color.png); 
+            background: url(/ico/user_color.png); 
         }
         .user_info::after {
             content: "";
             display: inline-block;
             width: 1rem;
             height: 1rem;
-            background-image: url(/ico/right-arrow-angle_color.png); 
+            background: url(/ico/right-arrow-angle_color.png); 
             background-size: contain;
             background-repeat: no-repeat;
             margin-left: 8px; 
@@ -62,15 +62,15 @@ main {
             
 
             .settings::before{
-                background-image: url(/ico/setting.png); 
+                background: url(/ico/setting.png); 
             }
 
             .credit_card::before{
-                background-image: url(/ico/credit-card.png); 
+                background: url(/ico/credit-card.png); 
             }
 
             .letterhead::before{
-                background-image: url(/ico/letterhead.png); 
+                background: url(/ico/letterhead.png); 
 
             }
         }
@@ -108,13 +108,13 @@ main {
         }
 
         .support::before{
-            background-image: url(/ico/support.png); 
+            background: url(/ico/support.png); 
         }
         .return::before{
-            background-image: url(/ico/return-box.png); 
+            background: url(/ico/return-box.png); 
         }
         .faq::before{
-            background-image: url(/ico/faq.png); 
+            background: url(/ico/faq.png); 
         }
 
 
@@ -161,7 +161,7 @@ li, span, a{
 
 .modal{
     .btn_exit{
-        background-image: url(/ico/cross_color.png);
+        background: url(/ico/cross_color.png);
         background: no-repeat cover;
         width: 16px;
         height: 16px;
@@ -281,7 +281,7 @@ li, span, a{
         .cart_disclaimer::before{
             content: '';
             display: inline-block;
-            background-image: url(/ico/safety.png);
+            background: url(/ico/safety.png);
             background-size: contain;
             background-repeat: no-repeat;
             margin-left: 8px; 
@@ -305,7 +305,7 @@ li, span, a{
         }
 
         .logout::before{
-            background-image: url('/ico/logout.png');
+            background: url('/ico/logout.png');
             top: 5px;
             position: relative;
             margin-right: 4px;

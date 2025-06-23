@@ -1,4 +1,4 @@
-import styles from '/src/assets/styles/MainContent.module.scss'
+import styles from './MainContent.module.scss'
 
 
 

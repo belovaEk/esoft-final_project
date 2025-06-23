@@ -1,5 +1,5 @@
 
-import styles from '/src/assets/styles/Authorization.module.scss'
+import styles from './Authorization.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 
