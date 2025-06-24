@@ -1,20 +1,25 @@
-import express from 'express'
-import { constants } from 'http2';
+import express from 'express';
+import logger from './logger';
+import pinoHttp from 'pino-http';
  
-import { loadData } from './services/TeaStorage.service';
+import { loadData } from './data/fs/teasDataFs';
 
-import teaRouter from './routes/teaProducts';
+import teasRouter from './controllers/teasController';
 
 const app = express();
 
 app.use(express.json());
-
-app.use('/products', teaRouter)
+app.use(pinoHttp({logger, useLevel: 'debug'}));
+app.use('/teas', teasRouter)
 const PORT = 8080;
 
 
 loadData().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Сервер запущен http://localhost:${PORT}`)
+    app.listen(PORT, (err) => {
+        if (err) {
+            logger.error(err?.stack ?? err?.message ?? err)
+        } else{
+            logger.info(`started on http://localhost:${PORT}`)
+        } 
     })
 })
