@@ -35,6 +35,7 @@ main {
             width: 1.3rem;
             height: 1.3rem;
             background: url(/ico/user_color.png); 
+            background-size: contain;
         }
         .user_info::after {
             content: "";
@@ -63,14 +64,17 @@ main {
 
             .settings::before{
                 background: url(/ico/setting.png); 
+                background-size: contain;
             }
 
             .credit_card::before{
                 background: url(/ico/credit-card.png); 
+                background-size: contain;
             }
 
             .letterhead::before{
                 background: url(/ico/letterhead.png); 
+                
 
             }
         }
@@ -109,12 +113,11 @@ main {
 
         .support::before{
             background: url(/ico/support.png); 
-        }
-        .return::before{
-            background: url(/ico/return-box.png); 
+            background-size: contain;
         }
         .faq::before{
             background: url(/ico/faq.png); 
+            background-size: contain;
         }
 
 
