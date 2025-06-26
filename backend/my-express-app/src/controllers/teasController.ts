@@ -1,33 +1,43 @@
 import  express  from "express";
 import validator from 'express-validator';
 import { constants } from 'http2';
+import type { sortedParamType } from "../data/sql/getTeasData";
+import { getTea } from "../data/sql/getTeasData";
 
-import { getTeas } from "../data/teasData";
-
-import sql from "../data/sql/db";
 
 const teasRouter = express.Router();
-
-
+import { getTeas } from "../data/sql/getTeasData";
 
 
 teasRouter.get('/', async(req, res) =>{
-    // res.json(await getTeas())
-    // // res.json(await getTeas())
      try {
-        const teas = await sql
-        `SELECT teas.*,
-            types.name AS type_name,
-            countries.name as country_name
-        FROM teas
-        JOIN types ON teas.type_id = types.id
-        Join countries on teas.country_id = countries.id;`;
+        const teas = await getTeas();
         res.json(teas);
     } catch (err) {
         console.error(err);
         res.status(500).send('Server error');
-  }
+    }
 })
+
+teasRouter.get('/:id', async(req, res) =>{
+    const id = Number(req.params.id)
+    try{
+        const tea = await getTea(id)
+        res.json(tea);
+    } catch (err) {
+        console.log(err)
+        res.status(constants.HTTP_STATUS_NOT_FOUND).send('Server error')
+    }
+})
+
+teasRouter.get('/:sotedParam', async(req, res) => {
+    const parametr = req.params.sotedParam as sortedParamType
+    const teas = await getTeas(parametr)
+    res.json(teas)
+})
+
+
+
 
 
 export default teasRouter;
