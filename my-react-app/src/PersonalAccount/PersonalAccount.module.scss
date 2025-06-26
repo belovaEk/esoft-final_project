@@ -74,6 +74,7 @@ main {
 
             .letterhead::before{
                 background: url(/ico/letterhead.png); 
+                background-size: contain;
                 
 
             }
@@ -309,6 +310,7 @@ li, span, a{
 
         .logout::before{
             background: url('/ico/logout.png');
+            background-size: contain;
             top: 5px;
             position: relative;
             margin-right: 4px;
