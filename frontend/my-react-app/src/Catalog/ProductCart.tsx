@@ -1,8 +1,15 @@
 import styles from './ProductCart.module.scss'
-
+import React from 'react';
 import { useNavigate } from 'react-router-dom'
-function ProductCart(){
 
+interface ProductCartProps {
+    name: string;
+    type: string;
+    description?: string;
+    price?: number;
+}
+
+const ProductCart = React.memo(({ name, type, description, price }: ProductCartProps) => {
 
     const navigate = useNavigate();
     
@@ -17,14 +24,14 @@ function ProductCart(){
                     <div className={styles.cart_img}>
                         <img src="/img_main/fruit.png" alt="" />
                     </div>
-                    <h2>Капуэро</h2>
-                    <p><i>Фруктовый чай</i></p>
-                    <div className={styles.cart_description}>Чай с яркими фруктовыми нотами горяч и пылок, как бразильское боевое искусство к...</div>
-                    <button className={styles.cart_btn}><span>{'505'} Р/100гр</span></button>
+                    <h2>{name}</h2>
+                    <p><i>{type}</i></p>
+                    <div className={styles.cart_description}>{description}</div>
+                    <button className={styles.cart_btn}><span>{price} Р/100унц</span></button>
                 </div>
             </div>
         </article>
     )
-}
+})
 
 export default ProductCart

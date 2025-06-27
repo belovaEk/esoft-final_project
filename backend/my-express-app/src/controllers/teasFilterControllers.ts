@@ -1,29 +1,27 @@
 import  express  from "express";
 
-import { getTeasTypes } from "../data/sql/getTeasData";
-import { getTeasCountries } from "../data/sql/getTeasData";
-import { getTeasIngredients } from "../data/sql/getTeasData";
-import { getTeasTastes } from "../data/sql/getTeasData";
+
+import { getFilterOptions } from "../data/sql/getTeasData";
 
 const filterRouter = express.Router()
 
 filterRouter.get('/types', async(req, res) => {
-    const types = await getTeasTypes();
+    const types = await getFilterOptions('types');
     res.json(types)
 })
 
 filterRouter.get('/countries', async(req, res) => {
-    const types = await getTeasCountries();
+    const types = await getFilterOptions('countries');
     res.json(types)
 })
 
 filterRouter.get('/ingredients', async(req, res) => {
-    const ingredients = await getTeasIngredients();
+    const ingredients = await getFilterOptions('ingredients');
     res.json(ingredients)
 })
 
 filterRouter.get('/tastes', async(req, res) => {
-    const tastes = await getTeasTastes();
+    const tastes = await getFilterOptions('tastes');
     res.json(tastes)
 })
 

@@ -1,0 +1,24 @@
+import axios from "axios";
+
+const api: string = 'http://localhost:8080'
+
+
+ 
+
+export async function fetchPost<T>(url: string, data: T) {
+    return await axios.post(`${api}/${url}`, data);
+}
+
+export async function fetchGet(url: string) {
+   try {
+        const response = await axios.get(`${api}/${url}`);
+        return response.data
+    } catch (error) {
+        console.error('GET request failed:', error);
+        throw error; 
+    }
+}
+
+export async function fetchDelete(url: string) {
+    return await axios.delete(`${api}/${url}`);
+}
