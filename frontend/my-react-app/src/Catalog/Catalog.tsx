@@ -22,11 +22,66 @@ function Catalog(){
         direction: 'ASC' | 'DESC';
     }> ({direction: 'DESC'})
 
-    const fetchTeas = async () => {
+    const [filterOptions, setFilterOptions] = useState<{
+        typeIds?: number[];
+        countryIds?: number[];
+        ingredientIds?: number[];
+        tasteIds?: number[];
+    }> ({})
+
+    const [priceFilter, setPriceFilter] = useState<string | null>(null);
+
+    interface PriceRange {
+        min?: number;
+        max?: number;
+        label: string;
+    }
+
+    const priceRanges: PriceRange[] = [
+        { label: "До 250 Р", max: 250 },
+        { label: "От 250 Р до 500 Р", min: 250, max: 500 },
+        { label: "От 500 Р до 1000 Р", min: 500, max: 1000 },
+        { label: "От 1000 Р до 5000 Р", min: 1000, max: 5000 },
+        { label: "От 5000 Р до 10000 Р", min: 5000, max: 10000 },
+        { label: "От 10000 Р", min: 10000 }
+    ];
+
+    const fetchTeas = async (reset = false) => {
         try {
-            const data = await fetchGet(`teas?${new URLSearchParams({
-                ...sortOptions,
-            })}`);
+            const params = new URLSearchParams();
+            
+            if (sortOptions.sortBy) {
+                params.append('sortBy', sortOptions.sortBy);
+                params.append('direction', sortOptions.direction);  
+            }
+
+             if (!reset) {
+                if (filterOptions?.typeIds?.length) {
+                    params.append('typeIds', filterOptions.typeIds.join(','));
+                }
+
+                if (filterOptions?.countryIds?.length) {
+                    params.append('countryIds', filterOptions.countryIds.join(','));
+                }
+
+                if(filterOptions?.ingredientIds?.length) {
+                    params.append('ingredientIds', filterOptions.ingredientIds.join(','))
+                }
+
+                 if(filterOptions?.tasteIds?.length) {
+                    params.append('tasteIds', filterOptions.tasteIds.join(','))
+                }
+
+                if (priceFilter) {
+                    const range = priceRanges.find(r => r.label === priceFilter);
+                    if (range) {
+                        if (range.min !== undefined) params.append('minPrice', range.min.toString());
+                        if (range.max !== undefined) params.append('maxPrice', range.max.toString());
+                    }
+                }
+            }
+
+            const data = await fetchGet(`teas?${params.toString()}`);
             setTeas(data);
         } catch (error) {
             console.error('Ошибка загрузки чаев:', error);
@@ -42,7 +97,21 @@ function Catalog(){
         fetchTeas();
     };
 
+    const toggleFilter = (type: 'typeIds' | 'countryIds' | 'ingredientIds' | 'tasteIds', id: number) => {
+        setFilterOptions(prev => {
+            const currentIds = prev[type] || [];
+            const newIds = currentIds.includes(id)
+                ? currentIds.filter(item => item !== id) 
+                : [...currentIds, id];
+            
+            return { ...prev, [type]: newIds };
+        });
+    };
 
+    const resetFilter = () => {
+        setFilterOptions({});
+        setPriceFilter(null);
+    }
 
     useEffect(() => {
         
@@ -60,7 +129,7 @@ function Catalog(){
         fetchFilterItems('types', setTypes);
         fetchFilterItems('ingredients', setIngredients);
         fetchFilterItems('tastes', setTastes);
-    }, []);
+    }, [sortOptions]);
 
     return (
         <main>
@@ -73,7 +142,12 @@ function Catalog(){
                                     <summary className={styles.filters__item_name}>Вид</summary>
                                     <ul>
                                         {types.map(type =>(
-                                            <li key={type.id} className={styles.filters__item_li}><input type="checkbox" id={`${type.id}`}/><label htmlFor="">{type.name}</label></li>
+                                            <li key={type.id} className={styles.filters__item_li}>
+                                                <input type="checkbox" id={`type-${type.id}`}
+                                                    onChange={() => toggleFilter('typeIds', type.id)}
+                                                    checked={filterOptions.typeIds?.includes(type.id) || false}/>
+                                                <label htmlFor="">{type.name}</label>
+                                            </li>
                                         ))}
                                     </ul>
                                 </details>
@@ -82,12 +156,17 @@ function Catalog(){
                                 <details>
                                     <summary className={styles.filters__item_name}>Цена</summary>
                                     <ul>
-                                        <li  className={styles.filters__item_li}><input type="checkbox" /><label htmlFor="">До 250 Р</label></li>
-                                        <li  className={styles.filters__item_li}><input type="checkbox" /><label htmlFor="">От 250 Р до 500 Р</label></li>
-                                        <li  className={styles.filters__item_li}><input type="checkbox" /><label htmlFor="">От 500 Р до 1000 Р</label></li>
-                                        <li  className={styles.filters__item_li}><input type="checkbox" /><label htmlFor="">От 1000 Р до 5000 Р</label></li>
-                                        <li  className={styles.filters__item_li}><input type="checkbox" /><label htmlFor="">От 5000 Р до 10000 Р</label></li>
-                                        <li  className={styles.filters__item_li}><input type="checkbox" /><label htmlFor="">От 10000 Р</label></li>
+                                        {priceRanges.map((range, index) => (
+                                            <li key={index} className={styles.filters__item_li}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={`price-${index}`}
+                                                    checked={priceFilter === range.label}
+                                                    onChange={() => setPriceFilter(priceFilter === range.label ? null : range.label)}
+                                                />
+                                                <label htmlFor={`price-${index}`}>{range.label}</label>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </details>
                             </div>
@@ -96,7 +175,12 @@ function Catalog(){
                                     <summary className={styles.filters__item_name}>Страна/Регион</summary>
                                     <ul>
                                         {countries.map(country =>(
-                                            <li key={country.id} className={styles.filters__item_li}><input type="checkbox" id={`${country.id}`}/><label htmlFor="">{country.name}</label></li>
+                                            <li key={country.id} className={styles.filters__item_li}>
+                                                <input type="checkbox" id={`country-${country.id}`}
+                                                    onChange={() => toggleFilter('countryIds', country.id)}
+                                                    checked={filterOptions.countryIds?.includes(country.id) || false} />
+                                                <label htmlFor="">{country.name}</label>
+                                            </li>
                                         ))}
                                     </ul>
                                 </details>
@@ -106,7 +190,12 @@ function Catalog(){
                                     <summary className={styles.filters__item_name}>Инредиенты</summary>
                                     <ul>
                                         {ingredients.map(ingredient =>(
-                                            <li key={ingredient.id} className={styles.filters__item_li}><input type="checkbox" id={`${ingredient.id}`}/><label htmlFor="">{ingredient.name}</label></li>
+                                            <li key={ingredient.id} className={styles.filters__item_li}>
+                                                <input type="checkbox" id={`${ingredient.id}`}
+                                                    onChange={()=> toggleFilter('ingredientIds', ingredient.id)}
+                                                    checked={filterOptions.ingredientIds?.includes(ingredient.id) || false}/>
+                                                <label htmlFor="">{ingredient.name}</label>
+                                            </li>
                                         ))} 
                                     </ul>
                                 </details>
@@ -116,14 +205,24 @@ function Catalog(){
                                     <summary className={styles.filters__item_name}>Вкус</summary>
                                     <ul>
                                         {tastes.map(taste =>(
-                                            <li key={taste.id} className={styles.filters__item_li}><input type="checkbox" id={`${taste.id}`}/><label htmlFor="">{taste.name}</label></li>
+                                            <li key={taste.id} className={styles.filters__item_li}>
+                                                <input type="checkbox" id={`${taste.id}`}
+                                                onChange={()=> toggleFilter('tasteIds', taste.id)}
+                                                checked={filterOptions.tasteIds?.includes(taste.id) || false}/>
+                                                <label htmlFor="">{taste.name}</label>
+                                            </li>
                                         ))}
                                     </ul>
                                 </details>
                             </div>
                         </div>
-                        <button className={[styles.filters__btn, styles.btn_show].join(' ')}>ПОКАЗАТЬ</button>
-                        <button className={styles.filters__btn}>СБРОСИТЬ ФИЛЬТРЫ</button>
+                        <button className={[styles.filters__btn, styles.btn_show].join(' ')} onClick={() => fetchTeas()}>ПОКАЗАТЬ</button>
+                        <button className={styles.filters__btn}
+                            onClick={()=> {resetFilter(); fetchTeas(true);}}
+                            disabled={!filterOptions.typeIds?.length && !filterOptions.countryIds?.length  && !filterOptions.tasteIds?.length  && !filterOptions.ingredientIds?.length}
+                        >
+                            СБРОСИТЬ ФИЛЬТРЫ
+                        </button>
                     </div>
                 </div>
                  <div className={styles.content}>
@@ -150,7 +249,7 @@ function Catalog(){
                                /> 
                             ))
                             ) : (
-                            <div>Загрузка чаёв...</div>
+                            <div>Активно ищем...</div>
                         )}
 
                     

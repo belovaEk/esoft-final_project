@@ -29,6 +29,7 @@
 
         .filters__item{
             min-height: 40px;
+            cursor: pointer;
 
             details ul{
                 max-height: 150px;
@@ -94,6 +95,9 @@
     margin-left: 10px;
 }
 
+.active_sortASC, .active_sortDESC{
+    font-weight: 600;
+}
 
 .active_sortASC::after, .active_sortDESC::after{
     content: '';
@@ -107,9 +111,14 @@
 }
 
 .active_sortASC::after{
-    background: url(/ico/ascending-sort_ASC.png);
+    background: url(/ico/ascending-sort_DESC.png);
 }
 
 .active_sortDESC::after{
-    background: url(/ico/ascending-sort_DESC.png);
+    background: url(/ico/ascending-sort_ASC.png);
+}
+
+
+.filters__btn:disabled{
+    cursor: default;
 }

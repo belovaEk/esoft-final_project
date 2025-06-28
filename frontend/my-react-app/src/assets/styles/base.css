@@ -114,3 +114,7 @@ html{
 }
 
 
+*::selection{
+	background-color: #938881;
+	color: white;
+}
