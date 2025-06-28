@@ -121,8 +121,10 @@ export async function getTeas(options?: GetTeasOptions) {
     `;
 
     if (options?.sortBy) {
-        const orderBy = options.sortBy === 'popular' ? 'orders' : 'price';
-        return await sql`${baseQuery} ORDER BY ${sql(orderBy)} ${sql(options.direction || 'DESC')}`;
+        const orderBy = options.sortBy === 'popular' ? sql`orders` : sql`price`;
+        const direction = options.direction === 'ASC' ? sql`ASC` : sql`DESC`;
+        
+        return await sql`${baseQuery} ORDER BY ${orderBy} ${direction}`;
     }
 
     return await baseQuery;
