@@ -5,12 +5,19 @@ import { getTeas } from "../data/sql/getTeasData";
 
 
 teasRouter.get('/', async (req, res) => {
-    const { sortBy, direction } = req.query;
+    const { sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds} = req.query;
     
     try {
         const teas = await getTeas({
             sortBy: sortBy as 'popular' | 'price' | undefined,
-            direction: direction as 'ASC' | 'DESC' | undefined
+            direction: direction as 'ASC' | 'DESC' | undefined,
+            typeIds: typeIds ? (typeIds as string).split(',').map(Number) : undefined,
+            countryIds :  countryIds ? (countryIds as string).split(',').map(Number) : undefined,
+            minPrice: minPrice as number | undefined,
+            maxPrice: maxPrice as number | undefined,
+            ingredientIds: ingredientIds ? (ingredientIds as string).split(',').map(Number) : undefined,
+            tasteIds: tasteIds ? (tasteIds as string).split(',').map(Number) : undefined,
+
         });
         res.json(teas);
     } catch (error) {
