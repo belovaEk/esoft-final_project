@@ -16,31 +16,35 @@ function Catalog(){
     const [ingredients, setIngredients] = useState([] as filterItem[]);
     const [tastes, setTastes] = useState([] as filterItem[]);
 
-    const [sortDirection, setSortDirection] = useState<'ASC' | 'DESC'>('DESC');
 
-    const toggleSortDirection = () => {
-        setSortDirection(prev => prev === 'ASC' ? 'DESC' : 'ASC');
+    const [sortOptions, setSortOptions] = useState<{
+        sortBy?: 'popular' | 'price';
+        direction: 'ASC' | 'DESC';
+    }> ({direction: 'DESC'})
+
+    const fetchTeas = async () => {
+        try {
+            const data = await fetchGet(`teas?${new URLSearchParams({
+                ...sortOptions,
+            })}`);
+            setTeas(data);
+        } catch (error) {
+            console.error('Ошибка загрузки чаев:', error);
+        }
     };
 
-    async function setPopularTeas() {
-        try {
-            const data = await fetchGet(`teas/popular?direction=${sortDirection}`);
-            setTeas(data);
-            toggleSortDirection();
-        } catch (error) {
-            console.error('Ошибка сортировки:', error);
-        }
-    }
+    const handleSort = (sortBy: 'popular' | 'price') => {
+        const newDirection = sortOptions.sortBy === sortBy 
+            ? sortOptions.direction === 'ASC' ? 'DESC' : 'ASC'
+            : 'DESC';
+        
+        setSortOptions({ sortBy, direction: newDirection });
+        fetchTeas();
+    };
+
+
 
     useEffect(() => {
-        const fetchTeas = async () => {
-            try {
-                const data = await fetchGet('teas');
-                setTeas(data);
-            } catch (error) {
-                console.error(`Ошибка загрузки чаев...`, error);
-            }
-        };
         
         const fetchFilterItems = async (items: string, setFun: Function) => {
             try {
@@ -56,8 +60,6 @@ function Catalog(){
         fetchFilterItems('types', setTypes);
         fetchFilterItems('ingredients', setIngredients);
         fetchFilterItems('tastes', setTastes);
-
-
     }, []);
 
     return (
@@ -128,9 +130,10 @@ function Catalog(){
                     <div className={styles.sort_container}>
                         <h3>Сортировка:</h3>
                         <ul>
-                            <li className={styles.sort_popular} onClick={setPopularTeas}>популярные</li>
+                            <li className={sortOptions.sortBy === 'popular' ? (sortOptions.direction === 'ASC' ? styles.active_sortASC : styles.active_sortDESC): ''} onClick={() => handleSort('popular')}>популярные
+                            </li>
                             {/* <li className={styles.sort_rating}>высокий рейтинг</li> */}
-                            <li className={styles.sort_price}>цена</li>
+                            <li className={sortOptions.sortBy === 'price' ? (sortOptions.direction === 'ASC' ? styles.active_sortASC : styles.active_sortDESC): ''}  onClick={() => handleSort('price')}>цена</li>
                         </ul>
                     </div>
 

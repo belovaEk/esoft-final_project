@@ -22,7 +22,7 @@ const ProductCart = React.memo(({ name, type, description, price }: ProductCartP
                 </div>
                 <div className={styles.cart_content}>
                     <div className={styles.cart_img}>
-                        <img src="/img_main/fruit.png" alt="" />
+                        <img src={`/tea/${name}.png`}alt="" />
                     </div>
                     <h2>{name}</h2>
                     <p><i>{type}</i></p>

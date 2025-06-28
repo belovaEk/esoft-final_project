@@ -95,13 +95,21 @@
 }
 
 
-.sort_popular::after{
+.active_sortASC::after, .active_sortDESC::after{
     content: '';
     background: url(/ico/sort.png);
     background-size: contain;
     background-repeat: no-repeat;
     display: inline-block;
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 1.2rem;
+    height: 1.2rem;
     margin-left: 3px;
+}
+
+.active_sortASC::after{
+    background: url(/ico/ascending-sort_ASC.png);
+}
+
+.active_sortDESC::after{
+    background: url(/ico/ascending-sort_DESC.png);
 }
