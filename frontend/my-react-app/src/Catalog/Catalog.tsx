@@ -146,7 +146,7 @@ function Catalog(){
                                                 <input type="checkbox" id={`type-${type.id}`}
                                                     onChange={() => toggleFilter('typeIds', type.id)}
                                                     checked={filterOptions.typeIds?.includes(type.id) || false}/>
-                                                <label htmlFor="">{type.name}</label>
+                                                <label htmlFor={`type-${type.id}`}>{type.name}</label>
                                             </li>
                                         ))}
                                     </ul>
@@ -179,7 +179,7 @@ function Catalog(){
                                                 <input type="checkbox" id={`country-${country.id}`}
                                                     onChange={() => toggleFilter('countryIds', country.id)}
                                                     checked={filterOptions.countryIds?.includes(country.id) || false} />
-                                                <label htmlFor="">{country.name}</label>
+                                                <label htmlFor={`country-${country.id}`}>{country.name}</label>
                                             </li>
                                         ))}
                                     </ul>
@@ -191,10 +191,10 @@ function Catalog(){
                                     <ul>
                                         {ingredients.map(ingredient =>(
                                             <li key={ingredient.id} className={styles.filters__item_li}>
-                                                <input type="checkbox" id={`${ingredient.id}`}
+                                                <input type="checkbox" id={`ingredient-${ingredient.id}`}
                                                     onChange={()=> toggleFilter('ingredientIds', ingredient.id)}
                                                     checked={filterOptions.ingredientIds?.includes(ingredient.id) || false}/>
-                                                <label htmlFor="">{ingredient.name}</label>
+                                                <label htmlFor={`ingredient-${ingredient.id}`}>{ingredient.name}</label>
                                             </li>
                                         ))} 
                                     </ul>
@@ -206,10 +206,10 @@ function Catalog(){
                                     <ul>
                                         {tastes.map(taste =>(
                                             <li key={taste.id} className={styles.filters__item_li}>
-                                                <input type="checkbox" id={`${taste.id}`}
+                                                <input type="checkbox" id={`taste-${taste.id}`}
                                                 onChange={()=> toggleFilter('tasteIds', taste.id)}
                                                 checked={filterOptions.tasteIds?.includes(taste.id) || false}/>
-                                                <label htmlFor="">{taste.name}</label>
+                                                <label htmlFor={`taste-${taste.id}`}>{taste.name}</label>
                                             </li>
                                         ))}
                                     </ul>
@@ -242,8 +242,9 @@ function Catalog(){
                             teas.map(tea => (
                                <ProductCart
                                key={tea.id}
+                               id={Number(tea.id)}
                                name={tea.name}
-                               type={tea.type}
+                               type_name={tea.type_name}
                                description={tea.description}
                                price={tea.price}
                                /> 
