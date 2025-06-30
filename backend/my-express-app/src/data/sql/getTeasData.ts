@@ -70,3 +70,42 @@ export async function getTeas(options?: GetTeasOptions) {
 export async function getFilterOptions(table: 'types' | 'countries' | 'ingredients' | 'tastes') {
     return await sql`SELECT id, name FROM ${sql(table)} ORDER BY name`;
 }
+
+export async function getTea(id: number) {
+    let teaQuery = sql`
+        SELECT teas.*,
+               types.name AS type_name,
+               countries.name as country_name
+        FROM teas
+        JOIN types ON teas.type_id = types.id
+        JOIN countries ON teas.country_id = countries.id
+        WHERE teas.id = ${id}
+    `;
+
+    let ingredientsQuery =  sql
+    `SELECT *
+    FROM 
+        teas_ingredients
+    JOIN 
+        ingredients ON ingredients.id = teas_ingredients.ingredient_id
+    WHERE 
+        teas_ingredients.tea_id = ${id};`
+
+    let tastesQuery = sql
+    `select *
+    from teas_tastes
+    join tastes on tastes.id = teas_tastes.taste_id
+    where teas_tastes.tea_id = ${id};`
+
+   const [tea, ingredients, tastes] = await Promise.all([
+        teaQuery,
+        ingredientsQuery,
+        tastesQuery
+    ]);
+    
+    return {
+        ...tea[0],
+        ingredients: ingredients.map(i => i.name),
+        tastes: tastes.map(t => t.name),
+    };
+}

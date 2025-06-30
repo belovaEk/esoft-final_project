@@ -2,6 +2,7 @@ import  express  from "express";
 
 const teasRouter = express.Router();
 import { getTeas } from "../data/sql/getTeasData";
+import { getTea } from "../data/sql/getTeasData";
 
 
 teasRouter.get('/', async (req, res) => {
@@ -25,6 +26,12 @@ teasRouter.get('/', async (req, res) => {
     }
 });
 
+
+
+teasRouter.get('/:teaId', async(req, res) => {
+    const tea = await getTea(Number(req.params.teaId))
+    res.json(tea)
+})
 
 
 
