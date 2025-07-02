@@ -3,6 +3,7 @@ import cors from "cors";
 
 import teasRouter from './controllers/teasController';
 import filterRouter from './controllers/teasFilterControllers';
+import cartRouter from './controllers/cartController';
 const app = express();
 app.use(cors({ origin: 'http://localhost:5173' }));
 
@@ -14,6 +15,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use('/teas', teasRouter)
 app.use('/filter', filterRouter)
+app.use('/cart', cartRouter)
 
 
 const PORT = 8080;
