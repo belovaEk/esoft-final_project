@@ -1,12 +1,16 @@
 
 
 export interface Tea {
-  id: string | number;
+  id: number;
   name: string;
   type_name: string;
   description?: string;
-  price?: number;
+  price: number;
   country_name?: string;
   ingredients?: string[];
   tastes?: string[];
+
+
+  cartitem_id: never
+  amount: number;
 }

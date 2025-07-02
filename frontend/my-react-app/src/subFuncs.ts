@@ -19,6 +19,8 @@ export async function fetchGet(url: string) {
     }
 }
 
+
+
 export async function fetchDelete(url: string) {
     return await axios.delete(`${api}/${url}`);
 }
