@@ -229,7 +229,7 @@ function Catalog(){
                         <button className={[styles.filters__btn, styles.btn_show].join(' ')} onClick={() => fetchTeas()}>ПОКАЗАТЬ</button>
                         <button className={styles.filters__btn}
                             onClick={()=> {resetFilter(); fetchTeas(true);}}
-                            disabled={!filterOptions.typeIds?.length && !filterOptions.countryIds?.length  && !filterOptions.tasteIds?.length  && !filterOptions.ingredientIds?.length}
+                            disabled={!filterOptions.typeIds?.length && !filterOptions.countryIds?.length  && !filterOptions.tasteIds?.length  && !filterOptions.ingredientIds?.length && !priceFilter}
                         >
                             СБРОСИТЬ ФИЛЬТРЫ
                         </button>
