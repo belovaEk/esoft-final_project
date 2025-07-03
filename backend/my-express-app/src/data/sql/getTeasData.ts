@@ -19,11 +19,13 @@ export async function getTeas(options?: GetTeasOptions) {
         SELECT tea.*,
                type.name AS type_name,
                country.name as country_name,
-               CASE WHEN fav.tea_id IS NOT NULL THEN true ELSE false END as isFav
+               CASE WHEN fav.tea_id IS NOT NULL THEN true ELSE false END as isFav,
+               CASE WHEN cart.tea_id IS NOT NULL THEN true ELSE false END as isCart
         FROM tea
         JOIN type ON tea.type_id = type.id
         JOIN country ON tea.country_id = country.id
         LEFT JOIN favourite fav ON tea.id = fav.tea_id AND fav.client_id = ${options?.clientId || 0}
+        LEFT JOIN cart ON tea.id = cart.tea_id AND cart.client_id = ${options?.clientId || 0}
         WHERE 1=1
     `;
 

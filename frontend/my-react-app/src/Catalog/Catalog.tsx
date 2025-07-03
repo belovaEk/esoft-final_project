@@ -88,10 +88,12 @@ function Catalog(){
 
             const data = await fetchGet(`teas?${params.toString()}`);
             setTeas(data);
+            
+            console.log(params.toString())
+            console.log(teas)
         } catch (error) {
             console.error('Ошибка загрузки чаев:', error);
         }
-
 
     };
 

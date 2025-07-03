@@ -14,13 +14,17 @@ function ProductPage(){
     const { id } = useParams();
 
     const [tea, setTea] = useState<Tea | null>(null);
-    const [isFavourite, setIsFavourite ] = useState(false)
+    const [isFavourite, setIsFavourite ] = useState(false);
+    const [isInCart, setIsInCart] = useState(tea?.iscart);
 
    async function getTea(id: number) {
     try {
         const teaData = await fetchGet(`teas/${id}?clientId=${clientId}`);
         setTea(teaData);
-        setIsFavourite(teaData.isfav)
+        setIsFavourite(teaData.isfav);
+        console.log(teaData)
+        setIsInCart(teaData.iscart);
+        console.log(isInCart)
     } catch (error) {
         console.error("Ошибка при загрузке чая:", error);
     }
@@ -91,11 +95,20 @@ function ProductPage(){
                         <div className={styles.price_delivery}>
                             <p>Доставим сегодня</p>
                         </div>
-                        <button className={styles.cart_btn} onClick={() => {
-                            if (tea) {
-                                postInCart(clientId, tea.id)
-                            }
-                        }}><span>в корзину</span></button>
+                        {!isInCart ? (
+                            <button className={styles.cart_btn}
+                            onClick={() => {
+                                if (tea) {
+                                    postInCart(clientId, tea.id)
+                                }
+                            }}>
+                                <span>в корзину</span>
+                            </button>
+                        ) :
+                        (
+                            <div className={`${styles.cart_btn} ${styles.inCart_btn}`}>В корзине!</div>
+                        )
+                        }
                     </div>
                 </div>
              </div>
