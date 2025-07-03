@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchGet } from '../subFuncs';
 import { postFavourite, deleteInFavourite } from '../Favourites/FavFuncs';
-import { postInCart } from '../Cart/cartFuncs';
+import { postInCart, deleteInCart } from '../Cart/cartFuncs';
 
 import type { Tea } from '../interface/teaItem';
 
@@ -98,6 +98,7 @@ function ProductPage(){
                         {!isInCart ? (
                             <button className={styles.cart_btn}
                             onClick={() => {
+                                setIsInCart(true)
                                 if (tea) {
                                     postInCart(clientId, tea.id)
                                 }
@@ -106,7 +107,13 @@ function ProductPage(){
                             </button>
                         ) :
                         (
-                            <div className={`${styles.cart_btn} ${styles.inCart_btn}`}>В корзине!</div>
+                            <div className={`${styles.cart_btn} ${styles.inCart_btn}`}
+                            onClick={()=>{
+                                setIsInCart(false);
+                                if (tea) {
+                                    deleteInCart(clientId, tea.id)
+                                }
+                            }}>В корзине!</div>
                         )
                         }
                     </div>
