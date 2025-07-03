@@ -1,3 +1,5 @@
+import { clientId } from '../subFuncs'
+
 import styles from './Catalog.module.scss'
 
 import ProductCart from './ProductCart'
@@ -15,6 +17,7 @@ function Catalog(){
     const [types, setTypes] = useState([] as filterItem[]);
     const [ingredients, setIngredients] = useState([] as filterItem[]);
     const [tastes, setTastes] = useState([] as filterItem[]);
+
 
 
     const [sortOptions, setSortOptions] = useState<{
@@ -49,6 +52,8 @@ function Catalog(){
     const fetchTeas = async (reset = false) => {
         try {
             const params = new URLSearchParams();
+
+            params.append('clientId', String(clientId))
             
             if (sortOptions.sortBy) {
                 params.append('sortBy', sortOptions.sortBy);
@@ -86,6 +91,8 @@ function Catalog(){
         } catch (error) {
             console.error('Ошибка загрузки чаев:', error);
         }
+
+
     };
 
     const handleSort = (sortBy: 'popular' | 'price') => {
@@ -130,6 +137,7 @@ function Catalog(){
         fetchFilterItems('ingredients', setIngredients);
         fetchFilterItems('tastes', setTastes);
     }, [sortOptions]);
+
 
     return (
         <main>
@@ -247,6 +255,8 @@ function Catalog(){
                                type_name={tea.type_name}
                                description={tea.description}
                                price={tea.price}
+                               isFav={tea.isfav}
+                               isCart={tea.iscart}
                                /> 
                             ))
                             ) : (

@@ -1,6 +1,7 @@
 .cart{
     padding: 5px 20px;
     width: 100%;
+    max-width: 300px;
     border: #5430192c solid 0.3px;
     border-radius: 8px;
     min-height: 100%;
@@ -14,10 +15,11 @@
         flex-grow: 1;
 
         .cart_header{
-            align-self: flex-start;
+            align-self: flex-start; 
 
             .img_cross{
                 margin-top: 5px;
+                cursor: pointer;
             }
         }
 
@@ -59,7 +61,7 @@
             }
 
             .cart_btn{
-                 margin-top: auto;
+                margin-top: auto;
                 height: 55px;
                 width: 100%;
                 padding: 20px;
@@ -77,6 +79,10 @@
                     color: white;
                 }
                 
+            }
+
+            .inCart_btn{
+                background-color: #938881;
             }
         }
     }

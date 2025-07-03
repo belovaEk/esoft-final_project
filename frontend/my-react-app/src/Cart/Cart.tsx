@@ -1,8 +1,11 @@
+import { clientId } from '../subFuncs'
+
 import styles from './Cart.module.scss'
 
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import { fetchGet, fetchPost, fetchDelete } from '../subFuncs'
+import React, { useState, useEffect } from 'react'
+import { fetchGet, fetchPatch, fetchDelete } from '../subFuncs'
+import { deleteInCart } from './cartFuncs'
 
 import type { Tea } from '../interface/teaItem'
 
@@ -13,14 +16,14 @@ function Cart(){
 
     const totalCartPrice = cartItems.reduce((sum, item) => sum + item.price*item.amount, 0);
 
-    const fetchCartItems = async (clientId = 1) => {
+    const fetchCartItems = async (clientId: number) => {
          const data = await fetchGet(`cart/${clientId}`);
          setCartItems(data)
     }
 
     const updateCartItem = async (cartitem_id: number, newAmount: number) => {
         try {
-            await fetchPost(`cart`, { cartitem_id: cartitem_id, newAmount: newAmount })
+            await fetchPatch(`cart`, { cartitem_id: cartitem_id, newAmount: newAmount })
         } catch (error) {
             console.error('Ошибка при обновлении корзины:', error);
         }
@@ -53,20 +56,13 @@ function Cart(){
     };
 
 
-    const deleteCartItem = async (cartitem_id: number) => {
-        try {
-            await fetchDelete(`cart/${cartitem_id}`)
-
-           setCartItems((prev) => prev.filter(item => item.cartitem_id !== cartitem_id));
-
-        } catch (error) {
-            console.error('Ошибка при удалении товара из корзины:', error)
-        }
+    const onCartChange = (cartitem_id: number) => {
+         setCartItems((prev) => prev.filter(item => item.cartitem_id !== cartitem_id));
     }
 
 
     useEffect(()=> {
-        fetchCartItems()
+        fetchCartItems(clientId)
     }, [])
 
     return (
@@ -80,13 +76,15 @@ function Cart(){
                                <Item
                                key={item.cartitem_id}
                                cartitem_id={item.cartitem_id}
+                               id={item.id}
                                name={item.name}
                                description={item.description}
                                price={item.price}
                                amount={item.amount}
                                onIncrease={() => increaseAmount(item.cartitem_id)}
                                onDecrease={() => decreaseAmount(item.cartitem_id)}
-                               deleteCartItem={() => deleteCartItem(item.cartitem_id)}
+                               deleteInCart={() => deleteInCart(clientId, item.id)}
+                               onCartChange={() => onCartChange(item.cartitem_id)}
                                /> 
                             ))
                             ) : (
@@ -110,22 +108,26 @@ function Cart(){
 
 interface itemCartProps {
     cartitem_id: number;
+    id: number;
     name: string;
     description?: string;
     price: number;
     amount: number;
     onIncrease: () => void;
     onDecrease: () => void;
-    deleteCartItem: (cartitem_id: number) => void;
+    deleteInCart: (id: number, teaId: number) => void;
+    onCartChange: (cartitem_id: number) => void;
 }
 
 
-
-function Item({cartitem_id, name, description, price, amount, onIncrease, onDecrease, deleteCartItem}: itemCartProps){
+const Item = React.memo(({cartitem_id, id, name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
     return(
         <article className={styles.item_container}>
             <div className={styles.item_heder}>
-                <button onClick={()=> deleteCartItem(cartitem_id)}></button>
+                <button onClick={()=> {
+                    onCartChange(cartitem_id)
+                    deleteInCart(clientId, id)
+                    }}></button>
             </div>
             <div className={styles.item_content}>
                 <div className={styles.img}><img src={`/tea/${name}.png`}alt="" /></div>
@@ -145,7 +147,7 @@ function Item({cartitem_id, name, description, price, amount, onIncrease, onDecr
             </div>
         </article>
     )
-}
+})
 
 
 export default Cart

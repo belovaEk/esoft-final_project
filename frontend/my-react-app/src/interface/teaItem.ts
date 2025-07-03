@@ -9,8 +9,9 @@ export interface Tea {
   country_name?: string;
   ingredients?: string[];
   tastes?: string[];
+  isfav: boolean;
+  iscart: boolean;
 
-
-  cartitem_id: never
+  cartitem_id: never;
   amount: number;
 }

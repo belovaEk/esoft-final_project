@@ -20,7 +20,15 @@ export async function fetchGet(url: string) {
 }
 
 
+export async function fetchPatch<T>(url: string, data: T) {
+    return await axios.patch(`${api}/${url}`, data);
+}
+
 
 export async function fetchDelete(url: string) {
     return await axios.delete(`${api}/${url}`);
 }
+
+
+
+export const clientId = 1

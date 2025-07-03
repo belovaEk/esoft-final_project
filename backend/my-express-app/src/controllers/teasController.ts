@@ -6,16 +6,17 @@ import { getTea } from "../data/sql/getTeasData";
 
 
 teasRouter.get('/', async (req, res) => {
-    const { sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds} = req.query;
+    const { clientId, sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds} = req.query;
     
     try {
         const teas = await getTeas({
+            clientId: Number(clientId) || undefined,
             sortBy: sortBy as 'popular' | 'price' | undefined,
             direction: direction as 'ASC' | 'DESC' | undefined,
             typeIds: typeIds ? (typeIds as string).split(',').map(Number) : undefined,
             countryIds :  countryIds ? (countryIds as string).split(',').map(Number) : undefined,
-            minPrice: minPrice as number | undefined,
-            maxPrice: maxPrice as number | undefined,
+            minPrice: Number(minPrice) || undefined,
+            maxPrice: Number(maxPrice) || undefined,
             ingredientIds: ingredientIds ? (ingredientIds as string).split(',').map(Number) : undefined,
             tasteIds: tasteIds ? (tasteIds as string).split(',').map(Number) : undefined,
 
@@ -29,7 +30,8 @@ teasRouter.get('/', async (req, res) => {
 
 
 teasRouter.get('/:teaId', async(req, res) => {
-    const tea = await getTea(Number(req.params.teaId))
+    const clientId = req.query.clientId
+    const tea = await getTea(Number(req.params.teaId), Number(clientId) || undefined)
     res.json(tea)
 })
 

@@ -1,24 +1,42 @@
+import { clientId } from '../subFuncs';
+
 import styles from './ProductPage.module.scss'
 
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchGet } from '../subFuncs';
+import { postFavourite, deleteInFavourite } from '../Favourites/FavFuncs';
+import { postInCart } from '../Cart/cartFuncs';
 
 import type { Tea } from '../interface/teaItem';
 
 function ProductPage(){
     const { id } = useParams();
 
-    const [tea, setTea] = useState<Tea | null>(null); 
+    const [tea, setTea] = useState<Tea | null>(null);
+    const [isFavourite, setIsFavourite ] = useState(false)
 
    async function getTea(id: number) {
     try {
-        const teaData = await fetchGet(`teas/${id}`);
+        const teaData = await fetchGet(`teas/${id}?clientId=${clientId}`);
         setTea(teaData);
+        setIsFavourite(teaData.isfav)
     } catch (error) {
         console.error("Ошибка при загрузке чая:", error);
     }
-}
+    }
+
+    const changeFavourite = async(clientId: number, teaId: number, e: React.MouseEvent) =>{
+         e.stopPropagation()
+            if (isFavourite) {
+                setIsFavourite(false);
+                deleteInFavourite(clientId, teaId)
+            } else{
+                setIsFavourite(true);
+                return await postFavourite(clientId, teaId)
+        }
+    }
+
 
      useEffect(() => {
     if (id) {
@@ -26,7 +44,6 @@ function ProductPage(){
     }
     }, [id]);
 
-    console.log(tea)
     return (
         <main>
              <div className={styles.container}>
@@ -61,7 +78,11 @@ function ProductPage(){
                         </div>
                     </div>
                     <div className={styles.tea_price__block}>
-                        <button className={styles.like_btn}></button>
+                        <button className={styles.like_btn}>
+                            <img className={styles.img_cross} 
+                            src={isFavourite ? '/ico/favourite.png' : "/ico/heart_lineColor.png"} alt=""
+                            onClick={(e)=> {if (tea) {changeFavourite(clientId, tea?.id, e) }}}/>
+                        </button>
                         <div>
                             <span className={styles.tea_price}>{tea?.price}</span>
                             <p>~ 14 чашек</p>
@@ -70,7 +91,11 @@ function ProductPage(){
                         <div className={styles.price_delivery}>
                             <p>Доставим сегодня</p>
                         </div>
-                        <button className={styles.cart_btn}><span>в корзину</span></button>
+                        <button className={styles.cart_btn} onClick={() => {
+                            if (tea) {
+                                postInCart(clientId, tea.id)
+                            }
+                        }}><span>в корзину</span></button>
                     </div>
                 </div>
              </div>
