@@ -1,7 +1,7 @@
 import express from 'express';
 import { constants } from 'http2';
 
-import { getFavourites, deleteFavouriteItem, postFavouriteItem } from '../data/sql/favouritesData';
+import { getFavourites, deleteFavouriteItem, postFavouriteItem, getFavouriteCount } from '../data/sql/favouritesData';
 
 const favouriteRouter = express.Router();
 
@@ -31,6 +31,13 @@ favouriteRouter.delete('/', async(req, res) => {
         teaId: Number(teaId),
     });
     res.status(constants.HTTP_STATUS_OK).send()
+})
+
+
+favouriteRouter.get('/:clientId/count', async(req, res) => {
+    const clientId = Number(req.params.clientId)
+    const count = await getFavouriteCount(clientId)
+    res.json(count)
 })
 
 export default favouriteRouter;

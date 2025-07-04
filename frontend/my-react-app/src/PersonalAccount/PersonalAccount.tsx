@@ -1,7 +1,12 @@
+import { clientId } from '../subFuncs';
+
 import styles from './PersonalAccount.module.scss'
 
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { fetchGet } from '../subFuncs';
+
 
 function PersonalAccount(){
     const navigate = useNavigate();
@@ -9,7 +14,16 @@ function PersonalAccount(){
     const [isUserModalOpen, setIsUserModalOpen] = useState(false);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
-    
+    const [favQuantity, setfavQuantity] = useState(0);
+
+    const getfavQuantity = async(clientId: number) => {
+        const quantity = await fetchGet(`favourites/${clientId}/count`);
+        setfavQuantity(Number(quantity[0].count))
+    }
+
+    useEffect(() =>{
+        getfavQuantity(clientId);
+    }, [])
 
     return (
         <>
@@ -40,7 +54,7 @@ function PersonalAccount(){
                                 <li>
                                     <div onClick={()=> navigate('/favourites')}>
                                         <h2>Избранное</h2>
-                                        <p>{56} товаров</p>
+                                        <p>Количество товаров: {favQuantity}</p>
                                     </div>
                                     <img src="ico/heart_color.png" alt="" />
                                 </li>

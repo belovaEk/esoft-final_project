@@ -14,6 +14,15 @@ export async function getFavourites(clientId: number) {
 }
 
 
+export async function getFavouriteCount(clientId: number) {
+    let query = sql
+    `select count(*) 
+    from favourite
+    where client_id = 1`
+    return await query
+}
+
+
 export async function postFavouriteItem(client_id: number, tea_id: number) {
     let query = sql
     `insert into favourite (client_id, tea_id)
@@ -35,3 +44,4 @@ export async function deleteFavouriteItem(options: DeleteFavouriteItemOptions) {
      where client_id = ${options.clientId} and tea_id=${options.teaId}`
     return await query
 }
+
