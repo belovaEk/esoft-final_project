@@ -5,6 +5,7 @@ import teasRouter from './controllers/teasController';
 import filterRouter from './controllers/teasFilterControllers';
 import cartRouter from './controllers/cartController';
 import favouriteRouter from './controllers/favoutitesController';
+import { orderRouter } from './controllers/orederController';
 
 const app = express();
 app.use(cors({ origin: 'http://localhost:5173' }));
@@ -18,7 +19,8 @@ app.use(express.json());
 app.use('/teas', teasRouter);
 app.use('/filter', filterRouter);
 app.use('/cart', cartRouter);
-app.use('/favourites', favouriteRouter)
+app.use('/favourites', favouriteRouter);
+app.use('/orders', orderRouter)
 
 
 const PORT = 8080;

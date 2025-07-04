@@ -47,6 +47,19 @@
             font-size: 0.7rem;
             font-weight: 500;
         }
+
+        .created{
+            background-color: rgb(203 152 10);
+        }
+        .sent{
+            background-color: rgb(97, 165, 255);
+        }
+        .delivery{
+            background-color: rgb(62, 172, 53);
+        }
+        .received{
+            background-color: rgb(126, 126, 126);
+        }
     }
 
     button{
@@ -69,7 +82,7 @@
             align-items: center;
             
             .order_img{
-                min-width: 80px;
+                max-width: 100px;
                 height: auto;
             }
 
