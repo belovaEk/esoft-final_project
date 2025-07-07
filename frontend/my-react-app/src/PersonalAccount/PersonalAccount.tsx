@@ -1,28 +1,87 @@
-import { clientId } from '../subFuncs';
+import { clientId, fetchGet, fetchPatch, fetchDelete } from '../subFuncs';
 
 import styles from './PersonalAccount.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 
-import { fetchGet } from '../subFuncs';
 
+
+interface ClientI{
+    name: string;
+    email: string;
+}
 
 function PersonalAccount(){
     const navigate = useNavigate();
     const [isCardModalOpen, setIsCardModalOpen] = useState(false);
     const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
     const [favQuantity, setfavQuantity] = useState(0);
+    const [client, setClient] = useState<ClientI>();
+    const [formData, setFormData] = useState({
+        name:'',
+        email: '',
+    });
 
-    const getfavQuantity = async(clientId: number) => {
+    const getClientData = async(clientId: number) => {
         const quantity = await fetchGet(`favourites/${clientId}/count`);
-        setfavQuantity(Number(quantity[0].count))
+        const clientData = await fetchGet(`client/${clientId}`);
+        setfavQuantity(Number(quantity[0].count));
+        setClient(clientData[0]);
+        setFormData({
+            name: clientData[0]?.name || '',
+            email: clientData[0]?.email || ''
+        })
+    }
+
+     const validateEmail = (email: string) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const changeClientData = async (e: React.FormEvent, id: number) => {
+        e.preventDefault();
+        
+        const dataToSend: Partial<ClientI> = {};
+        
+        if (formData.name.trim()) {
+            dataToSend.name = formData.name.trim();
+        }
+        
+        if (formData.email.trim()) {
+            if (!validateEmail(formData.email)) {
+                return;
+            }
+            dataToSend.email = formData.email.trim();
+        }
+
+        if (Object.keys(dataToSend).length === 0) {
+            return;
+        }
+
+        try {
+            await fetchPatch(`client/${id}`, dataToSend);
+            
+            setClient(prev => ({
+                ...prev!,
+                ...dataToSend
+            }));
+            
+            setIsUserModalOpen(false);
+        } catch (err) {
+            console.error('Ошибка обновления клиента:', err);
+        }
+    };
+
+    const deleteAccount = async (clientId: number) => {
+        await fetchDelete(`client/${clientId}`)
+        navigate('/')
     }
 
     useEffect(() =>{
-        getfavQuantity(clientId);
+        getClientData(clientId);
     }, [])
 
     return (
@@ -32,7 +91,7 @@ function PersonalAccount(){
                 <div className={styles.lk_container}>
                     <div className={styles.lk_aside}>
                         <div className={[styles.ico, styles.user_info].join(' ')}>
-                            <span onClick={() => setIsUserModalOpen(true)}>Екатерина</span>
+                            <span onClick={() => setIsUserModalOpen(true)}>{client?.name || 'Укажите ваше имя'}</span>
                         </div>
                         <div className={styles.lk_aside__item}>
                             <h3>Финансы</h3>
@@ -100,14 +159,14 @@ function PersonalAccount(){
                         <h2>Личные данные</h2>
                         <form action="">
                             <label htmlFor="name">Имя</label>
-                            <input type="text" id='name' placeholder='name'/>
+                            <input type="text" id='name' placeholder='name' value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}/>
                             <label htmlFor="email">Почта</label>
-                            <input type="email" placeholder='email' id='email'/>
-                            <button>Сохранить</button>
+                            <input type="email" placeholder='email' id='email' value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/>
+                            <button onClick={(e)=> changeClientData(e, clientId)}>Сохранить</button>
                         </form>
 
                         <button className={[styles.ico, styles.logout].join(' ')}>Выйти</button>
-                        <button className={styles.delete_btn}>Удалить профиль</button>
+                        <button className={styles.delete_btn} onClick={()=> deleteAccount(clientId)}>Удалить профиль</button>
                     </div>
                 </div>
             </>
@@ -169,6 +228,25 @@ function PersonalAccount(){
                 </>
 )}
 
+    {/* {isDeleteModalOpen && (
+                        <>
+                            <div 
+                                className={styles.overlay}
+                                onClick={() => setIsCardModalOpen(false)}
+                            ></div>
+                            <div className={styles.modal}>
+                                <button 
+                                    className={styles.btn_exit}
+                                    onClick={() => setIsCardModalOpen(false)}
+                                ></button>
+                                <div className={styles.modal_container}>
+                                    <h1>ВЫ УВЕРЕНЫ?</h1>
+                                    <button>НЕТ</button>
+                                    <button>да</button>
+                                </div>
+                            </div>
+                        </>
+        )} */}
 
         </>
     )

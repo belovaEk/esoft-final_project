@@ -18,7 +18,7 @@ export async function getFavouriteCount(clientId: number) {
     let query = sql
     `select count(*) 
     from favourite
-    where client_id = 1`
+    where client_id = ${clientId}`
     return await query
 }
 

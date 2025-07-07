@@ -1,7 +1,7 @@
 import experss from 'express';
 import { constants } from 'http2';
 
-import { getClient } from '../data/sql/getClientsData';
+import { getClient, patchClient, deleteClient } from '../data/sql/clientsData';
 
 const clientRouter = experss.Router({ mergeParams: true });
 
@@ -12,7 +12,7 @@ clientRouter.get('/:clientId', async(req, res)=> {
     const id = Number(req.params.clientId);
 
     try{
-        const client = await getClient(id);
+        const client = await getClient(Number(id));
         res.json(client)
     } catch (err) {
         console.log(err);
@@ -20,5 +20,20 @@ clientRouter.get('/:clientId', async(req, res)=> {
     }
 })
 
+
+
+clientRouter.patch('/:clientId', async(req, res)=> {
+    const { name = null, email = null } = req.body;
+    const clientId = Number(req.params.clientId)
+    await patchClient(clientId, name, email);
+    res.status(constants.HTTP_STATUS_OK).send();
+})
+
+
+clientRouter.delete('/:clientId', async(req, res) => {
+    const clientId = Number(req.params.clientId)
+    await deleteClient(clientId);
+    res.sendStatus(constants.HTTP_STATUS_OK)
+})
 
 export default clientRouter;
