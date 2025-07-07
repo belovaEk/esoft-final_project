@@ -25,6 +25,10 @@
             color: #e1e1e1;
             margin-bottom: 40px;
         }
+        .mk_order_btn_disabled{
+            cursor: auto;
+            background-color: #9e9894;
+        }
 
         .order_price{
             display: flex;
@@ -81,6 +85,7 @@
         .img{
             width: 110px;
             height: auto;
+            cursor: pointer;
         }
 
         .description{

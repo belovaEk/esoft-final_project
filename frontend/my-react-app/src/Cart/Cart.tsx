@@ -4,7 +4,7 @@ import styles from './Cart.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
-import { fetchGet, fetchPatch, fetchDelete } from '../subFuncs'
+import { fetchGet, fetchPatch } from '../subFuncs'
 import { deleteInCart } from './cartFuncs'
 
 import type { Tea } from '../interface/teaItem'
@@ -60,10 +60,14 @@ function Cart(){
          setCartItems((prev) => prev.filter(item => item.cartitem_id !== cartitem_id));
     }
 
+         
 
     useEffect(()=> {
         fetchCartItems(clientId)
     }, [])
+
+
+
 
     return (
         <main>
@@ -92,7 +96,7 @@ function Cart(){
                         )}
                     </div>
                     <div className={styles.order_container}>
-                        <button className={styles.mk_order_btn} onClick={()=> navigate('/order')}>оформить заказ</button>
+                        <button className={cartItems.length !== 0 ? styles.mk_order_btn : `${styles.mk_order_btn} ${styles.mk_order_btn_disabled}`} disabled={cartItems.length === 0} onClick={()=> navigate('/order')}>оформить заказ</button>
                         <div className={styles.order_price}>
                             <p>Общая стоимость</p>
                             <span><i>{totalCartPrice} P</i></span>
@@ -121,6 +125,7 @@ interface itemCartProps {
 
 
 const Item = React.memo(({cartitem_id, id, name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
+    const navigate = useNavigate()
     return(
         <article className={styles.item_container}>
             <div className={styles.item_heder}>
@@ -130,7 +135,7 @@ const Item = React.memo(({cartitem_id, id, name, description, price, amount, onI
                     }}></button>
             </div>
             <div className={styles.item_content}>
-                <div className={styles.img}><img src={`/tea/${name}.png`}alt="" /></div>
+                <div className={styles.img}><img src={`/tea/${name}.png`}alt="" onClick={()=> navigate(`/catalog/${id}`)}/></div>
                 <div className={styles.description}>
                     <h2>{name}</h2>
                     <p>{description}</p>

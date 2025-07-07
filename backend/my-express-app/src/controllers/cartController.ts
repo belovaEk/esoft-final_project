@@ -1,7 +1,7 @@
 import express from 'express';
 import { constants } from 'http2';
 
-import { getCart, patchCart, postCart, deleteCartItem } from '../data/sql/cartData';
+import { getCart, patchCart, postCart, deleteCartItem, checkCart } from '../data/sql/cartData';
 
 const cartRouter = express.Router();
 
@@ -28,9 +28,6 @@ cartRouter.post('/', async(req, res) => {
     }
     
 })
-
-
-
 
 
 cartRouter.delete('/', async(req, res) => {

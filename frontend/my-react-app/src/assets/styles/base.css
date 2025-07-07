@@ -118,3 +118,11 @@ html{
 	background-color: #938881;
 	color: white;
 }
+
+*::-webkit-scrollbar{
+	display: none;
+}
+
+*{
+	scrollbar-width: none;
+}

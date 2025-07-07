@@ -171,4 +171,14 @@ input{
     }
 }
 
-    }
+}
+
+
+.errorMessage{
+    color: red;
+    font-size: 0.6rem;
+}
+
+.errorInput{
+    border: 1px solid red !important;
+}

@@ -40,3 +40,11 @@ export async function deleteCartItem(options: DeleteCartItemOptions) {
      where client_id = ${options.clientId} and tea_id=${options.teaId}`
     return await query
 }
+
+
+export async function checkCart(client_id: number, tea_id: number) {
+    let query = sql 
+    `SELECT * FROM cart_items 
+    WHERE client_id = ${client_id} AND tea_id = ${tea_id}`
+    return await query
+}
