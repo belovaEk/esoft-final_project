@@ -140,7 +140,7 @@ function Order(){
             flat: deliveryMethod === 'courier' && !deliveryData.flat.trim(),
             entrance: deliveryMethod === 'courier' && !deliveryData.entrance.trim(),
             floor: deliveryMethod === 'courier' && !deliveryData.floor.trim(),
-            payment: paymentMethod === null,
+            payment: deliveryMethod === 'courier' && paymentMethod === null,
             confirmation: confirmationMethod === null 
         };
         setErrors(newErrors);
@@ -237,7 +237,10 @@ function Order(){
                                     <form action="">
                                         <ul>
                                             <li>
-                                                <input name="payment" type="radio" id='payment_method-1' onClick={()=> changePaymentMethod(1)} checked={deliveryMethod==='post' ? true : undefined}/>
+                                                <input name="payment" type="radio" id='payment_method-1'
+                                                onClick={()=> changePaymentMethod(1)}
+                                                checked={deliveryMethod === 'post' || paymentMethod === 1}
+                                                disabled={deliveryMethod === 'post'}/>
                                                 <label htmlFor="payment_method-1">Картой на сайте</label>
 
                                             </li>
