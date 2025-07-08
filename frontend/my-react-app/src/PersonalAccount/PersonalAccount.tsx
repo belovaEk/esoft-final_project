@@ -166,7 +166,10 @@ function PersonalAccount(){
                         </form>
 
                         <button className={[styles.ico, styles.logout].join(' ')}>Выйти</button>
-                        <button className={styles.delete_btn} onClick={()=> deleteAccount(clientId)}>Удалить профиль</button>
+                        <button className={styles.delete_btn} onClick={()=> {
+                            setIsUserModalOpen(false)
+                            setIsDeleteModalOpen(true)
+                        }}>Удалить профиль</button>
                     </div>
                 </div>
             </>
@@ -228,25 +231,27 @@ function PersonalAccount(){
                 </>
 )}
 
-    {/* {isDeleteModalOpen && (
+    {isDeleteModalOpen && (
                         <>
                             <div 
                                 className={styles.overlay}
-                                onClick={() => setIsCardModalOpen(false)}
+                                onClick={() => setIsDeleteModalOpen(false)}
                             ></div>
                             <div className={styles.modal}>
                                 <button 
                                     className={styles.btn_exit}
-                                    onClick={() => setIsCardModalOpen(false)}
+                                    onClick={() => setIsDeleteModalOpen(false)}
                                 ></button>
                                 <div className={styles.modal_container}>
-                                    <h1>ВЫ УВЕРЕНЫ?</h1>
-                                    <button>НЕТ</button>
-                                    <button>да</button>
+                                    <h1 className={styles.delete_warning}>ВЫ УВЕРЕНЫ?</h1>
+                                    <button className={styles.delete_btnNO}
+                                    onClick={() => setIsDeleteModalOpen(false)}>НЕТ</button>
+                                    <button className={styles.delete_btnYES}
+                                    onClick={() => deleteAccount(clientId)}>да</button>
                                 </div>
                             </div>
                         </>
-        )} */}
+        )}
 
         </>
     )

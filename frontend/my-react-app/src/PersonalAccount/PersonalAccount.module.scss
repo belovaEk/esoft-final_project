@@ -315,6 +315,22 @@ li, span, a{
             position: relative;
             margin-right: 4px;
         }
+
+        .delete_warning{
+            color: #a73030;
+            text-align: center;
+            display: block;
+            margin-bottom: 40px;
+            }
+
+        .delete_btnNO{
+            background-color: #938881;
+            color: white;
+            font-weight: 500;
+            font-size: 1.2rem;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
     }
 }
 
