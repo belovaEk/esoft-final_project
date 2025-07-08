@@ -23,9 +23,9 @@ clientRouter.get('/:clientId', async(req, res)=> {
 
 
 clientRouter.patch('/:clientId', async(req, res)=> {
-    const { name = null, email = null } = req.body;
+    const { name = null, email = null, is_mailing = undefined } = req.body;
     const clientId = Number(req.params.clientId)
-    await patchClient(clientId, name, email);
+    await patchClient(clientId, name, email, is_mailing);
     res.status(constants.HTTP_STATUS_OK).send();
 })
 

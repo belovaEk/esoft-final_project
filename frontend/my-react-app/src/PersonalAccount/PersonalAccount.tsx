@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 interface ClientI{
     name: string;
     email: string;
+    is_mailing: boolean;
 }
 
 function PersonalAccount(){
@@ -24,16 +25,19 @@ function PersonalAccount(){
     const [formData, setFormData] = useState({
         name:'',
         email: '',
+        is_mailing: false,
     });
 
     const getClientData = async(clientId: number) => {
         const quantity = await fetchGet(`favourites/${clientId}/count`);
-        const clientData = await fetchGet(`client/${clientId}`);
+        let clientData = await fetchGet(`client/${clientId}`);
+        clientData = clientData[0] as ClientI
         setfavQuantity(Number(quantity[0].count));
-        setClient(clientData[0]);
+        setClient(clientData);
         setFormData({
-            name: clientData[0]?.name || '',
-            email: clientData[0]?.email || ''
+            name: clientData?.name || '',
+            email: clientData?.email || '',
+            is_mailing: clientData?.is_mailing || false,
         })
     }
 
@@ -46,19 +50,25 @@ function PersonalAccount(){
         
         const dataToSend: Partial<ClientI> = {};
         
-        if (formData.name.trim()) {
+        if (formData.name.trim() && formData.name.trim() !== client?.name) {
             dataToSend.name = formData.name.trim();
         }
         
-        if (formData.email.trim()) {
+        if (formData.email.trim() && formData.email.trim() !== client?.email) {
             if (!validateEmail(formData.email)) {
                 return;
             }
             dataToSend.email = formData.email.trim();
         }
 
+        if (formData.is_mailing != client?.is_mailing) {
+            dataToSend.is_mailing = formData.is_mailing
+        }
+
         if (Object.keys(dataToSend).length === 0) {
+            setIsUserModalOpen(false);
             return;
+            
         }
 
         try {
@@ -70,9 +80,11 @@ function PersonalAccount(){
             }));
             
             setIsUserModalOpen(false);
+            setIsSettingsModalOpen(false);
         } catch (err) {
             console.error('Ошибка обновления клиента:', err);
         }
+        
     };
 
     const deleteAccount = async (clientId: number) => {
@@ -222,10 +234,13 @@ function PersonalAccount(){
                             <h2>Настройки</h2>
                             <form action="" className={styles.settings_form}>
                                 <label htmlFor="mailing" className={styles.settings_lable}>Получать рассылки по почте</label>
-                                <input type="checkbox" id='mailing' className={styles.settings_checkbox}/>
+                                <input type="checkbox" id='mailing' className={styles.settings_checkbox} checked={formData.is_mailing} onChange={(e) => setFormData({...formData, is_mailing: e.target.checked})}/>
                             </form>
-                            <p className={styles.settings_email}>bbb@mail.ri</p>
-                            <button className={styles.settings_btn}>Сохранить</button>
+                            <p className={styles.settings_email}>{client?.email}</p>
+                            <button 
+                            className={styles.settings_btn}
+                            type="submit"
+                            onClick={(e) => changeClientData(e, clientId)}>Сохранить</button>
                         </div>
                     </div>
                 </>

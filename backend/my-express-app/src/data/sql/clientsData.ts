@@ -10,10 +10,11 @@ export async function getClient(id: number){
 export async function patchClient(
     client_id: number,
     name?: string | null,
-    email?: string | null
+    email?: string | null,
+    is_mailing?: boolean | undefined
 ) {
-    if (name === undefined && email === undefined) {
-        throw new Error("Должно присутсвтовать хотя бы одно поле (name or email)");
+    if (name === undefined && email === undefined && is_mailing === undefined) {
+        throw new Error("Должно присутсвтовать хотя бы одно поле для изменения");
     }
 
     const updates: string[] = [];
@@ -26,6 +27,10 @@ export async function patchClient(
     if (email !== undefined && email !== null) {
         updates.push(`email = $${updates.length + 1}`);
         params.push(email);
+    }
+    if (is_mailing !== undefined) {
+        updates.push(`is_mailing = $${updates.length + 1}`);
+        params.push(is_mailing);
     }
 
     const queryString = `UPDATE client SET ${updates.join(', ')} WHERE id = $${updates.length + 1}`;
