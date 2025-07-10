@@ -9,7 +9,8 @@
 .container{
     z-index: 6;
     width: 500px;
-    height: 600px;
+    // height: 600px;
+    height: 300px;
     border: 1px solid #543019;
     border-radius: 10px;
     position: absolute;
@@ -42,10 +43,11 @@
         }
 
         button{
-            margin-top: 60px;
+            // margin-top: 60px;
             border-radius: 5px;
-            height: 40px;
-            padding: 5px;
+            height: 80px;
+            // padding: 5px;
+            padding: 15px;
             width: 100%;
             background-color: #543019;
             color: white;

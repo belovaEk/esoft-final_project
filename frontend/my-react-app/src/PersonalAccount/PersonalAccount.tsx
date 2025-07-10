@@ -14,6 +14,7 @@ interface ClientI{
 }
 
 function PersonalAccount(){
+
     const navigate = useNavigate();
     const [isCardModalOpen, setIsCardModalOpen] = useState(false);
     const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -29,6 +30,8 @@ function PersonalAccount(){
     });
 
     const getClientData = async(clientId: number) => {
+        const status = await fetchGet('auth/status')
+        console.log(status)
         const quantity = await fetchGet(`favourites/${clientId}/count`);
         let clientData = await fetchGet(`client/${clientId}`);
         clientData = clientData[0] as ClientI
@@ -89,6 +92,12 @@ function PersonalAccount(){
 
     const deleteAccount = async (clientId: number) => {
         await fetchDelete(`client/${clientId}`)
+        navigate('/')
+    }
+
+
+    const logout = async () => {
+        await fetchGet('auth/logout')
         navigate('/')
     }
 
@@ -177,7 +186,8 @@ function PersonalAccount(){
                             <button onClick={(e)=> changeClientData(e, clientId)}>Сохранить</button>
                         </form>
 
-                        <button className={[styles.ico, styles.logout].join(' ')}>Выйти</button>
+                        <button className={[styles.ico, styles.logout].join(' ')}
+                        onClick={()=> logout()}>Выйти</button>
                         <button className={styles.delete_btn} onClick={()=> {
                             setIsUserModalOpen(false)
                             setIsDeleteModalOpen(true)

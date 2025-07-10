@@ -1,7 +1,7 @@
 import experss from 'express';
 import { constants } from 'http2';
 
-import { getClient, patchClient, deleteClient } from '../data/sql/clientsData';
+import { getClient, patchClient, deleteClient, postClient } from '../data/sql/clientsData';
 
 const clientRouter = experss.Router({ mergeParams: true });
 
@@ -34,6 +34,12 @@ clientRouter.delete('/:clientId', async(req, res) => {
     const clientId = Number(req.params.clientId)
     await deleteClient(clientId);
     res.sendStatus(constants.HTTP_STATUS_OK)
+})
+
+clientRouter.post('/', async(req, res) => {
+    const { name, email } = req.body;
+    const result = await postClient(name, email)
+    res.status(constants.HTTP_STATUS_OK).send(result)
 })
 
 export default clientRouter;

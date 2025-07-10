@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom'
 
 function Authorization(){
 
+    const loginGoogle = (e: React.FormEvent) => {
+        e.preventDefault();
+        window.location.href = 'http://localhost:8080/auth/google'
+    }
+
     const navigate = useNavigate()
  
     return(
@@ -13,13 +18,7 @@ function Authorization(){
         <div className={styles.container}>
             <h1 className={styles.title}>TeaTime</h1>
             <form action="">
-                <label htmlFor="email">Введите почту</label>
-                <input type="e-mail" name="" id="email" />
-
-                <label htmlFor="password">Введите пароль</label>
-                <input type="password" name="" id="password" />
-
-                <button onClick={()=> navigate('/')}>Войти</button>
+                <button onClick={(e) => loginGoogle(e)}>Войти c Google</button>
             </form>
         </div>
         </div>

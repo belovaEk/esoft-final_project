@@ -1,8 +1,19 @@
+import { useEffect } from 'react'
+import { fetchGet } from '../subFuncs'
 import styles from './MainContent.module.scss'
 
 
-
 function MainContent(){
+
+    const d = async() => {
+        const ddddd = await fetchGet('auth/status')
+        console.log(ddddd)
+    }
+
+    useEffect(()=> {
+        d()
+    }, [])
+
     return(
         <main>
             <section className={styles.top_section}>

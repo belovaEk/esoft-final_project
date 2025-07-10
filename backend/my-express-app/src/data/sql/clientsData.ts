@@ -7,6 +7,15 @@ export async function getClient(id: number){
     return client
 }
 
+export async function postClient(name: string, email: string): Promise<number> {
+    let query = sql
+    `insert into client (name, email) values (${name}, ${email}) RETURNING id` 
+    const newId = await query
+    return newId[0].id;
+}
+
+
+
 export async function patchClient(
     client_id: number,
     name?: string | null,
