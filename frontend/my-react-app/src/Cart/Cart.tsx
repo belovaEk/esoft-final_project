@@ -1,5 +1,3 @@
-import { clientId } from '../subFuncs'
-
 import styles from './Cart.module.scss'
 
 import { useNavigate } from 'react-router-dom'
@@ -16,42 +14,43 @@ function Cart(){
 
     const totalCartPrice = cartItems.reduce((sum, item) => sum + item.price*item.amount, 0);
 
-    const fetchCartItems = async (clientId: number) => {
-         const data = await fetchGet(`cart/${clientId}`);
+    const fetchCartItems = async () => {
+         const data = await fetchGet(`cart/`);
          setCartItems(data)
+         console.log(data)
     }
 
-    const updateCartItem = async (cartitem_id: number, newAmount: number) => {
+    const updateCartItem = async (tea_id: number, newAmount: number) => {
         try {
-            await fetchPatch(`cart`, { cartitem_id: cartitem_id, newAmount: newAmount })
+            await fetchPatch(`cart/`, { tea_id: tea_id, newAmount: newAmount })
         } catch (error) {
             console.error('Ошибка при обновлении корзины:', error);
         }
     }
 
-    const increaseAmount = (itemId: number) => {
+    const increaseAmount = (teaId: number) => {
         setCartItems(prevItems =>
             prevItems.map(item =>
-                item.cartitem_id === itemId
+                item.id === teaId
                     ? { ...item, amount: item.amount + 1}
                     : item
             )
         );
-        const newAmount = cartItems.find(item => item.cartitem_id === itemId)!.amount + 1;
-        updateCartItem(itemId, newAmount);
+        const newAmount = cartItems.find(item => item.id === teaId)!.amount + 1;
+        updateCartItem(teaId, newAmount);
     };
 
-    const decreaseAmount = (itemId: number) => {
+    const decreaseAmount = (teaId: number) => {
         setCartItems(prevItems =>
             prevItems.map(item =>
-                item.cartitem_id === itemId && item.amount > 1
+                item.id === teaId && item.amount > 1
                     ? { ...item, amount: item.amount - 1 }
                     : item
             )
         );
-        const newAmount = cartItems.find(item => item.cartitem_id === itemId)!.amount - 1;
+        const newAmount = cartItems.find(item => item.id === teaId)!.amount - 1;
         if (newAmount >= 1) {
-            updateCartItem(itemId, newAmount);
+            updateCartItem(teaId, newAmount);
         }
     };
 
@@ -63,7 +62,7 @@ function Cart(){
          
 
     useEffect(()=> {
-        fetchCartItems(clientId)
+        fetchCartItems()
     }, [])
 
 
@@ -79,16 +78,15 @@ function Cart(){
                             cartItems.map(item => (
                                <Item
                                key={item.cartitem_id}
-                               cartitem_id={item.cartitem_id}
-                               id={item.id}
+                               teaId={item.id}
                                name={item.name}
                                description={item.description}
                                price={item.price}
                                amount={item.amount}
-                               onIncrease={() => increaseAmount(item.cartitem_id)}
-                               onDecrease={() => decreaseAmount(item.cartitem_id)}
-                               deleteInCart={() => deleteInCart(clientId, item.id)}
-                               onCartChange={() => onCartChange(item.cartitem_id)}
+                               onIncrease={() => increaseAmount(item.id)}
+                               onDecrease={() => decreaseAmount(item.id)}
+                               deleteInCart={() => deleteInCart(item.id)}
+                               onCartChange={() => onCartChange(item.id)}
                                /> 
                             ))
                             ) : (
@@ -111,31 +109,30 @@ function Cart(){
 }
 
 interface itemCartProps {
-    cartitem_id: number;
-    id: number;
+    teaId: number;
     name: string;
     description?: string;
     price: number;
     amount: number;
     onIncrease: () => void;
     onDecrease: () => void;
-    deleteInCart: (id: number, teaId: number) => void;
+    deleteInCart: (teaId: number) => void;
     onCartChange: (cartitem_id: number) => void;
 }
 
 
-const Item = React.memo(({cartitem_id, id, name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
+const Item = React.memo(({teaId, name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
     const navigate = useNavigate()
     return(
         <article className={styles.item_container}>
             <div className={styles.item_heder}>
                 <button onClick={()=> {
-                    onCartChange(cartitem_id)
-                    deleteInCart(clientId, id)
+                    onCartChange(teaId)
+                    deleteInCart(teaId)
                     }}></button>
             </div>
             <div className={styles.item_content}>
-                <div className={styles.img}><img src={`/tea/${name}.png`}alt="" onClick={()=> navigate(`/catalog/${id}`)}/></div>
+                <div className={styles.img}><img src={`/tea/${name}.png`}alt="" onClick={()=> navigate(`/catalog/${teaId}`)}/></div>
                 <div className={styles.description}>
                     <h2>{name}</h2>
                     <p>{description}</p>

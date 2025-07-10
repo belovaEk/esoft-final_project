@@ -1,27 +1,32 @@
 import express from 'express';
 import { constants } from 'http2';
+import { client } from '../types/auth';
 
 import { getCart, patchCart, postCart, deleteCartItem } from '../data/sql/cartData';
 
 const cartRouter = express.Router();
 
 
-cartRouter.get('/:clientId', async(req, res) => {
-    const clientId = Number(req.params.clientId);
-    const cart = await getCart(clientId);
+cartRouter.get('/', async(req, res) => {
+    const client = req.user as client
+    const cart = await getCart(client?.id);
     res.json(cart)
 })
 
+
+
 cartRouter.patch('/', async(req, res) => {
-    const { cartitem_id, newAmount } = req.body;
-    await patchCart(Number(cartitem_id), Number(newAmount));
+    const client = req.user as client
+    const { tea_id, newAmount } = req.body;
+    await patchCart(Number(client?.id), Number(tea_id), Number(newAmount));
     res.status(constants.HTTP_STATUS_OK).send();
 })
 
 cartRouter.post('/', async(req, res) => {
     try{
-        const { client_id, tea_id } = req.body;
-        await postCart(Number(client_id), Number(tea_id));
+        const { tea_id } = req.body;
+        const client = req.user as client
+        await postCart(Number(client?.id), Number(tea_id));
         res.status(constants.HTTP_STATUS_CREATED).send();
     } catch(err) {
         res.sendStatus(constants.HTTP_STATUS_BAD_REQUEST)
@@ -31,9 +36,10 @@ cartRouter.post('/', async(req, res) => {
 
 
 cartRouter.delete('/', async(req, res) => {
-    const {clientId, teaId}  = req.query;
+    const {teaId}  = req.query;
+    const client = req.user as client
     await deleteCartItem({
-            clientId: Number(clientId),
+            clientId: Number(client?.id),
             teaId: Number(teaId),
         });
         res.status(constants.HTTP_STATUS_OK).send()

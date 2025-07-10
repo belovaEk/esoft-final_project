@@ -3,14 +3,14 @@ import  express  from "express";
 const teasRouter = express.Router();
 import { getTeas } from "../data/sql/getTeasData";
 import { getTea } from "../data/sql/getTeasData";
-
+import { client } from "../types/auth";
 
 teasRouter.get('/', async (req, res) => {
-    const { clientId, sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds} = req.query;
-    
+    const {  sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds} = req.query;
+    const client = req.user as client
     try {
         const teas = await getTeas({
-            clientId: Number(clientId) || undefined,
+            clientId: Number(client?.id) || undefined,
             sortBy: sortBy as 'popular' | 'price' | undefined,
             direction: direction as 'ASC' | 'DESC' | undefined,
             typeIds: typeIds ? (typeIds as string).split(',').map(Number) : undefined,
@@ -30,8 +30,8 @@ teasRouter.get('/', async (req, res) => {
 
 
 teasRouter.get('/:teaId', async(req, res) => {
-    const clientId = req.query.clientId
-    const tea = await getTea(Number(req.params.teaId), Number(clientId) || undefined)
+    const client = req.user as client
+    const tea = await getTea(Number(req.params.teaId), Number(client?.id) || undefined)
     res.json(tea)
 })
 

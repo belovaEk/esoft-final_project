@@ -1,4 +1,4 @@
-import { clientId } from '../subFuncs';
+
 
 import styles from './ProductPage.module.scss'
 
@@ -19,25 +19,23 @@ function ProductPage(){
 
    async function getTea(id: number) {
     try {
-        const teaData = await fetchGet(`teas/${id}?clientId=${clientId}`);
+        const teaData = await fetchGet(`teas/${id}`);
         setTea(teaData);
         setIsFavourite(teaData.isfav);
-        console.log(teaData)
         setIsInCart(teaData.iscart);
-        console.log(isInCart)
     } catch (error) {
         console.error("Ошибка при загрузке чая:", error);
     }
     }
 
-    const changeFavourite = async(clientId: number, teaId: number, e: React.MouseEvent) =>{
+    const changeFavourite = async( teaId: number, e: React.MouseEvent) =>{
          e.stopPropagation()
             if (isFavourite) {
                 setIsFavourite(false);
-                deleteInFavourite(clientId, teaId)
+                deleteInFavourite( teaId)
             } else{
                 setIsFavourite(true);
-                return await postFavourite(clientId, teaId)
+                return await postFavourite(teaId)
         }
     }
 
@@ -85,7 +83,7 @@ function ProductPage(){
                         <button className={styles.like_btn}>
                             <img className={styles.img_cross} 
                             src={isFavourite ? '/ico/favourite.png' : "/ico/heart_lineColor.png"} alt=""
-                            onClick={(e)=> {if (tea) {changeFavourite(clientId, tea?.id, e) }}}/>
+                            onClick={(e)=> {if (tea) {changeFavourite(tea?.id, e) }}}/>
                         </button>
                         <div>
                             <span className={styles.tea_price}>{tea?.price}</span>
@@ -100,7 +98,7 @@ function ProductPage(){
                             onClick={() => {
                                 setIsInCart(true)
                                 if (tea) {
-                                    postInCart(clientId, tea.id)
+                                    postInCart(tea.id)
                                 }
                             }}>
                                 <span>в корзину</span>
@@ -111,7 +109,7 @@ function ProductPage(){
                             onClick={()=>{
                                 setIsInCart(false);
                                 if (tea) {
-                                    deleteInCart(clientId, tea.id)
+                                    deleteInCart(tea.id)
                                 }
                             }}>В корзине!</div>
                         )

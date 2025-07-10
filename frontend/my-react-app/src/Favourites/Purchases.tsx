@@ -1,4 +1,3 @@
-import { clientId } from '../subFuncs'
 
 import styles from './Favourites.module.scss'
 import ProductCart from '../Catalog/ProductCart'
@@ -12,13 +11,13 @@ function Purchases(){
 
     const [teas, setTeas] = useState([] as Tea[])
 
-    const getTeas = async(clientId: number) => {
-        const teasData = await fetchGet(`orders/${clientId}/prevPurchased`);
+    const getTeas = async() => {
+        const teasData = await fetchGet(`orders/prevPurchased`);
         setTeas(teasData);
     }
 
     useEffect(() =>{
-        getTeas(clientId)
+        getTeas()
     }, [])
 
     return (

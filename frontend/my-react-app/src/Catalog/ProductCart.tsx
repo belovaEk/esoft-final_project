@@ -1,4 +1,3 @@
-import { clientId } from '../subFuncs';
 
 import styles from './ProductCart.module.scss'
 import React, { useState } from 'react';
@@ -28,32 +27,28 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
     const [isFavourite, setIsFavourite] = useState(isFav);
     const [isInCart, setIsInCart] = useState(isCart);
 
-    console.log(isInCart)
-
-
     const isOnFavouritesPage = useLocation().pathname === '/favourites'
     const navigate = useNavigate();
 
     
-    const changeFavourite = async(clientId: number, teaId: number, e: React.MouseEvent) =>{
+    const changeFavourite = async( teaId: number, e: React.MouseEvent) =>{
         if (isFavourite) {
             setIsFavourite(false);
-            deleteInFavourite(clientId, teaId, e)
+            deleteInFavourite( teaId, e)
         } else{
              e.stopPropagation(); 
             setIsFavourite(true);
-            return await postFavourite(clientId, teaId)
+            return await postFavourite(teaId)
     }
     }
 
-    const deleteInFavourite = async(clientId: number, teaId: number, e: React.MouseEvent) =>{
+    const deleteInFavourite = async(teaId: number, e: React.MouseEvent) =>{
         e.stopPropagation();
         if(onFavouriteChange){
             onFavouriteChange(teaId);
         }
 
         const params = new URLSearchParams();
-        params.append('clientId', String(clientId))
         params.append('teaId', String(teaId))
 
         return await fetchDelete(`favourites?${params.toString()}`)
@@ -69,15 +64,15 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
                             ? '/ico/favourite.png'  
                             : !isOnFavouritesPage 
                             ?  "/ico/heart_lineColor.png"
-                            : ''} alt=""
+                            : undefined} alt=""
                             
-                    onClick={(e)=> changeFavourite(clientId, id, e)}/>
+                    onClick={(e)=> changeFavourite( id, e)}/>
                     <img 
                     className={styles.img_cross} 
                     src={isOnFavouritesPage 
                             ? "/ico/cross_color.png" 
-                            : ''} alt="" 
-                    onClick={(e)=>deleteInFavourite(clientId, id, e)}/>
+                            : undefined} alt="" 
+                    onClick={(e)=>deleteInFavourite(id, e)}/>
                 </div>
                 <div className={styles.cart_content}>
                     <div className={styles.cart_img}>
@@ -91,7 +86,7 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
                             className={styles.cart_btn}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                postInCart(clientId, id);
+                                postInCart(id);
                                 setIsInCart(true);
                             }}>
                             <span>{price} Р/100унц</span>
@@ -100,7 +95,7 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
                     (
                         <div className={`${styles.cart_btn} ${styles.inCart_btn}`} onClick={(e) =>{
                             e.stopPropagation();
-                            deleteInCart(clientId, id);
+                            deleteInCart(id);
                             setIsInCart(false);
                         }}>
                                 <span>В корзине!</span>

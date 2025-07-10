@@ -29,6 +29,3 @@ export async function fetchDelete(url: string) {
     return await axios.delete(`${api}/${url}`, {withCredentials: true});
 }
 
-
-
-export const clientId = 1

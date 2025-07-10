@@ -2,15 +2,15 @@ import experss from 'express';
 import { constants } from 'http2';
 
 import { getClient, patchClient, deleteClient, postClient } from '../data/sql/clientsData';
-
+import { client } from '../types/auth';
 const clientRouter = experss.Router({ mergeParams: true });
 
 export const clientsRouter = experss.Router({ mergeParams: true });
 
 
-clientRouter.get('/:clientId', async(req, res)=> {
-    const id = Number(req.params.clientId);
-
+clientRouter.get('/', async(req, res)=> {
+    const client = req.user as client
+    const id = Number(client?.id);
     try{
         const client = await getClient(Number(id));
         res.json(client)
@@ -22,17 +22,17 @@ clientRouter.get('/:clientId', async(req, res)=> {
 
 
 
-clientRouter.patch('/:clientId', async(req, res)=> {
+clientRouter.patch('/', async(req, res)=> {
+    const client = req.user as client
     const { name = null, email = null, is_mailing = undefined } = req.body;
-    const clientId = Number(req.params.clientId)
-    await patchClient(clientId, name, email, is_mailing);
+    await patchClient(Number(client?.id), name, email, is_mailing);
     res.status(constants.HTTP_STATUS_OK).send();
 })
 
 
-clientRouter.delete('/:clientId', async(req, res) => {
-    const clientId = Number(req.params.clientId)
-    await deleteClient(clientId);
+clientRouter.delete('/', async(req, res) => {
+    const client = req.user as client
+    await deleteClient(Number(client?.id));
     res.sendStatus(constants.HTTP_STATUS_OK)
 })
 

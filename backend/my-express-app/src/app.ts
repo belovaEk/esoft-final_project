@@ -14,7 +14,7 @@ import favouriteRouter from './controllers/favoutitesController';
 import { orderRouter } from './controllers/orederController';
 import clientRouter from './controllers/clientsController';
 
-import { getFederatedCredentials, createFederatedCredentials } from './data/sql/auth';
+import { getFederatedCredentials, createFederatedCredentials, getUser } from './data/sql/auth';
 import { getClient, postClient } from './data/sql/clientsData';
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.SESSION_SECRET) {
@@ -26,7 +26,7 @@ passport.serializeUser((user: any, done) => {
 
 passport.deserializeUser(async (id: number, done) => {
     try {
-        const user = await getClient(id);
+        const user = await getUser(id);
         done(null, user);
     } catch (err) {
         done(err);
@@ -61,7 +61,8 @@ passport.use(new GoogleStrategy({
                         email: email
                     });
                 } else {
-                    const user = await getClient(cred.client_id);
+                    const user = await getUser(cred.client_id);
+                    console.log(user)
                     return cb(null, user || false);
                 }
         } catch (err) {
@@ -78,7 +79,7 @@ const app = express();
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
@@ -97,7 +98,7 @@ app.use(session({
     secure: false, // Для localhost должно быть false
     sameSite: 'lax',
     httpOnly: true,
-    maxAge: 86400 * 365 
+    maxAge: 86400000 * 365 
   }
 }));
 
@@ -129,7 +130,7 @@ function ensureAuthenticated(req: express.Request, res: express.Response, next: 
   res.status(401).json({ error: 'Not authenticated' });
 }
 
-app.post('/auth/logout', (req, res) => {
+app.get('/auth/logout', (req, res) => {
   req.logout(() => {
     res.redirect('/');
   });

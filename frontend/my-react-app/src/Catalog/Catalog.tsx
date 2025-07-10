@@ -1,5 +1,3 @@
-import { clientId } from '../subFuncs'
-
 import styles from './Catalog.module.scss'
 
 import ProductCart from './ProductCart'
@@ -52,8 +50,6 @@ function Catalog(){
     const fetchTeas = async (reset = false) => {
         try {
             const params = new URLSearchParams();
-
-            params.append('clientId', String(clientId))
             
             if (sortOptions.sortBy) {
                 params.append('sortBy', sortOptions.sortBy);
@@ -88,9 +84,7 @@ function Catalog(){
 
             const data = await fetchGet(`teas?${params.toString()}`);
             setTeas(data);
-            
-            console.log(params.toString())
-            console.log(teas)
+        
         } catch (error) {
             console.error('Ошибка загрузки чаев:', error);
         }

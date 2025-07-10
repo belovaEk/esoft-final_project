@@ -1,5 +1,3 @@
-import { clientId } from '../subFuncs';
-
 import styles from './Order.module.scss'
 
 import { IMaskInput } from 'react-imask';
@@ -10,12 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { fetchPost, fetchGet } from '../subFuncs';
 
-
-interface Client {
-    id: number;
-    name: string;
-    email: string;
-}
 
 function PhoneInput({ value, onChange, hasError }: { value: string, onChange: (value: string) => void, hasError: boolean }) {
 
@@ -60,14 +52,13 @@ function Order(){
             
 
 
-    const [client, setClient] = useState<Client>();
+
     const [clientFormData, setClientFormData] = useState<OrderClientData>({
         name: '',         
         phone: '',        
     });
-    const getClientInfo = async(clientId: number) => {
-        const data = await fetchGet(`client/${clientId}`)
-        setClient(data[0])
+    const getClientInfo = async() => {
+        const data = await fetchGet(`client/`)
         setClientFormData(prev => ({
             ...prev,
             name: data[0].name
@@ -75,7 +66,7 @@ function Order(){
     }
 
     useEffect(() => {
-        getClientInfo(clientId);
+        getClientInfo();
     }, [])
 
     
@@ -98,7 +89,6 @@ function Order(){
 
 
     const orderData = {
-        client_id: clientId, // должен быть доступен из auth/сессии
         // name: clientFormData.name,
         // phone: clientFormData.phone,
         payment_method_id: deliveryMethod === 'post' ? 1 : paymentMethod,
@@ -152,14 +142,12 @@ function Order(){
       
         if (validateForm()) {
              try {
-                console.log(orderData)
-                await fetchPost('orders', orderData)
+                await fetchPost('orders/', orderData)
                 navigate('/thanks');
             } catch (error) {
                 console.error('Ошибка:', error);
             }
         } else {
-            console.log(errors)
         } 
     };
 

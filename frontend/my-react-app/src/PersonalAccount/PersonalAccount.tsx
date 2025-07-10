@@ -1,4 +1,4 @@
-import { clientId, fetchGet, fetchPatch, fetchDelete } from '../subFuncs';
+import { fetchGet, fetchPatch, fetchDelete } from '../subFuncs';
 
 import styles from './PersonalAccount.module.scss'
 
@@ -29,11 +29,9 @@ function PersonalAccount(){
         is_mailing: false,
     });
 
-    const getClientData = async(clientId: number) => {
-        const status = await fetchGet('auth/status')
-        console.log(status)
-        const quantity = await fetchGet(`favourites/${clientId}/count`);
-        let clientData = await fetchGet(`client/${clientId}`);
+    const getClientData = async() => {
+        const quantity = await fetchGet(`favourites/count`);
+        let clientData = await fetchGet(`client/`);
         clientData = clientData[0] as ClientI
         setfavQuantity(Number(quantity[0].count));
         setClient(clientData);
@@ -48,7 +46,7 @@ function PersonalAccount(){
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
 
-    const changeClientData = async (e: React.FormEvent, id: number) => {
+    const changeClientData = async (e: React.FormEvent) => {
         e.preventDefault();
         
         const dataToSend: Partial<ClientI> = {};
@@ -75,7 +73,7 @@ function PersonalAccount(){
         }
 
         try {
-            await fetchPatch(`client/${id}`, dataToSend);
+            await fetchPatch(`client/`, dataToSend);
             
             setClient(prev => ({
                 ...prev!,
@@ -90,8 +88,8 @@ function PersonalAccount(){
         
     };
 
-    const deleteAccount = async (clientId: number) => {
-        await fetchDelete(`client/${clientId}`)
+    const deleteAccount = async () => {
+        await fetchDelete(`client/`)
         navigate('/')
     }
 
@@ -102,7 +100,7 @@ function PersonalAccount(){
     }
 
     useEffect(() =>{
-        getClientData(clientId);
+        getClientData();
     }, [])
 
     return (
@@ -183,7 +181,7 @@ function PersonalAccount(){
                             <input type="text" id='name' placeholder='name' value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}/>
                             <label htmlFor="email">Почта</label>
                             <input type="email" placeholder='email' id='email' value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/>
-                            <button onClick={(e)=> changeClientData(e, clientId)}>Сохранить</button>
+                            <button onClick={(e)=> changeClientData(e)}>Сохранить</button>
                         </form>
 
                         <button className={[styles.ico, styles.logout].join(' ')}
@@ -250,7 +248,7 @@ function PersonalAccount(){
                             <button 
                             className={styles.settings_btn}
                             type="submit"
-                            onClick={(e) => changeClientData(e, clientId)}>Сохранить</button>
+                            onClick={(e) => changeClientData(e)}>Сохранить</button>
                         </div>
                     </div>
                 </>
@@ -272,7 +270,7 @@ function PersonalAccount(){
                                     <button className={styles.delete_btnNO}
                                     onClick={() => setIsDeleteModalOpen(false)}>НЕТ</button>
                                     <button className={styles.delete_btnYES}
-                                    onClick={() => deleteAccount(clientId)}>да</button>
+                                    onClick={() => deleteAccount()}>да</button>
                                 </div>
                             </div>
                         </>

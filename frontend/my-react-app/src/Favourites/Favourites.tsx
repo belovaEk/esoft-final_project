@@ -10,11 +10,8 @@ import { fetchGet } from '../subFuncs';
 function Favourites(){
 
     const [favouritesItems, setFavouritesItem] = useState([] as Tea[]);
-     
-    console.log(favouritesItems)
-    
-    const fetchFavouriteItems = async (clientId = 1) => {
-        const data = await fetchGet(`favourites/${clientId}`);
+    const fetchFavouriteItems = async () => {
+        const data = await fetchGet(`favourites/`);
         setFavouritesItem(data)
     }
 

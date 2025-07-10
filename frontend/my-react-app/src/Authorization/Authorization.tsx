@@ -1,8 +1,6 @@
 
 import styles from './Authorization.module.scss'
 
-import { useNavigate } from 'react-router-dom'
-
 function Authorization(){
 
     const loginGoogle = (e: React.FormEvent) => {
@@ -10,7 +8,6 @@ function Authorization(){
         window.location.href = 'http://localhost:8080/auth/google'
     }
 
-    const navigate = useNavigate()
  
     return(
         <div className={styles.main}>

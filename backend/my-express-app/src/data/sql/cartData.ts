@@ -13,11 +13,12 @@ export async function getCart(clientId: number) {
 }
 
 
-export async function patchCart(cartitem_id: number, newAmount: number) {
+
+export async function patchCart(client_id: number, tea_id:number, newAmount: number) {
     let query = sql
     `update cart
     set amount = ${newAmount}
-    where id = ${cartitem_id}`
+    where client_id = ${client_id} and tea_id = ${tea_id}`
     return await query
 }
 

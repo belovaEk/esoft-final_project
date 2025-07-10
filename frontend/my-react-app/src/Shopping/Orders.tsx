@@ -1,4 +1,3 @@
-import { clientId, fetchPost } from '../subFuncs'
 import styles from './Shopping.module.scss'
 
 import { useEffect, useState } from 'react';
@@ -12,13 +11,13 @@ function Orders(){
 
     const [orders, setOrders] = useState([] as OrderProps[])
 
-    const getOrders = async(clientId: number) => {
-        const ordersData = await fetchGet(`orders/${clientId}`)
+    const getOrders = async() => {
+        const ordersData = await fetchGet(`orders/`)
         setOrders(ordersData)
     }
 
     useEffect(() => {
-        getOrders(clientId)
+        getOrders()
     }, [])
 
     return(
@@ -70,13 +69,13 @@ function Order({pretty_id, date, status_name, items} : OrderProps){
     const navigate = useNavigate()
     const statusClass = statusStyles[status_name as keyof typeof statusStyles] || '';
 
-    async function repeatOrder(items: OrderItemProps[], client_id: number) {
+    async function repeatOrder(items: OrderItemProps[]) {
         try {
             const itemsToAdd = items.filter(item => !item.isCart);
         
 
             const addToCartPromises = itemsToAdd.map(item => 
-                postInCart(client_id, item.tea_id)
+                postInCart(item.tea_id)
             );
             
             await Promise.all(addToCartPromises);
@@ -97,7 +96,7 @@ function Order({pretty_id, date, status_name, items} : OrderProps){
                         <div>Статус:</div>
                         <div className={`${styles.order_status} ${styles[statusClass]}`}>{status_name}</div>
                     </div> 
-                    <button onClick={()=>repeatOrder(items, clientId)}>Повторить</button>               
+                    <button onClick={()=>repeatOrder(items)}>Повторить</button>               
                 </div>
                 <div className={styles.order_items}>
                     {items.map(item => (

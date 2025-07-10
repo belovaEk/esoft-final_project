@@ -27,6 +27,12 @@ export async function getFederatedCredentials(issuer: string, profileId: string)
     }
 }
 
+export async function getUser(id: number){
+    const user = await sql 
+    `SELECT id from client where id = ${id}`
+    return user[0]
+}
+
 export async function createFederatedCredentials(client_id: number, provider: string, subject: string) {
     let query = sql 
     ` INSERT INTO federated_credentials (client_id, provider, subject)

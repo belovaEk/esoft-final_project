@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import type { TeaType } from '../../types/tea.model';
+import type { TeaType } from '../../types/tea';
 
 const DB_PATH = path.join(__dirname, 'db_Tea.json');
 export let teaProducts: TeaType[] = [];
