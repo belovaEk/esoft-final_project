@@ -2,7 +2,6 @@ import '/src/assets/styles/App.css'
 import Header from "./Header/Header"
 import MainContent from "./MainContent/MainContent"
 import Footer from './Footer/Footer'
-import Authorization from './Authorization/Authorization'
 import PersonalAccount from './PersonalAccount/PersonalAccount'
 import Catalog from './Catalog/Catalog'
 import Favourites from './Favourites/Favourites'
@@ -18,8 +17,8 @@ import Orders from './Shopping/Orders'
 import Purchases from './Favourites/Purchases'
 import ProductPage from './ProductPage/ProductPage'
 import Cart from './Cart/Cart'
-import Order from './Order/Order'
-import ThanksOrder from './Order/ThanksOrder'
+import Order from './MakingOrder/Order'
+import ThanksOrder from './MakingOrder/ThanksOrder'
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -46,7 +45,6 @@ function App() {
       <Header />
       <Routes>
       <Route path="/" element={<MainContent />} />
-      <Route path="/auth" element={<Authorization />} />
       <Route path="/account" element={<PersonalAccount />} />
       <Route path='/catalog' element={<Catalog />}/>
       <Route path='/favourites' element={<Favourites />}/>

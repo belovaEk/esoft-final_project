@@ -7,12 +7,24 @@ import { useState, useEffect } from 'react';
 import type { Tea } from '../interface/teaItem';
 import { fetchGet } from '../subFuncs';
 
+import { AuthProposal, checkAuthStatus } from '../Authorization/Authorization';
+
 function Favourites(){
 
     const [favouritesItems, setFavouritesItem] = useState([] as Tea[]);
+
+    const [authStatus, setAuthStatus] = useState(false)
+
     const fetchFavouriteItems = async () => {
-        const data = await fetchGet(`favourites/`);
-        setFavouritesItem(data)
+        const clientStatus = await checkAuthStatus()
+        if (clientStatus) {
+            const data = await fetchGet(`favourites/`);
+            setFavouritesItem(data)
+            setAuthStatus(true)
+        }
+        else{
+            setAuthStatus(false)
+        }
     }
 
     useEffect(()=> {
@@ -28,7 +40,8 @@ function Favourites(){
         <main>
             <div className={styles.container}>
                 <h1>Избранное</h1>
-                <div  className={styles.content}>
+                {authStatus && (
+                     <div  className={styles.content}>
                      {favouritesItems?.length > 0 ? (
                             favouritesItems.map(item => (
                                <ProductCart
@@ -47,6 +60,11 @@ function Favourites(){
                             <div>Исследуйте мир чая!</div>
                         )}
                 </div>
+                )}
+                {!authStatus && (
+                    <AuthProposal />
+                    
+                )}
             </div>
         </main>
     )

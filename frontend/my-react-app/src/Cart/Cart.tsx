@@ -7,6 +7,8 @@ import { deleteInCart } from './cartFuncs'
 
 import type { Tea } from '../interface/teaItem'
 
+import { AuthProposal, checkAuthStatus } from '../Authorization/Authorization'
+
 function Cart(){
     const navigate = useNavigate()
 
@@ -14,10 +16,18 @@ function Cart(){
 
     const totalCartPrice = cartItems.reduce((sum, item) => sum + item.price*item.amount, 0);
 
+    const [authStatus, setAuthStatus] = useState(false);
+
     const fetchCartItems = async () => {
-         const data = await fetchGet(`cart/`);
-         setCartItems(data)
-         console.log(data)
+        const clientStatus = await checkAuthStatus();
+        if (clientStatus) {
+            const data = await fetchGet(`cart/`);
+            setCartItems(data)
+            setAuthStatus(true)
+        } else {
+            setAuthStatus (false)
+        }
+         
     }
 
     const updateCartItem = async (tea_id: number, newAmount: number) => {
@@ -72,7 +82,8 @@ function Cart(){
         <main>
              <div className={styles.container}>
                 <h1>Корзина</h1>
-                <div className={styles.content}>
+                {authStatus && (
+                    <div className={styles.content}>
                     <div className={styles.product_items}>
                         {cartItems?.length > 0 ? (
                             cartItems.map(item => (
@@ -103,6 +114,10 @@ function Cart(){
                         
                     </div>
                 </div>
+                )}
+                {!authStatus && (
+                    <AuthProposal />
+                )}
              </div>
         </main>
     )

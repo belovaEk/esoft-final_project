@@ -4,8 +4,8 @@ import styles from './PersonalAccount.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
-
-
+import AuthorizationModal from '../Authorization/Authorization';
+import { checkAuthStatus, logout } from '../Authorization/Authorization';
 
 interface ClientI{
     name: string;
@@ -20,6 +20,8 @@ function PersonalAccount(){
     const [isUserModalOpen, setIsUserModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
 
     const [favQuantity, setfavQuantity] = useState(0);
     const [client, setClient] = useState<ClientI>();
@@ -28,18 +30,26 @@ function PersonalAccount(){
         email: '',
         is_mailing: false,
     });
+    
+    const [authStatus, setAuthStatus] = useState(false);
 
     const getClientData = async() => {
-        const quantity = await fetchGet(`favourites/count`);
-        let clientData = await fetchGet(`client/`);
-        clientData = clientData[0] as ClientI
-        setfavQuantity(Number(quantity[0].count));
-        setClient(clientData);
-        setFormData({
-            name: clientData?.name || '',
-            email: clientData?.email || '',
-            is_mailing: clientData?.is_mailing || false,
-        })
+        const clientStatus = await checkAuthStatus();
+        setAuthStatus(clientStatus)
+        if (clientStatus) {
+            const quantity = await fetchGet(`favourites/count`);
+            let clientData = await fetchGet(`client/`);
+
+            clientData = clientData[0] as ClientI
+            setfavQuantity(Number(quantity[0]?.count) || 0);
+            setClient(clientData);
+            setFormData({
+                name: clientData?.name || '',
+                email: clientData?.email || '',
+                is_mailing: clientData?.is_mailing || false,
+            })
+        }
+        
     }
 
      const validateEmail = (email: string) => {
@@ -94,14 +104,23 @@ function PersonalAccount(){
     }
 
 
-    const logout = async () => {
-        await fetchGet('auth/logout')
-        navigate('/')
-    }
-
+    
     useEffect(() =>{
         getClientData();
     }, [])
+
+
+    
+
+    function clickName() {
+
+        if (!authStatus) {
+            setIsAuthModalOpen(true)
+        } else {
+            setIsUserModalOpen(true)
+        }
+    }
+
 
     return (
         <>
@@ -110,19 +129,29 @@ function PersonalAccount(){
                 <div className={styles.lk_container}>
                     <div className={styles.lk_aside}>
                         <div className={[styles.ico, styles.user_info].join(' ')}>
-                            <span onClick={() => setIsUserModalOpen(true)}>{client?.name || 'Укажите ваше имя'}</span>
+                            <span onClick={clickName}>{client?.name || 'Войти в аккаунт'}</span>
                         </div>
                         <div className={styles.lk_aside__item}>
                             <h3>Финансы</h3>
                             <ul>
-                                <li className={[styles.ico, styles.credit_card].join(' ')} onClick={() => setIsCardModalOpen(true)}>Способы оплаты</li>
+                                <li className={[styles.ico, styles.credit_card].join(' ')} onClick={() => {
+                                    if (authStatus) {
+                                        setIsCardModalOpen(true)
+                                    } else {
+                                        setIsAuthModalOpen(true)
+                                    }
+                                }}>Способы оплаты</li>
                                 {/* <li className={[styles.ico, styles.letterhead].join(' ')}>Реквизиты</li> */}
                             </ul>
                         </div>
                         <div className={styles.lk_aside__item}>
                             <h3>Управление</h3>
                             <ul>
-                                <li className={[styles.ico, styles.settings].join(' ')} onClick={() => setIsSettingsModalOpen(true)}>Настройки</li>
+                                <li className={[styles.ico, styles.settings].join(' ')} onClick={() =>{
+                                    if (authStatus) {
+                                         setIsSettingsModalOpen(true)
+                                    } else { setIsAuthModalOpen(true)}
+                                }}>Настройки</li>
                             </ul>
                         </div>
                     </div>
@@ -196,6 +225,11 @@ function PersonalAccount(){
         )
             
         }
+
+        {isAuthModalOpen && (
+               <AuthorizationModal 
+               closeFun={() => setIsAuthModalOpen(false)}/>
+)}
                 
 
         {isCardModalOpen && (

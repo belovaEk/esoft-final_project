@@ -126,3 +126,9 @@ html{
 *{
 	scrollbar-width: none;
 }
+
+  h1{
+        font-size: 2.1rem;
+        display: flex;
+        align-items: center;
+    }

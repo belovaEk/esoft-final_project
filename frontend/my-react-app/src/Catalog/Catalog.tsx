@@ -8,6 +8,10 @@ import { useEffect, useState } from 'react';
 import type { Tea } from '../interface/teaItem';
 import type { filterItem } from '../interface/filterItems';
 
+import { checkAuthStatus } from '../Authorization/Authorization';
+import AuthorizationModal from '../Authorization/Authorization';
+
+
 function Catalog(){
 
     const [teas, setTeas] = useState([] as Tea[]); 
@@ -16,7 +20,12 @@ function Catalog(){
     const [ingredients, setIngredients] = useState([] as filterItem[]);
     const [tastes, setTastes] = useState([] as filterItem[]);
 
+    const [authModal, setAuthModal] = useState(false);
+    const [authStatus, setAuthStatus] = useState(false);
 
+    function changeAuthModal() {
+        setAuthModal(prev => !prev)
+    }
 
     const [sortOptions, setSortOptions] = useState<{
         sortBy?: 'popular' | 'price';
@@ -48,6 +57,8 @@ function Catalog(){
     ];
 
     const fetchTeas = async (reset = false) => {
+        const clientStatus = await checkAuthStatus()
+        setAuthStatus(clientStatus)
         try {
             const params = new URLSearchParams();
             
@@ -245,14 +256,16 @@ function Catalog(){
                         {teas?.length > 0 ? (
                             teas.map(tea => (
                                <ProductCart
-                               key={tea.id}
-                               id={Number(tea.id)}
-                               name={tea.name}
-                               type_name={tea.type_name}
-                               description={tea.description}
-                               price={tea.price}
-                               isFav={tea.isfav}
-                               isCart={tea.iscart}
+                                key={tea.id}
+                                id={Number(tea.id)}
+                                name={tea.name}
+                                type_name={tea.type_name}
+                                description={tea.description}
+                                price={tea.price}
+                                isFav={tea.isfav}
+                                isCart={tea.iscart}
+                                authStatus={authStatus}
+                                authModal={changeAuthModal}
                                /> 
                             ))
                             ) : (
@@ -264,6 +277,11 @@ function Catalog(){
                     </div>
                  </div>
             </div>
+            {authModal && (
+                <AuthorizationModal 
+                closeFun={() => setAuthModal(false)}
+                />
+            )}
         </main>
     )
 }

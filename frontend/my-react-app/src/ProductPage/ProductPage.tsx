@@ -10,6 +10,10 @@ import { postInCart, deleteInCart } from '../Cart/cartFuncs';
 
 import type { Tea } from '../interface/teaItem';
 
+
+import { checkAuthStatus } from '../Authorization/Authorization';
+import AuthorizationModal from '../Authorization/Authorization';
+
 function ProductPage(){
     const { id } = useParams();
 
@@ -17,7 +21,15 @@ function ProductPage(){
     const [isFavourite, setIsFavourite ] = useState(false);
     const [isInCart, setIsInCart] = useState(tea?.iscart);
 
+
+    const [authModal, setAuthModal] = useState(false);
+    const [authStatus, setAuthStatus] = useState(false);
+
    async function getTea(id: number) {
+
+    const clientStatus = await checkAuthStatus()
+    setAuthStatus(clientStatus)
+
     try {
         const teaData = await fetchGet(`teas/${id}`);
         setTea(teaData);
@@ -83,7 +95,13 @@ function ProductPage(){
                         <button className={styles.like_btn}>
                             <img className={styles.img_cross} 
                             src={isFavourite ? '/ico/favourite.png' : "/ico/heart_lineColor.png"} alt=""
-                            onClick={(e)=> {if (tea) {changeFavourite(tea?.id, e) }}}/>
+                            onClick={(e)=> {
+                                if (authStatus) {
+                                    if (tea) {changeFavourite(tea?.id, e) }
+                                } else {
+                                    setAuthModal(true)
+                                } 
+                                }}/>
                         </button>
                         <div>
                             <span className={styles.tea_price}>{tea?.price}</span>
@@ -96,10 +114,15 @@ function ProductPage(){
                         {!isInCart ? (
                             <button className={styles.cart_btn}
                             onClick={() => {
-                                setIsInCart(true)
-                                if (tea) {
-                                    postInCart(tea.id)
+                                if (authStatus) {
+                                    setIsInCart(true)
+                                    if (tea) {
+                                        postInCart(tea.id)
+                                    }
+                                } else {
+                                    setAuthModal(true)
                                 }
+                                
                             }}>
                                 <span>в корзину</span>
                             </button>
@@ -117,7 +140,14 @@ function ProductPage(){
                     </div>
                 </div>
              </div>
+
+            {authModal && (
+                <AuthorizationModal
+                closeFun={()=> setAuthModal(false)}/>
+            )}
         </main>
+
+        
     )
 }
 

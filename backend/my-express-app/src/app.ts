@@ -16,8 +16,9 @@ import clientRouter from './controllers/clientsController';
 
 import { getFederatedCredentials, createFederatedCredentials, getUser } from './data/sql/auth';
 import { getClient, postClient } from './data/sql/clientsData';
+import { getTeas } from './data/sql/getTeasData';
 
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.SESSION_SECRET) {
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.SESSION_SECRET || !process.env.FRONTHOST || !process.env.PORT) {
     throw new Error('Missing required environment variables');
 }
 passport.serializeUser((user: any, done) => {
@@ -77,7 +78,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTHOST,
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -111,7 +112,7 @@ app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/callback', 
   passport.authenticate('google', { 
     failureRedirect: '/login',
-    successRedirect: 'http://localhost:5173/' 
+    successRedirect: process.env.FRONTHOST
   })
 );
 
@@ -139,13 +140,13 @@ app.get('/auth/logout', (req, res) => {
 
 app.use('/teas', teasRouter);
 app.use('/filter', filterRouter);
-app.use('/cart',cartRouter);
-app.use('/orders',  orderRouter);
-app.use('/client',  clientRouter);
-app.use('/favourites', favouriteRouter)
+app.use('/cart', ensureAuthenticated, cartRouter);
+app.use('/orders', ensureAuthenticated, orderRouter);
+app.use('/client',  ensureAuthenticated, clientRouter);
+app.use('/favourites',  ensureAuthenticated, favouriteRouter)
 
 
-const PORT = 8080;
+const PORT = process.env.PORT;
 
 
 app.listen(PORT, (err) => {

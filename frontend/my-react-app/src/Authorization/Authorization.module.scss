@@ -1,73 +1,72 @@
-.background{
-    position: absolute;
+
+.overlay{
+    position: fixed;
     inset: 0;
-    z-index: 5;
-    background-color: #e4e2e2;
+    width: 100%;
+    height: 100%;
+    background-color: #6161618f;
+    z-index: 1;
 }
 
 
-.container{
-    z-index: 6;
-    width: 500px;
-    // height: 600px;
-    height: 300px;
-    border: 1px solid #543019;
-    border-radius: 10px;
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    display: inline-block;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 50px;
-    background-color: #e4e2e2;
-
-    img{
-        width: 80px;
+.modal{
+    .btn_exit{
+        background: url(/ico/cross_color.png);
+        background: no-repeat cover;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
     }
+    position: fixed;
+    max-width: 420px;
+    height: max-content;
+    inset: 0;
+    margin: 0 auto;
+    z-index: 2;
+    top: 30%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 20px 7px rgba(78, 78, 78, 0.3);
+    padding: 30px 20px;
+}
 
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        gap: 20px;
-
-        input{
-            border: 1px solid #543019;
-            height: 40px;
-            padding: 5px;
-            border-radius: 5px;
-            background-color: white;
+.title{
+        font-size: 2.1rem;
+        justify-content: center;
         }
 
-        button{
-            // margin-top: 60px;
+        .title::after {
+            content: "";
+            display: inline-block;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: url(/logo/logo_color.png); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-left: 8px; 
+        }   
+
+        .authBtn{
+            margin-top: 60px;
             border-radius: 5px;
             height: 80px;
-            // padding: 5px;
             padding: 15px;
             width: 100%;
             background-color: #543019;
             color: white;
-        }
-    }
+            max-width: 600px;
 }
 
-  h1{
-        font-size: 2.1rem;
-        display: flex;
-        align-items: center;
-    }
+.noAuthText{
+    margin-top: 60px;
+    font-size: 1.5rem;
+    color: #543019;
+}
 
-    .title::after {
-        content: "";
-        display: inline-block;
-        width: 3.5rem;
-        height: 3.5rem;
-        background: url(/logo/logo_color.png); 
-        background-size: contain;
-        background-repeat: no-repeat;
-        margin-left: 8px; 
+.noAuthConteiner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

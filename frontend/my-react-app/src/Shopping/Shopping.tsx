@@ -7,8 +7,12 @@ function Shopping(){
             <div className={styles.container}>
                 <nav className={styles.shopping_navigate}>
                     <ul>
-                        <li><NavLink to="orders" className={styles.link}>Заказы</NavLink></li>
-                        <li> <NavLink to="purchases" className={styles.link}>Покупки</NavLink></li>
+                        <li><NavLink to="orders" className={({ isActive }) => 
+                                    isActive ? `${styles.link} ${styles.active}` : styles.link
+                                }>Заказы</NavLink></li>
+                        <li> <NavLink to="purchases" className={({ isActive }) => 
+                                    isActive ? `${styles.link} ${styles.active}` : styles.link
+                                }>Купленные ранее</NavLink></li>
                     </ul>
                 </nav>
                 <Outlet />

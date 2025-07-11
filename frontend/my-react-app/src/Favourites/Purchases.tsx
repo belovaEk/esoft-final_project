@@ -6,14 +6,21 @@ import { fetchGet } from '../subFuncs'
 import { useEffect, useState } from 'react'
 import type { Tea } from '../interface/teaItem'
 
+import { AuthProposal, checkAuthStatus } from '../Authorization/Authorization';
+
 
 function Purchases(){
 
     const [teas, setTeas] = useState([] as Tea[])
+    const [authStatus, setAuthStatus] = useState(false);
 
     const getTeas = async() => {
-        const teasData = await fetchGet(`orders/prevPurchased`);
-        setTeas(teasData);
+        const clientStatus = await checkAuthStatus();
+        setAuthStatus(clientStatus)
+        if(clientStatus) {
+            const teasData = await fetchGet(`orders/prevPurchased`);
+            setTeas(teasData);
+        }
     }
 
     useEffect(() =>{
@@ -23,21 +30,24 @@ function Purchases(){
     return (
         <section>
              <div className={styles.container}>
-                <h1>Купленные ранее</h1>
-                <div  className={styles.content}>
-                    {teas.map(tea => (
-                        <ProductCart 
-                        key={tea.id}
-                        id={tea.id}
-                        name={tea.name}
-                        type_name={tea.type_name}
-                        description={tea.type_name}
-                        price={tea.price}
-                        isFav={tea.isfav}
-                        isCart={tea.iscart}/>
-                    ))}
-                   
-                </div>
+                {authStatus && (
+                    <div className={styles.content}>
+                        {teas.map(tea => (
+                            <ProductCart 
+                            key={tea.id}
+                            id={tea.id}
+                            name={tea.name}
+                            type_name={tea.type_name}
+                            description={tea.type_name}
+                            price={tea.price}
+                            isFav={tea.isfav}
+                            isCart={tea.iscart}/>
+                        ))}
+                    </div>
+                )}
+                {!authStatus && (
+                    <AuthProposal />
+                )}
             </div>
         </section>
     )

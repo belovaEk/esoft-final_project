@@ -11,6 +11,10 @@
 
             .link{
                 color: rgb(128, 128, 128);
+
+                &.active{
+                    color: black;
+                }
             }
 
             .link:hover{
@@ -97,3 +101,4 @@
 
   
 }
+

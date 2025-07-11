@@ -4,16 +4,25 @@ import { useEffect, useState } from 'react';
 
 import { fetchGet } from '../subFuncs';
 
-
+import { AuthProposal, checkAuthStatus } from '../Authorization/Authorization';
 
 
 function Orders(){
 
     const [orders, setOrders] = useState([] as OrderProps[])
 
+    const [authStatus, setAuthStatus] = useState(false);
+
     const getOrders = async() => {
-        const ordersData = await fetchGet(`orders/`)
-        setOrders(ordersData)
+        const clientStatus = await checkAuthStatus();
+        if(clientStatus) {
+            const ordersData = await fetchGet(`orders/`)
+            setOrders(ordersData)
+            setAuthStatus(true)
+        } else {
+            setAuthStatus(false)
+        }
+        
     }
 
     useEffect(() => {
@@ -22,7 +31,8 @@ function Orders(){
 
     return(
         <section>
-            <div className={styles.orders_content}>
+            {authStatus && (
+                <div className={styles.orders_content}>
                 {orders.map(order => (
                     <Order 
                     key={order.pretty_id}
@@ -33,6 +43,10 @@ function Orders(){
                     />
                 ))}
             </div>
+            )}
+            {!authStatus && (
+                <AuthProposal />
+            )}
             
         </section>
     )
@@ -64,6 +78,7 @@ const statusStyles = {
 
 import { useNavigate } from 'react-router-dom'
 import { postInCart } from '../Cart/cartFuncs';
+
 function Order({pretty_id, date, status_name, items} : OrderProps){
 
     const navigate = useNavigate()

@@ -1,12 +1,12 @@
 .container{
     margin: 0 20%;
      h1{
-        margin-bottom: 80px;
         text-align: center;
         display: block;
      }
 
      .content{
+        margin-top: 60px;
         display: grid;
         grid-template-columns: (1.5fr 1fr);
         gap: 30px;

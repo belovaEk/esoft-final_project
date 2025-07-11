@@ -1,6 +1,6 @@
 
 import styles from './ProductCart.module.scss'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { fetchDelete } from '../subFuncs';
 
@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 
 import { postFavourite} from '../Favourites/FavFuncs';
 import { postInCart, deleteInCart } from '../Cart/cartFuncs';
+
 
 
 interface ProductCartProps {
@@ -20,26 +21,37 @@ interface ProductCartProps {
     isCart: boolean;
 
     onFavouriteChange?: (id:number )=> void;
+
+    authStatus?: boolean;
+    authModal?: ()=> void;
 }
 
-const ProductCart = React.memo(({id, name, type_name, description, price, isFav, isCart, onFavouriteChange}: ProductCartProps) => {
+const ProductCart = React.memo(({id, name, type_name, description, price, isFav, isCart, onFavouriteChange, authStatus, authModal}: ProductCartProps) => {
 
     const [isFavourite, setIsFavourite] = useState(isFav);
     const [isInCart, setIsInCart] = useState(isCart);
 
+
+   
+
     const isOnFavouritesPage = useLocation().pathname === '/favourites'
     const navigate = useNavigate();
-
     
     const changeFavourite = async( teaId: number, e: React.MouseEvent) =>{
-        if (isFavourite) {
+        e.stopPropagation();
+        if (!authStatus ) {
+            authModal?.()
+        }
+        else {
+            if (isFavourite) {
             setIsFavourite(false);
             deleteInFavourite( teaId, e)
-        } else{
-             e.stopPropagation(); 
-            setIsFavourite(true);
-            return await postFavourite(teaId)
-    }
+            } else{
+                 
+                setIsFavourite(true);
+                return await postFavourite(teaId)
+            }
+        }   
     }
 
     const deleteInFavourite = async(teaId: number, e: React.MouseEvent) =>{
@@ -52,6 +64,18 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
         params.append('teaId', String(teaId))
 
         return await fetchDelete(`favourites?${params.toString()}`)
+    }
+
+
+    const addToCart = (e: React.MouseEvent, teaId: number) => {
+         e.stopPropagation();
+         if (!authStatus) {
+            authModal?.()
+        } else {
+            e.stopPropagation();
+            postInCart(teaId);
+            setIsInCart(true);
+        }
     }
     
     return(
@@ -84,11 +108,7 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
                     {!isInCart ? (
                         <button
                             className={styles.cart_btn}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                postInCart(id);
-                                setIsInCart(true);
-                            }}>
+                            onClick={(e) => addToCart(e, id)}>
                             <span>{price} Р/100унц</span>
                         </button>
                     ) : 
@@ -106,6 +126,7 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
                 </div>
             </div>
         </article>
+
     )
 })
 
