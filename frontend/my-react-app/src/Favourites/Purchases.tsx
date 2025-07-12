@@ -40,7 +40,9 @@ function Purchases(){
                             type_name={tea.type_name}
                             description={tea.type_name}
                             price={tea.price}
+                            img_name={tea.img_name}
                             isFav={tea.isfav}
+                            authStatus={authStatus}
                             isCart={tea.iscart}/>
                         ))}
                     </div>

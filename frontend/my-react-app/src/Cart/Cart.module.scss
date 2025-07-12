@@ -155,3 +155,15 @@
 input[type=checkbox]{
      accent-color: #757575
 } 
+
+.conteinerNoItems{
+    display: flex;
+    justify-content: center;
+    .linkToCatalog{
+        color: #543019;
+        text-decoration: underline;
+        font-weight: 500;
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+}

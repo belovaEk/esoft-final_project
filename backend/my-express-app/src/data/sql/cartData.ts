@@ -3,7 +3,7 @@ import sql from "./db";
 
 export async function getCart(clientId: number) {
     let query = sql
-    `select c.id as cartItem_id, t.id, t.name, t.description, t.price, c.amount
+    `select c.id as cartItem_id, t.id, t.img_name, t.description, t.price, c.amount
     from  cart c 
     join tea t on c.tea_id = t.id
     where c.client_id = ${clientId}

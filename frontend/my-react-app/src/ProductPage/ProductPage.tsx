@@ -66,7 +66,7 @@ function ProductPage(){
 
                 <div className={styles.main_content}>
                     <div className={styles.tea_img}>
-                        <img src={`/tea/${tea?.name}.png`} alt="" />
+                        <img src={`/tea/${tea?.img_name}.png`} alt="" />
                     </div>
                     <div className={styles.tea_description}>
                         <div className={styles.tea_text}>

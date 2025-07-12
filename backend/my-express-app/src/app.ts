@@ -112,7 +112,7 @@ app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/callback', 
   passport.authenticate('google', { 
     failureRedirect: '/login',
-    successRedirect: process.env.FRONTHOST
+    successRedirect: `${process.env.FRONTHOST}/catalog`
   })
 );
 

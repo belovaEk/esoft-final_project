@@ -7,7 +7,7 @@ function Header(){
 
     return(
         <header className={styles.container}>
-            <div>
+            <div onClick={() => navigate('/')}>
                 <h1>TeaTime</h1>
             </div>
             <nav>

@@ -15,12 +15,10 @@ function Orders(){
 
     const getOrders = async() => {
         const clientStatus = await checkAuthStatus();
+        setAuthStatus(clientStatus)
         if(clientStatus) {
             const ordersData = await fetchGet(`orders/`)
             setOrders(ordersData)
-            setAuthStatus(true)
-        } else {
-            setAuthStatus(false)
         }
         
     }
@@ -57,6 +55,7 @@ export default Orders
 type OrderItemProps = {
     tea_id: number;
     tea_name: string;
+    tea_img_name: string;
     isCart: boolean;
 }
 
@@ -116,7 +115,7 @@ function Order({pretty_id, date, status_name, items} : OrderProps){
                 <div className={styles.order_items}>
                     {items.map(item => (
                          <div className={styles.order_item}>
-                            <img className={styles.order_img} src={`/tea/${item.tea_name}.png`} alt="" onClick={()=> navigate(`/catalog/${item.tea_id}`)}/>
+                            <img className={styles.order_img} src={`/tea/${item.tea_img_name}.png`} alt="" onClick={()=> navigate(`/catalog/${item.tea_id}`)}/>
                             <span>{item.tea_name}</span>
                         </div>
                     ))}

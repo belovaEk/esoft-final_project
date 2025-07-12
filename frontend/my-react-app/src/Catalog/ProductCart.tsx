@@ -1,6 +1,6 @@
 
 import styles from './ProductCart.module.scss'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { fetchDelete } from '../subFuncs';
 
@@ -19,14 +19,15 @@ interface ProductCartProps {
     price?: number;
     isFav: boolean;
     isCart: boolean;
+    img_name: string;
 
     onFavouriteChange?: (id:number )=> void;
 
-    authStatus?: boolean;
+    authStatus: boolean;
     authModal?: ()=> void;
 }
 
-const ProductCart = React.memo(({id, name, type_name, description, price, isFav, isCart, onFavouriteChange, authStatus, authModal}: ProductCartProps) => {
+const ProductCart = React.memo(({id, name, type_name, description, price, isFav, isCart, onFavouriteChange, authStatus, authModal, img_name}: ProductCartProps) => {
 
     const [isFavourite, setIsFavourite] = useState(isFav);
     const [isInCart, setIsInCart] = useState(isCart);
@@ -100,7 +101,7 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
                 </div>
                 <div className={styles.cart_content}>
                     <div className={styles.cart_img}>
-                        <img src={`/tea/${name}.png`}alt="" />  
+                        <img src={`/tea/${img_name}.png`}alt="" />  
                     </div>
                     <h2>{name}</h2>
                     <p><i>{type_name}</i></p>

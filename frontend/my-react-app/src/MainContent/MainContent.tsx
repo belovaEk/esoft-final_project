@@ -1,11 +1,10 @@
-import { useEffect } from 'react'
-import styles from './MainContent.module.scss'
 
+import styles from './MainContent.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 function MainContent(){
 
-    useEffect(()=> {
-    }, [])
+    const navigate = useNavigate();
 
     return(
         <main>
@@ -21,7 +20,7 @@ function MainContent(){
             <section className={styles.assortment}>
                 <div className={styles.container}>
                     <h2 className={styles.title}> Попробуйте всю коллекцию</h2>
-                    <ul className={styles.assortment__list}>
+                    <ul className={styles.assortment__list} onClick={() => navigate('/catalog')}>
                         <li className={styles.assortment_item}>
                             <img className={styles.assortment__img} src="/img_main/black.jpg" alt="" />
                             <p className={styles.assortment__name}>Чёрный</p>

@@ -2,7 +2,6 @@
 import styles from './Authorization.module.scss'
 import { fetchGet } from '../subFuncs';
 
-
 interface AuthorizationModalProps {
     closeFun: () => void;
 }
@@ -17,13 +16,14 @@ export const logout = async () => {
     await fetchGet('auth/logout')
 }
 
-const loginGoogle = (e: React.FormEvent) => {
-        e.preventDefault();
-        window.location.href = 'http://localhost:8080/auth/google'
-    }
 
 function AuthorizationModal({closeFun} : AuthorizationModalProps){
     
+
+    const loginGoogle = (e: React.FormEvent) => {
+        e.preventDefault();
+        window.location.href = `http://localhost:8080/auth/google`;
+    }
      
     return (
         <>
@@ -39,7 +39,7 @@ function AuthorizationModal({closeFun} : AuthorizationModalProps){
                             <div className={styles.modal_container}>
                                 <h1 className={styles.title}>TeaTime</h1>
                                 <form action="">
-                                    <AuthButton/>
+                                    <AuthButton onClick={loginGoogle}/>
                                 </form>
                             </div>
                         </div>
@@ -47,18 +47,26 @@ function AuthorizationModal({closeFun} : AuthorizationModalProps){
     )
 }
 
+interface AuthButtonProps {
+    onClick?: (e: React.FormEvent) => void;
+}
 
-export function AuthButton () {
+export function AuthButton ({ onClick }: AuthButtonProps) {
     return (
-        <button className={styles.authBtn} onClick={(e) => loginGoogle(e)}>Войти c Google</button>
+        <button className={styles.authBtn} onClick={onClick}>Войти c Google</button>
     )
 }
 
 export function AuthProposal() {
+
+    const loginGoogle = (e: React.FormEvent) => {
+        e.preventDefault();
+        window.location.href = `http://localhost:8080/auth/google`;
+    }
     return (
         <div className={styles.noAuthConteiner}>
             <p className={styles.noAuthText}>Скорее вступайте в нашу чайную семью! </p>
-            <AuthButton />
+            <AuthButton onClick={loginGoogle}/>
         </div>
     )
 }

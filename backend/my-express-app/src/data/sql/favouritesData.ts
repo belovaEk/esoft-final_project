@@ -3,7 +3,7 @@ import sql from "./db";
 
 export async function getFavourites(clientId: number) {
     let query = sql
-    `select f.id as favouriteitem_id, t.id, t.name, t.description, t.price,  ty.name AS type_name,
+    `select f.id as favouriteitem_id, t.id, t.name, t.description, t.price,  t.img_name, ty.name AS type_name,
     case when cart.tea_id is not null then true else false end as isCart
     from  favourite f 
     join tea t on f.tea_id = t.id

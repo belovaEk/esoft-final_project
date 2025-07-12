@@ -6,6 +6,7 @@ import ProductCart from '../Catalog/ProductCart'
 import { useState, useEffect } from 'react';
 import type { Tea } from '../interface/teaItem';
 import { fetchGet } from '../subFuncs';
+import { useNavigate } from 'react-router-dom';
 
 import { AuthProposal, checkAuthStatus } from '../Authorization/Authorization';
 
@@ -15,11 +16,14 @@ function Favourites(){
 
     const [authStatus, setAuthStatus] = useState(false)
 
+    const navigate = useNavigate()
+
     const fetchFavouriteItems = async () => {
         const clientStatus = await checkAuthStatus()
         if (clientStatus) {
             const data = await fetchGet(`favourites/`);
             setFavouritesItem(data)
+            console.log(data)
             setAuthStatus(true)
         }
         else{
@@ -54,10 +58,17 @@ function Favourites(){
                                isFav={true}
                                isCart={item.iscart}
                                onFavouriteChange={deleteFavouriteItem}
+                               authStatus={true}
+                               img_name={item.img_name}
                                /> 
                             ))
                             ) : (
-                            <div>Исследуйте мир чая!</div>
+                                <div className={styles.conteinerNoItems}>
+                                    <a 
+                                    className={styles.linkToCatalog}
+                                    onClick={() => navigate('/')} >Исследуйте мир чая!</a>
+                                </div>
+                          
                         )}
                 </div>
                 )}

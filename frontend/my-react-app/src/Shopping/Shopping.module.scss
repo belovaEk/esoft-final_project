@@ -78,6 +78,8 @@
         max-width: 300px;
         overflow-x: scroll;
         cursor: pointer;
+        scrollbar-width: thin;
+
 
         .order_item{
             font-size: 0.6rem;
@@ -101,4 +103,5 @@
 
   
 }
+
 

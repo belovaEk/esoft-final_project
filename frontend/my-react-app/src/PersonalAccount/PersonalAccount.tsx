@@ -214,7 +214,10 @@ function PersonalAccount(){
                         </form>
 
                         <button className={[styles.ico, styles.logout].join(' ')}
-                        onClick={()=> logout()}>Выйти</button>
+                        onClick={()=> {
+                            logout();
+                            window.location.reload()
+                        }}>Выйти</button>
                         <button className={styles.delete_btn} onClick={()=> {
                             setIsUserModalOpen(false)
                             setIsDeleteModalOpen(true)

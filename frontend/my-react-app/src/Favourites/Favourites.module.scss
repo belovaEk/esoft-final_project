@@ -12,3 +12,16 @@
     }
 }
 
+.conteinerNoItems{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    grid-column: span 4;
+    .linkToCatalog{
+        color: #543019;
+        text-decoration: underline;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+}

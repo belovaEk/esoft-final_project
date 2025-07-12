@@ -65,8 +65,8 @@ function Cart(){
     };
 
 
-    const onCartChange = (cartitem_id: number) => {
-         setCartItems((prev) => prev.filter(item => item.cartitem_id !== cartitem_id));
+    const onCartChange = (teaId: number) => {
+         setCartItems((prev) => prev.filter(item => item.id !== teaId));
     }
 
          
@@ -90,7 +90,7 @@ function Cart(){
                                <Item
                                key={item.cartitem_id}
                                teaId={item.id}
-                               name={item.name}
+                               img_name={item.img_name}
                                description={item.description}
                                price={item.price}
                                amount={item.amount}
@@ -101,7 +101,11 @@ function Cart(){
                                /> 
                             ))
                             ) : (
-                            <div>Пока ничего нет</div>
+                            <div className={styles.conteinerNoItems}>
+                                    <a 
+                                    className={styles.linkToCatalog}
+                                    onClick={() => navigate('/')} >Исследуйте мир чая!</a>
+                            </div>
                         )}
                     </div>
                     <div className={styles.order_container}>
@@ -125,7 +129,7 @@ function Cart(){
 
 interface itemCartProps {
     teaId: number;
-    name: string;
+    img_name: string;
     description?: string;
     price: number;
     amount: number;
@@ -136,7 +140,7 @@ interface itemCartProps {
 }
 
 
-const Item = React.memo(({teaId, name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
+const Item = React.memo(({teaId, img_name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
     const navigate = useNavigate()
     return(
         <article className={styles.item_container}>
@@ -147,9 +151,9 @@ const Item = React.memo(({teaId, name, description, price, amount, onIncrease, o
                     }}></button>
             </div>
             <div className={styles.item_content}>
-                <div className={styles.img}><img src={`/tea/${name}.png`}alt="" onClick={()=> navigate(`/catalog/${teaId}`)}/></div>
+                <div className={styles.img}><img src={`/tea/${img_name}.png`}alt="" onClick={()=> navigate(`/catalog/${teaId}`)}/></div>
                 <div className={styles.description}>
-                    <h2>{name}</h2>
+                    <h2>{img_name}</h2>
                     <p>{description}</p>
                 </div>
                 <div className={styles.count}>
