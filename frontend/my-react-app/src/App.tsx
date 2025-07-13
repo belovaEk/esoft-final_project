@@ -7,6 +7,7 @@ import Catalog from './Catalog/Catalog'
 import Favourites from './Favourites/Favourites'
 import Faq from './article_footer/Faq'
 
+import { Shops } from './article_footer/Shops'
 import Contacts from './article_footer/Contacts'
 import Vacancies from './article_footer/Vacancies'
 import About from './article_footer/About'
@@ -63,6 +64,7 @@ function App() {
       <Route path="/vacancies" element={<Vacancies />} />
       <Route path="/about" element={<About />} />
       <Route path='/supplier' element={<Supplier />}/>
+      <Route path='/shops' element={<Shops />}/>
       <Route path='/delivery' element={<Delivery />}/>
       <Route path='/thanks' element={<ThanksOrder />}/>
 

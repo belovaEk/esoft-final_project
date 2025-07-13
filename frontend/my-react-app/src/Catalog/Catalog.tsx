@@ -3,7 +3,7 @@ import styles from './Catalog.module.scss'
 import ProductCart from './ProductCart'
 
 import { fetchGet } from '../subFuncs'
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { Tea } from '../interface/teaItem';
 import type { filterItem } from '../interface/filterItems';
@@ -22,6 +22,53 @@ function Catalog(){
 
     const [authModal, setAuthModal] = useState(false);
     const [authStatus, setAuthStatus] = useState(false);
+
+    const itemsPerPage = 6;
+    const [currentTeas, setCurrentTeas] = useState([] as Tea[]);
+    const [itemOffset, setItemOffset] = useState(0);
+    const [pageCount, setPageCount] = useState(0)
+    const [currentPage, setCurrenPage] = useState(1);
+    const [startPage, setStartPage] = useState(1);
+    const [endPage, setEndPage] = useState(1);
+    
+
+
+    function paginatedItems(teas: Tea[]){
+        const endOffset = itemOffset + itemsPerPage;
+        const newPageCount = Math.ceil(teas.length / itemsPerPage);
+        const newCurrentPage = Math.floor(itemOffset/itemsPerPage) + 1;
+        
+        setCurrentTeas(teas.slice(itemOffset, endOffset));
+        setPageCount(newPageCount);
+        setCurrenPage(newCurrentPage);
+
+    }
+
+    const visiblePages = useMemo(() => {
+        const start = Math.max(1, currentPage - 2);
+        setStartPage(start);
+    
+        const end = Math.min(pageCount, currentPage + 2);
+        setEndPage(end);
+
+        return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    }, [currentPage, pageCount]);
+
+    const handlePageClickNext = () => {
+            setItemOffset(prev => prev + itemsPerPage)
+            window.scrollTo(0, 0);
+
+    }
+    const handlePageClickBack = () => {
+        setItemOffset(prev => prev - itemsPerPage)
+        window.scrollTo(0, 0);
+    }
+
+
+    const handlePageClickNum = (num: number) => {
+        setItemOffset((num - 1) * itemsPerPage)
+        window.scrollTo(0, 0);
+    }
 
     function changeAuthModal() {
         setAuthModal(prev => !prev)
@@ -92,7 +139,7 @@ function Catalog(){
 
             const data = await fetchGet(`teas?${params.toString()}`);
             setTeas(data);
-        
+            setItemOffset(0);
         } catch (error) {
             console.error('Ошибка загрузки чаев:', error);
         }
@@ -122,6 +169,7 @@ function Catalog(){
     const resetFilter = () => {
         setFilterOptions({});
         setPriceFilter(null);
+        setItemOffset(0);
     }
 
     useEffect(() => {
@@ -140,8 +188,12 @@ function Catalog(){
         fetchFilterItems('types', setTypes);
         fetchFilterItems('ingredients', setIngredients);
         fetchFilterItems('tastes', setTastes);
+       
     }, [sortOptions]);
 
+    useEffect(() => {
+        paginatedItems(teas);
+    }, [teas, itemOffset]); 
 
     return (
         <main>
@@ -250,8 +302,8 @@ function Catalog(){
 
                     <div className={styles.catalog_container}>
                         
-                        {teas?.length > 0 ? (
-                            teas.map(tea => (
+                        {currentTeas?.length > 0 ? (
+                            currentTeas.map(tea => (
                                <ProductCart
                                 key={tea.id}
                                 id={Number(tea.id)}
@@ -265,6 +317,7 @@ function Catalog(){
                                 authModal={changeAuthModal}
                                 img_name={tea.img_name}
                                /> 
+                               
                             ))
                             ) : (
                             <div>Активно ищем...</div>
@@ -272,6 +325,27 @@ function Catalog(){
 
                     
 
+                    </div>
+
+                    <div className={styles.pag_container}>
+                        <button
+                            className={itemOffset === 0 ? styles.pagDis_btn : styles.pag_btn}
+                            onClick={handlePageClickBack}
+                            disabled={itemOffset === 0}
+                        >Назад</button>
+                        {startPage > 1 && <span>...</span>}
+                        {visiblePages.map(item => (
+                        <div
+                        key={item}
+                        className={currentPage === item ? styles.pag_btnActive : styles.pag_btn}
+                        onClick={()=> handlePageClickNum(item)}>{item}</div> 
+                        ))}
+                        {endPage < pageCount && <span>...</span>}
+                        <button
+                        className={itemOffset + itemsPerPage >= teas.length ? styles.pagDis_btn : styles.pag_btn}
+                            onClick={handlePageClickNext}
+                            disabled={itemOffset + itemsPerPage >= teas.length}
+                        >Дальше</button>
                     </div>
                  </div>
             </div>

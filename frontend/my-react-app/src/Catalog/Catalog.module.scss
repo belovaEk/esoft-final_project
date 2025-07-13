@@ -66,6 +66,7 @@
 
     .content{
         padding: 20px;
+        flex-basis: 100%;
 
         .sort_container{
             display: flex;
@@ -121,4 +122,30 @@
 
 .filters__btn:disabled{
     cursor: default;
+}
+
+.pag_container{
+    width: 100%;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    align-items: flex-start;
+
+
+    .pag_btn{
+        font-weight: 300;
+        cursor: pointer;
+    }
+    .pag_btn:hover{
+        color:#543019;
+        font-weight: 500;
+    }
+
+    .pag_btnActive{
+        font-weight: 600;
+    }
+    .pagDis_btn{
+        color: #d3d3d3;
+    }    
 }

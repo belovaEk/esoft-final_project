@@ -61,7 +61,7 @@ function Footer(){
                         <h3 className={styles.menu_item__title}>Контакты</h3>
                         <ul className={styles.menu_item__list}>
                             <li onClick={()=> navigate('/contacts')}>Контакты</li>
-                            <li>Магазины</li>
+                            <li onClick={()=> navigate('/shops')}>Магазины</li>
                         </ul>
                     </div>
                     <div className={styles.menu_item}>
