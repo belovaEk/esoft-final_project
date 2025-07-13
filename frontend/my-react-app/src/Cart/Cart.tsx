@@ -104,7 +104,7 @@ function Cart(){
                             <div className={styles.conteinerNoItems}>
                                     <a 
                                     className={styles.linkToCatalog}
-                                    onClick={() => navigate('/')} >Исследуйте мир чая!</a>
+                                    onClick={() => navigate('/catalog')} >Исследуйте мир чая!</a>
                             </div>
                         )}
                     </div>
