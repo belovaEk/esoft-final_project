@@ -95,9 +95,10 @@ function Catalog(){
     }
 
     const priceRanges: PriceRange[] = [
+        { label: "До 250 Р", min: 0, max: 250 },
         { label: "От 250 Р до 500 Р", min: 250, max: 500 },
         { label: "От 500 Р до 1000 Р", min: 500, max: 1000 },
-        { label: "От 1000 Р до 5000 Р", min: 1000, max: 5000 },
+        { label: "От 1000 Р", min: 1000 },
     ];
 
     const fetchTeas = async (reset = false) => {

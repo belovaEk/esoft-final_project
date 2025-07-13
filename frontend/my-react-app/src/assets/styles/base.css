@@ -119,14 +119,6 @@ html{
 	color: white;
 }
 
-*::-webkit-scrollbar{
-	display: none;
-}
-
-*{
-	scrollbar-width: none;
-}
-
   h1{
         font-size: 2.1rem;
         display: flex;
