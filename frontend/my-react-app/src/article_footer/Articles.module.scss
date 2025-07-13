@@ -88,7 +88,12 @@
 }
 
 
-#map{
-    width: 400px;
-    height: 300px;
+.map_conteiner{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.map{
+     border: #543019 solid 3px;
 }
