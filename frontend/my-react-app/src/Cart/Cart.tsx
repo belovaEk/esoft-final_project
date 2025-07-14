@@ -90,6 +90,7 @@ function Cart(){
                                <Item
                                key={item.cartitem_id}
                                teaId={item.id}
+                               name={item.name}
                                img_name={item.img_name}
                                description={item.description}
                                price={item.price}
@@ -129,6 +130,7 @@ function Cart(){
 
 interface itemCartProps {
     teaId: number;
+    name: string;
     img_name: string;
     description?: string;
     price: number;
@@ -140,7 +142,7 @@ interface itemCartProps {
 }
 
 
-const Item = React.memo(({teaId, img_name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
+const Item = React.memo(({teaId, name, img_name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
     const navigate = useNavigate()
     return(
         <article className={styles.item_container}>
@@ -153,7 +155,7 @@ const Item = React.memo(({teaId, img_name, description, price, amount, onIncreas
             <div className={styles.item_content}>
                 <div className={styles.img}><img src={`/tea/${img_name}.png`}alt="" onClick={()=> navigate(`/catalog/${teaId}`)}/></div>
                 <div className={styles.description}>
-                    <h2>{img_name}</h2>
+                    <h2>{name}</h2>
                     <p>{description}</p>
                 </div>
                 <div className={styles.count}>
