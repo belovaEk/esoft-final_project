@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api: string = 'http://localhost:8080'
+const api: string = import.meta.env.VITE_BACK_HOST
 
 
  

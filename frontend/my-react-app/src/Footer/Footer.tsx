@@ -48,8 +48,8 @@ function Footer(){
                         
                     </div>
                     <ul className={styles.subscript_social}>
-                        <li><a href="https://vk.com/moreslez_0" className={styles.link_vk} target='_blank'>Vkontakte</a></li>
-                        <li><a href="https://t.me/moreslez0" className={styles.link_tg} target='_blank'>Telegram</a></li>
+                        <li><a href="" className={styles.link_vk} target='_blank'>Vkontakte</a></li>
+                        <li><a href="" className={styles.link_tg} target='_blank'>Telegram</a></li>
                     </ul>
                 </div>
             </div>
