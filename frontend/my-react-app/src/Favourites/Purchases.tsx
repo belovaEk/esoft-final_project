@@ -38,7 +38,7 @@ function Purchases(){
                             id={tea.id}
                             name={tea.name}
                             type_name={tea.type_name}
-                            description={tea.type_name}
+                            description={tea.description}
                             price={tea.price}
                             img_name={tea.img_name}
                             isFav={tea.isfav}
