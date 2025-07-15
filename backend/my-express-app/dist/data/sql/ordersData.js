@@ -25,6 +25,7 @@ function getOrders(client_id) {
         'item_id', i.id,
         'tea_id', i.tea_id,
 		'tea_name', t.name,
+        'tea_img_name', t.img_name,
         'quantity', i.quantity,
         'isCart', CASE WHEN cart.tea_id IS NOT NULL THEN true ELSE false END
 
@@ -44,7 +45,7 @@ function getprevPurchased(client_id) {
     return __awaiter(this, void 0, void 0, function* () {
         let query = (0, db_1.default) `SELECT DISTINCT ON (o_i.tea_id)
 	o_i.tea_id as id,
-	t.name, t.price, t.description, 
+	t.name, t.price, t.description, t.img_name,
 	country.name as country_name,
 	type.name AS type_name,
 	CASE WHEN fav.tea_id IS NOT NULL THEN true ELSE false END as isFav,

@@ -19,7 +19,7 @@ exports.deleteCartItem = deleteCartItem;
 const db_1 = __importDefault(require("./db"));
 function getCart(clientId) {
     return __awaiter(this, void 0, void 0, function* () {
-        let query = (0, db_1.default) `select c.id as cartItem_id, t.id, t.name, t.description, t.price, c.amount
+        let query = (0, db_1.default) `select c.id as cartItem_id, t.id, t.name, t.img_name, t.description, t.price, c.amount
     from  cart c 
     join tea t on c.tea_id = t.id
     where c.client_id = ${clientId}

@@ -3,7 +3,7 @@ import  express  from "express";
 
 import { getFilterOptions } from "../data/sql/getTeasData";
 
-const filterRouter = express.Router()
+export const filterRouter = express.Router()
 
 filterRouter.get('/types', async(req, res) => {
     const types = await getFilterOptions('type');
@@ -24,6 +24,3 @@ filterRouter.get('/tastes', async(req, res) => {
     const tastes = await getFilterOptions('taste');
     res.json(tastes)
 })
-
-
-export default filterRouter

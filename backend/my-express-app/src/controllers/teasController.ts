@@ -1,13 +1,13 @@
 import  express  from "express";
 
-const teasRouter = express.Router();
+export const teasRouter = express.Router();
 import { getTeas } from "../data/sql/getTeasData";
 import { getTea } from "../data/sql/getTeasData";
-import { client } from "../types/auth";
+import { cookieClient } from "./auth/types";
 
 teasRouter.get('/', async (req, res) => {
     const {  sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds} = req.query;
-    const client = req.user as client
+    const client = req.user as cookieClient
     try {
         const teas = await getTeas({
             clientId: Number(client?.id) || undefined,
@@ -30,12 +30,7 @@ teasRouter.get('/', async (req, res) => {
 
 
 teasRouter.get('/:teaId', async(req, res) => {
-    const client = req.user as client
+    const client = req.user as cookieClient
     const tea = await getTea(Number(req.params.teaId), Number(client?.id) || undefined)
     res.json(tea)
 })
-
-
-
-
-export default teasRouter;

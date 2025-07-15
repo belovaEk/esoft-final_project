@@ -19,7 +19,7 @@ exports.deleteFavouriteItem = deleteFavouriteItem;
 const db_1 = __importDefault(require("./db"));
 function getFavourites(clientId) {
     return __awaiter(this, void 0, void 0, function* () {
-        let query = (0, db_1.default) `select f.id as favouriteitem_id, t.id, t.name, t.description, t.price,  ty.name AS type_name,
+        let query = (0, db_1.default) `select f.id as favouriteitem_id, t.id, t.name, t.description, t.price,  t.img_name, ty.name AS type_name,
     case when cart.tea_id is not null then true else false end as isCart
     from  favourite f 
     join tea t on f.tea_id = t.id

@@ -26,7 +26,7 @@ const orederController_1 = require("./controllers/orederController");
 const clientsController_1 = __importDefault(require("./controllers/clientsController"));
 const auth_1 = require("./data/sql/auth");
 const clientsData_1 = require("./data/sql/clientsData");
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.SESSION_SECRET) {
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET || !process.env.SESSION_SECRET || !process.env.FRONTHOST || !process.env.PORT) {
     throw new Error('Missing required environment variables');
 }
 passport_1.default.serializeUser((user, done) => {
@@ -74,7 +74,7 @@ passport_1.default.use(new GoogleStrategy({
 }));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTHOST,
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -100,7 +100,7 @@ app.use(passport_1.default.session());
 app.get('/auth/google', passport_1.default.authenticate('google'));
 app.get('/auth/google/callback', passport_1.default.authenticate('google', {
     failureRedirect: '/login',
-    successRedirect: 'http://localhost:5173/'
+    successRedirect: `${process.env.FRONTHOST}/catalog`
 }));
 app.get('/auth/status', (req, res) => {
     res.json({ isAuthenticated: req.isAuthenticated(), client: req.user });
@@ -118,11 +118,11 @@ app.get('/auth/logout', (req, res) => {
 });
 app.use('/teas', teasController_1.default);
 app.use('/filter', teasFilterControllers_1.default);
-app.use('/cart', cartController_1.default);
-app.use('/orders', orederController_1.orderRouter);
-app.use('/client', clientsController_1.default);
-app.use('/favourites', favoutitesController_1.default);
-const PORT = 8080;
+app.use('/cart', ensureAuthenticated, cartController_1.default);
+app.use('/orders', ensureAuthenticated, orederController_1.orderRouter);
+app.use('/client', ensureAuthenticated, clientsController_1.default);
+app.use('/favourites', ensureAuthenticated, favoutitesController_1.default);
+const PORT = process.env.PORT;
 app.listen(PORT, (err) => {
     if (err) {
         console.log(err);
