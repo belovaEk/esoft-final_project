@@ -6,7 +6,7 @@ import { getTea } from "../data/sql/getTeasData";
 import { cookieClient } from "./auth/types";
 
 teasRouter.get('/', async (req, res) => {
-    const {  sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds} = req.query;
+    const {  sortBy, direction, typeIds, countryIds, minPrice, maxPrice, ingredientIds, tasteIds, search } = req.query;
     const client = req.user as cookieClient
     try {
         const teas = await getTeas({
@@ -19,7 +19,7 @@ teasRouter.get('/', async (req, res) => {
             maxPrice: Number(maxPrice) || undefined,
             ingredientIds: ingredientIds ? (ingredientIds as string).split(',').map(Number) : undefined,
             tasteIds: tasteIds ? (tasteIds as string).split(',').map(Number) : undefined,
-
+            search: search ? String(search) : undefined,
         });
         res.json(teas);
     } catch (error) {

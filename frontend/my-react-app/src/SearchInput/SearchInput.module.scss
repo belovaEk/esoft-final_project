@@ -1,0 +1,23 @@
+.input{
+    border: rgba(84, 48, 25, 0.1725490196) solid 0.3px;
+    width: 70%;
+    padding: 10px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+}
+
+.input:focus{
+    border: rgb(84, 48, 25) solid 0.3px;
+}
+.search_btn{
+    padding-bottom: 3px;
+    margin-left: -25px;
+    width: 16px;
+    height: 16px;
+    background: url(/ico/search.svg);
+    background-size: cover;
+}
+
+.cross {
+    background: url(/ico/cross_color.png);
+}

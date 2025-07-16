@@ -11,6 +11,8 @@ import type { filterItem } from '../interface/filterItems';
 import { checkAuthStatus } from '../Authorization/Authorization';
 import AuthorizationModal from '../Authorization/Authorization';
 
+import SearchInput from '../SearchInput/SearchInput';
+
 
 function Catalog(){
 
@@ -31,6 +33,7 @@ function Catalog(){
     const [startPage, setStartPage] = useState(1);
     const [endPage, setEndPage] = useState(1);
     
+    const [searchQuery, setSearchQuery] = useState('');
 
 
     function paginatedItems(teas: Tea[]){
@@ -136,6 +139,10 @@ function Catalog(){
                         if (range.max !== undefined) params.append('maxPrice', range.max.toString());
                     }
                 }
+
+                if (searchQuery) {
+                    params.append('search', searchQuery);
+                }
             }
 
             const data = await fetchGet(`teas?${params.toString()}`);
@@ -145,6 +152,10 @@ function Catalog(){
             console.error('Ошибка загрузки чаев:', error);
         }
 
+    };
+
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
     };
 
     const handleSort = (sortBy: 'popular' | 'price') => {
@@ -170,6 +181,7 @@ function Catalog(){
     const resetFilter = () => {
         setFilterOptions({});
         setPriceFilter(null);
+        setSearchQuery('');
         setItemOffset(0);
     }
 
@@ -190,11 +202,14 @@ function Catalog(){
         fetchFilterItems('ingredients', setIngredients);
         fetchFilterItems('tastes', setTastes);
        
-    }, [sortOptions]);
+    }, [sortOptions, searchQuery]);
 
     useEffect(() => {
         paginatedItems(teas);
     }, [teas, itemOffset]); 
+
+
+
 
     return (
         <main>
@@ -284,13 +299,16 @@ function Catalog(){
                         <button className={[styles.filters__btn, styles.btn_show].join(' ')} onClick={() => fetchTeas()}>ПОКАЗАТЬ</button>
                         <button className={styles.filters__btn}
                             onClick={()=> {resetFilter(); fetchTeas(true);}}
-                            disabled={!filterOptions.typeIds?.length && !filterOptions.countryIds?.length  && !filterOptions.tasteIds?.length  && !filterOptions.ingredientIds?.length && !priceFilter}
+                            disabled={!filterOptions.typeIds?.length && !filterOptions.countryIds?.length  && !filterOptions.tasteIds?.length  && !filterOptions.ingredientIds?.length && !priceFilter && !searchQuery}
                         >
                             СБРОСИТЬ ФИЛЬТРЫ
                         </button>
                     </div>
                 </div>
                  <div className={styles.content}>
+                    <SearchInput 
+                    onSearch={handleSearch}
+                    />
                     <div className={styles.sort_container}>
                         <h3>Сортировка:</h3>
                         <ul>
@@ -321,7 +339,7 @@ function Catalog(){
                                
                             ))
                             ) : (
-                            <div>Активно ищем...</div>
+                            <div>Ничего не найдено</div>
                         )}
 
                     

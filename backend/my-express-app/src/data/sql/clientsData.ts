@@ -26,26 +26,23 @@ export async function patchClient(
         throw new Error("Должно присутсвтовать хотя бы одно поле для изменения");
     }
 
-    const updates: string[] = [];
-    const params: any[] = [];
+
+    let baseQuery = sql `UPDATE client SET`
+    const params = []
 
     if (name !== undefined && name !== null) {
-        updates.push(`name = $${updates.length + 1}`);
-        params.push(name);
+        params.push(sql `name = ${name}`);
     }
     if (email !== undefined && email !== null) {
-        updates.push(`email = $${updates.length + 1}`);
-        params.push(email);
+        params.push( sql `email = ${email}`);
     }
     if (is_mailing !== undefined) {
-        updates.push(`is_mailing = $${updates.length + 1}`);
-        params.push(is_mailing);
+        params.push( sql `is_mailing = ${is_mailing}`);
     }
 
-    const queryString = `UPDATE client SET ${updates.join(', ')} WHERE id = $${updates.length + 1}`;
-    params.push(client_id);
-
-    return await sql.unsafe(queryString, params);
+    const queryString = sql `${baseQuery} ${params.join(', ')} where id = ${client_id}` 
+    console.log(queryString)
+    return await queryString;
 }
 
 export async function deleteClient(client_id: number) {

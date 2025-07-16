@@ -12,6 +12,8 @@ interface GetTeasOptions {
     tasteIds?: number[];
     minPrice?: number;
     maxPrice?: number;
+
+    search?: string;
 }
 
 export async function getTeas(options?: GetTeasOptions) {
@@ -61,16 +63,23 @@ export async function getTeas(options?: GetTeasOptions) {
             )`
     }
 
+    if (options?.search) {
+
+        query = sql 
+        `${query} and
+        tea.name ilike ${'%' + options.search + '%'}`
+    }
+
+
     if (options?.sortBy) {
 
         const orderBy = options.sortBy === 'popular' ? sql`orders` : sql`price`;
         const direction = options.direction === 'ASC' ? sql`ASC` : sql`DESC`;
         
         query = sql`${query} ORDER BY ${orderBy} ${direction}`;
-
-       
     }
 
+   console.log(query.values)
     return await query;
 }
 
