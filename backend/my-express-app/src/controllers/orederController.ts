@@ -20,10 +20,10 @@ orderRouter.get('/prevPurchased', async(req, res) =>{
 })
 
 orderRouter.post('/', async(req, res) => {
-   const { payment_method_id, shipping_address, delivery_method_id } = req.body;
+   const { payment_method_id, shipping_address, delivery_method_id, customer_name, customer_phone, confirmation_method_id } = req.body;
    const client = req.user as cookieClient
     try{
-        await createOrder(Number(client?.id), Number(payment_method_id), shipping_address, Number(delivery_method_id));
+        await createOrder(Number(client?.id), Number(payment_method_id), shipping_address, Number(delivery_method_id), customer_name, customer_phone, Number(confirmation_method_id));
         res.sendStatus(constants.HTTP_STATUS_CREATED)
     } catch {
         res.sendStatus(500)

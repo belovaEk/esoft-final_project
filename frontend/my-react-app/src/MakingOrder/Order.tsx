@@ -31,9 +31,6 @@ function PhoneInput({ value, onChange, hasError }: { value: string, onChange: (v
 interface DeliveryData {
   method: 'courier' | 'post';
   address: string;
-  flat: string;
-  entrance: string;
-  floor: string;
 }
 
 interface OrderClientData {
@@ -50,9 +47,6 @@ function Order(){
         deliveryMethod === 'post' ? setDeliveryMethod('courier') : setDeliveryMethod('post')
         }
             
-
-
-
     const [clientFormData, setClientFormData] = useState<OrderClientData>({
         name: '',         
         phone: '',        
@@ -73,10 +67,7 @@ function Order(){
 
     const [deliveryData, setDeliveryData] = useState<DeliveryData>({
         method: deliveryMethod,
-        address: '',
-        flat: '',
-        entrance: '',
-        floor: '',
+        address: ''
     });
 
     const [paymentMethod, setPaymentMethod] = useState<number | null>(null);
@@ -89,25 +80,14 @@ function Order(){
 
 
     const orderData = {
-        // name: clientFormData.name,
-        // phone: clientFormData.phone,
+        customer_name: clientFormData.name,
+        customer_phone: clientFormData.phone,
         payment_method_id: deliveryMethod === 'post' ? 1 : paymentMethod,
         delivery_method_id: deliveryMethod === 'courier' ? 1 : 2, // 1 - курьер, 2 - почта
-        shipping_address: formatAddress(deliveryData),
-        // confirmation_method: confirmationMethod,
+        shipping_address: deliveryData.address,
+        confirmation_method_id: confirmationMethod,
     };
 
-    function formatAddress(deliveryData: DeliveryData) {
-        let address = deliveryData.address;
-        if (deliveryMethod === 'courier') {
-            address += `, кв ${deliveryData.flat}`;
-            if (deliveryData.entrance) address += `, подъезд ${deliveryData.entrance}`;
-            if (deliveryData.floor) address += `, этаж ${deliveryData.floor}`;
-        }
-        return address;
-    }
-
- 
 
 
 
@@ -115,9 +95,6 @@ function Order(){
         name: false,
         phone: false,
         address: false,
-        flat: false,
-        entrance: false, 
-        floor: false,
         payment: false,
         confirmation: false
     });
@@ -127,9 +104,6 @@ function Order(){
             name: !clientFormData.name.trim(),
             phone: !clientFormData.phone || clientFormData.phone.includes('_'), 
             address: !deliveryData.address.trim(),
-            flat: deliveryMethod === 'courier' && !deliveryData.flat.trim(),
-            entrance: deliveryMethod === 'courier' && !deliveryData.entrance.trim(),
-            floor: deliveryMethod === 'courier' && !deliveryData.floor.trim(),
             payment: deliveryMethod === 'courier' && paymentMethod === null,
             confirmation: confirmationMethod === null 
         };
@@ -194,24 +168,6 @@ function Order(){
                                         <label htmlFor="address">Адрес доставки</label>
                                         <input type="text" placeholder='Адрес доставки' id='address' onChange={(e) => setDeliveryData({...deliveryData, address: e.target.value})} className={errors.address ? styles.errorInput : ''}/>
                                         {errors.address && <div className={styles.errorMessage}>Пожалуйста, укажите адрес</div>}
-                                         {deliveryMethod === 'courier' && (
-                                            <div className={styles.courier_container}>
-                                                <div>
-                                                    <label htmlFor="flat">Квартира</label>
-                                                    <input type="text" id='flat' onChange={(e) => setDeliveryData({...deliveryData, flat: e.target.value})} className={errors.flat ? styles.errorInput : ''}/>
-                                                </div>
-                                                <div>
-                                                    <label htmlFor="entrance">Подъезд</label>
-                                                    <input type="text" id='entrance' onChange={(e) => setDeliveryData({...deliveryData, entrance: e.target.value})} className={errors.entrance ? styles.errorInput : ''}/>
-                                                </div>
-                                                <div>
-                                                    <label htmlFor="floor">Этаж</label>
-                                                    <input type="text" id='floor' onChange={(e) => setDeliveryData({...deliveryData, floor: e.target.value})} className={errors.floor ? styles.errorInput : ''}/>
-                                                </div>
-                                           
-                                            </div>
-                                             )}
-                                             {deliveryMethod === 'courier' && (errors.flat || errors.entrance || errors.floor) && <div className={styles.errorMessage}>Пожалуйста, заполните все данные</div>}
                                         
                                     </form>
                                 </div>
@@ -256,11 +212,11 @@ function Order(){
                                 <form action="">
                                     <ul>
                                         <li>
-                                            <input name='confirmation' type="radio" id='sms' onClick={()=> setConfirmationMethod(1)}/>
+                                            <input name='confirmation' type="radio" id='sms' onClick={()=> setConfirmationMethod(2)}/>
                                             <label htmlFor="sms">СМС</label>
                                         </li>
                                         <li>
-                                            <input name='confirmation' type="radio" id='call' onClick={()=> setConfirmationMethod(2)}/>
+                                            <input name='confirmation' type="radio" id='call' onClick={()=> setConfirmationMethod(1)}/>
                                             <label htmlFor="call">Звонок оператора</label>
                                         </li>
                                     </ul>

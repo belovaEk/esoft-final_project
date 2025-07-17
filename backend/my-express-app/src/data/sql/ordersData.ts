@@ -49,9 +49,9 @@ export async function getprevPurchased(client_id: number) {
     return await query
 }
 
-export async function createOrder(client_id:number, payment_method_id: number, shipping_address: string, delivery_method_id: number) {
+export async function createOrder(client_id:number, payment_method_id: number, shipping_address: string, delivery_method_id: number, customer_name: string, customer_phone: string, confirmation_method_id: number) {
     let query = sql
-    `SELECT create_order_from_cart(${client_id}, ${payment_method_id}, ${shipping_address}, ${delivery_method_id}) AS order_id`
+    `SELECT create_order_from_cart(${client_id}, ${payment_method_id}, ${shipping_address}, ${delivery_method_id}, ${customer_name}, ${customer_phone}, ${confirmation_method_id}) AS order_id`
     return await query
 }
 

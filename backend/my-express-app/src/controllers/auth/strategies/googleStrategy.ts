@@ -26,7 +26,6 @@ export const configureGoogleStrategy = () => new GoogleStrategy({
                        });
                    } else {
                        const user = await getUser(cred.client_id);
-                       console.log(user)
                        return cb(null, user || false);
                    }
            } catch (err) {
