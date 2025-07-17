@@ -52,10 +52,6 @@ function PersonalAccount(){
         
     }
 
-     const validateEmail = (email: string) => {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    };
-
     const changeClientData = async (e: React.FormEvent) => {
         e.preventDefault();
         
@@ -65,12 +61,6 @@ function PersonalAccount(){
             dataToSend.name = formData.name.trim();
         }
         
-        if (formData.email.trim() && formData.email.trim() !== client?.email) {
-            if (!validateEmail(formData.email)) {
-                return;
-            }
-            dataToSend.email = formData.email.trim();
-        }
 
         if (formData.is_mailing != client?.is_mailing) {
             dataToSend.is_mailing = formData.is_mailing
@@ -209,7 +199,7 @@ function PersonalAccount(){
                             <label htmlFor="name">Имя</label>
                             <input type="text" id='name' placeholder='name' value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}/>
                             <label htmlFor="email">Почта</label>
-                            <input type="email" placeholder='email' id='email' value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/>
+                            <input type="email" placeholder='email' id='email' value={formData.email} disabled className={styles.form_email}/>
                             <button onClick={(e)=> changeClientData(e)}>Сохранить</button>
                         </form>
 

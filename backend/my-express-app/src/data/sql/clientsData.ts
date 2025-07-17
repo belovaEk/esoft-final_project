@@ -19,30 +19,21 @@ export async function postClient(name: string, email: string): Promise<number> {
 export async function patchClient(
     client_id: number,
     name?: string | null,
-    email?: string | null,
     is_mailing?: boolean | undefined
 ) {
-    if (name === undefined && email === undefined && is_mailing === undefined) {
+    if (name === undefined  && is_mailing === undefined) {
         throw new Error("Должно присутсвтовать хотя бы одно поле для изменения");
     }
 
-
-    let baseQuery = sql `UPDATE client SET`
-    const params = []
-
     if (name !== undefined && name !== null) {
-        params.push(sql `name = ${name}`);
-    }
-    if (email !== undefined && email !== null) {
-        params.push( sql `email = ${email}`);
-    }
-    if (is_mailing !== undefined) {
-        params.push( sql `is_mailing = ${is_mailing}`);
+        let query = sql `UPDATE client SET name = ${name} where id = ${client_id}`;
+        return await query
     }
 
-    const queryString = sql `${baseQuery} ${params.join(', ')} where id = ${client_id}` 
-    console.log(queryString)
-    return await queryString;
+    if (is_mailing !== undefined) {
+        let query = sql `UPDATE client SET is_mailing = ${is_mailing} where id = ${client_id}`;
+        return await query
+    }
 }
 
 export async function deleteClient(client_id: number) {

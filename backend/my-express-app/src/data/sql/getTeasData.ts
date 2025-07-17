@@ -67,7 +67,7 @@ export async function getTeas(options?: GetTeasOptions) {
 
         query = sql 
         `${query} and
-        tea.name ilike ${'%' + options.search + '%'}`
+        (tea.name ilike ${'%' + options.search + '%'} or type.name ilike ${'%' + options.search + '%'} or tea.description ilike ${'%' + options.search + '%'})`;
     }
 
 
@@ -78,8 +78,6 @@ export async function getTeas(options?: GetTeasOptions) {
         
         query = sql`${query} ORDER BY ${orderBy} ${direction}`;
     }
-
-   console.log(query.values)
     return await query;
 }
 

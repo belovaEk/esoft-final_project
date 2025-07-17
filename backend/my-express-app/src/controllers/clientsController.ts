@@ -24,8 +24,8 @@ clientRouter.get('/', async(req, res)=> {
 
 clientRouter.patch('/', async(req, res)=> {
     const client = req.user as cookieClient
-    const { name = null, email = null, is_mailing = undefined } = req.body;
-    await patchClient(Number(client?.id), name, email, is_mailing);
+    const { name = null, is_mailing = undefined } = req.body;
+    await patchClient(Number(client?.id), name, is_mailing);
     res.status(constants.HTTP_STATUS_OK).send();
 })
 

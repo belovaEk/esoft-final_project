@@ -45,9 +45,9 @@ function SearchInput({onSearch} : SearchInputProps) {
         />
         {(hasFocus || !searchQuery) && (
             <button
-        className={styles.search_btn}
-        onClick={handleSearch}
-        ></button>
+            className={styles.search_btn}
+            onClick={handleSearch}
+            ></button>
         )}
         
 
