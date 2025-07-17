@@ -4,6 +4,7 @@ import {  useNavigate } from 'react-router-dom'
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { fetchGet, fetchPatch } from '../subFuncs'
 import { deleteInCart } from './cartFuncs'
+import { ROUTES } from '../constants/routes'
 
 import type { Tea } from '../interface/teaItem'
 
@@ -105,7 +106,7 @@ function Cart(){
                             <div className={styles.conteinerNoItems}>
                                     <a 
                                     className={styles.linkToCatalog}
-                                    onClick={() => navigate('/catalog')} >Исследуйте мир чая!</a>
+                                    onClick={() => navigate(ROUTES.catalog)} >Исследуйте мир чая!</a>
                             </div>
                         )}
                     </div>
@@ -153,7 +154,7 @@ const Item = React.memo(({teaId, name, img_name, description, price, amount, onI
                     }}></button>
             </div>
             <div className={styles.item_content}>
-                <div className={styles.img}><img src={`/tea/${img_name}.png`}alt="" onClick={()=> navigate(`/catalog/${teaId}`)}/></div>
+                <div className={styles.img}><img src={`/tea/${img_name}.png`}alt="" onClick={()=> navigate(`${ROUTES.catalog}/${teaId}`)}/></div>
                 <div className={styles.description}>
                     <h2>{name}</h2>
                     <p>{description}</p>

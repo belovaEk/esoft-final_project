@@ -3,6 +3,8 @@ import { fetchGet, fetchPatch, fetchDelete } from '../subFuncs';
 import styles from './PersonalAccount.module.scss'
 
 import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../constants/routes';
+
 import { useEffect, useState } from 'react';
 import AuthorizationModal from '../Authorization/Authorization';
 import { checkAuthStatus, logout } from '../Authorization/Authorization';
@@ -88,7 +90,7 @@ function PersonalAccount(){
 
     const deleteAccount = async () => {
         await fetchDelete(`client/`)
-        navigate('/')
+        navigate(ROUTES.main)
     }
 
 
@@ -147,14 +149,14 @@ function PersonalAccount(){
                         <div className={styles.lk_wrapper}>
                             <ul>
                                 <li>
-                                    <div onClick={()=> navigate('/favourites')}>
+                                    <div onClick={()=> navigate(ROUTES.favourites)}>
                                         <h2>Избранное</h2>
                                         <p>Количество товаров: {favQuantity}</p>
                                     </div>
                                     <img src="ico/heart_color.png" alt="" />
                                 </li>
                                 <li>
-                                    <div onClick={()=> navigate('/shopping')}>
+                                    <div onClick={()=> navigate(ROUTES.shopping)}>
                                         <h2>Покупки</h2>
                                         <p>Смотреть</p>
                                     </div>
@@ -177,7 +179,7 @@ function PersonalAccount(){
                                     <a href='mailto:support_TeaTime@mail.ru' className={[styles.ico, styles.support].join(' ')}>Написать в поддержку</a>
                                 </li>
                                 <li>
-                                    <span className={[styles.ico, styles.faq].join(' ')} onClick={()=> navigate('/faq')}>Частые вопросы</span>
+                                    <span className={[styles.ico, styles.faq].join(' ')} onClick={()=> navigate(ROUTES.faq)}>Частые вопросы</span>
                                 </li>
                             </ul>
                         </div>

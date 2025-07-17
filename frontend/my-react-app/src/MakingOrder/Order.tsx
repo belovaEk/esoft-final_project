@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 import { fetchPost, fetchGet } from '../subFuncs';
-
+import { ROUTES } from '../constants/routes';
 
 function PhoneInput({ value, onChange, hasError }: { value: string, onChange: (value: string) => void, hasError: boolean }) {
 
@@ -117,7 +117,7 @@ function Order(){
         if (validateForm()) {
              try {
                 await fetchPost('orders/', orderData)
-                navigate('/thanks');
+                navigate(ROUTES.thanks);
             } catch (error) {
                 console.error('Ошибка:', error);
             }

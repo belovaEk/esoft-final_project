@@ -1,7 +1,8 @@
 import styles from './Footer.module.scss'
 
-import { useNavigate } from 'react-router-dom'
+import { Route, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
+import { ROUTES } from '../constants/routes';
 
 function Footer(){
 
@@ -60,29 +61,29 @@ function Footer(){
                         <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>Контакты</h3>
                         <ul className={styles.menu_item__list}>
-                            <li onClick={()=> navigate('/contacts')}>Контакты</li>
-                            <li onClick={()=> navigate('/shops')}>Магазины</li>
+                            <li onClick={()=> navigate(ROUTES.contacts)}>Контакты</li>
+                            <li onClick={()=> navigate(ROUTES.shopsAdress)}>Магазины</li>
                         </ul>
                     </div>
                     <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>О компании</h3>
                         <ul className={styles.menu_item__list}>
-                            <li onClick={()=> navigate('/vacancies')}>Вакансии</li>
-                            <li onClick={()=> navigate('/about')}>О нас</li>
+                            <li onClick={()=> navigate(ROUTES.vacancies)}>Вакансии</li>
+                            <li onClick={()=> navigate(ROUTES.about)}>О нас</li>
                         </ul>
                     </div>
                     <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>Бизнесу</h3>
                         <ul className={styles.menu_item__list}>
-                            <li onClick={()=> navigate('/supplier')}>Поставщикам</li>
+                            <li onClick={()=> navigate(ROUTES.supplier)}>Поставщикам</li>
                         </ul>
                     </div>
                     <div className={styles.menu_item}>
                         <h3 className={styles.menu_item__title}>Клиентам</h3>
                         <ul className={styles.menu_item__list}>
-                            <li onClick={()=> navigate('/delivery')}>Доставка и оплата</li>
-                            <li onClick={()=> navigate('/faq')}>Частые вопросы</li>
-                            <li onClick={()=> navigate('/account')}><img src="/ico/user.svg" alt="" />Кабинет</li>
+                            <li onClick={()=> navigate(ROUTES.delivery)}>Доставка и оплата</li>
+                            <li onClick={()=> navigate(ROUTES.faq)}>Частые вопросы</li>
+                            <li onClick={()=> navigate(ROUTES.account)}><img src="/ico/user.svg" alt="" />Кабинет</li>
                         </ul>
                     </div>
                     </div>        

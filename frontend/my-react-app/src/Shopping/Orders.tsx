@@ -76,6 +76,7 @@ const statusStyles = {
 }
 
 import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../constants/routes';
 import { postInCart } from '../Cart/cartFuncs';
 
 function Order({pretty_id, date, status_name, items} : OrderProps){
@@ -94,7 +95,7 @@ function Order({pretty_id, date, status_name, items} : OrderProps){
             
             await Promise.all(addToCartPromises);
             
-            navigate('/cart');
+            navigate(ROUTES.cart);
         } catch(error) {
             console.error('Ошибка при добавлении товаров в корзину:', error);
         }
@@ -115,7 +116,7 @@ function Order({pretty_id, date, status_name, items} : OrderProps){
                 <div className={styles.order_items}>
                     {items.map(item => (
                          <div className={styles.order_item}>
-                            <img className={styles.order_img} src={`/tea/${item.tea_img_name}.png`} alt="" onClick={()=> navigate(`/catalog/${item.tea_id}`)}/>
+                            <img className={styles.order_img} src={`/tea/${item.tea_img_name}.png`} alt="" onClick={()=> navigate(`${ROUTES.catalog}/${item.tea_id}`)}/>
                             <span>{item.tea_name}</span>
                         </div>
                     ))}

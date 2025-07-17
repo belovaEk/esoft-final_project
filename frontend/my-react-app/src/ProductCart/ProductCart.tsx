@@ -2,6 +2,8 @@
 import styles from './ProductCart.module.scss'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../constants/routes';
+
 import { fetchDelete } from '../subFuncs';
 
 import { useLocation } from 'react-router-dom';
@@ -35,7 +37,7 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
 
    
 
-    const isOnFavouritesPage = useLocation().pathname === '/favourites'
+    const isOnFavouritesPage = useLocation().pathname === ROUTES.favourites
     const navigate = useNavigate();
     
     const changeFavourite = async( teaId: number, e: React.MouseEvent) =>{
@@ -80,7 +82,7 @@ const ProductCart = React.memo(({id, name, type_name, description, price, isFav,
     }
     
     return(
-        <article className={styles.cart} onClick={()=> navigate(`/catalog/${id}`)}>
+        <article className={styles.cart} onClick={()=> navigate(`${ROUTES.catalog}/${id}`)}>
             <div className={styles.cart_inner}>
                 <div className={styles.cart_header}>
                     <img className={styles.img_cross} 

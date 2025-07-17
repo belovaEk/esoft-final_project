@@ -9,6 +9,7 @@ import { fetchGet } from '../subFuncs';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthProposal, checkAuthStatus } from '../Authorization/Authorization';
+import { ROUTES } from '../constants/routes';
 
 function Favourites(){
 
@@ -23,7 +24,6 @@ function Favourites(){
         if (clientStatus) {
             const data = await fetchGet(`favourites/`);
             setFavouritesItem(data)
-            console.log(data)
             setAuthStatus(true)
         }
         else{
@@ -66,7 +66,7 @@ function Favourites(){
                                 <div className={styles.conteinerNoItems}>
                                     <a 
                                     className={styles.linkToCatalog}
-                                    onClick={() => navigate('/catalog')} >Исследуйте мир чая!</a>
+                                    onClick={() => navigate(ROUTES.catalog)} >Исследуйте мир чая!</a>
                                 </div>
                           
                         )}
