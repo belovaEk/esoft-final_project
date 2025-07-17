@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './SearchInput.module.scss'
 
 
@@ -29,6 +29,12 @@ function SearchInput({onSearch} : SearchInputProps) {
             handleSearch();
         }
     };
+
+
+    useEffect(() => {
+        console.log(searchQuery)
+
+    }, [searchQuery])
 
 
 
