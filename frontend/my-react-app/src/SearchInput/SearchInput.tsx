@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './SearchInput.module.scss'
 
 
@@ -31,6 +31,12 @@ function SearchInput({onSearch} : SearchInputProps) {
     };
 
 
+    useEffect(() => {
+        console.log(searchQuery)
+
+    }, [searchQuery])
+
+
 
     return (
         <>
@@ -45,9 +51,9 @@ function SearchInput({onSearch} : SearchInputProps) {
         />
         {(hasFocus || !searchQuery) && (
             <button
-        className={styles.search_btn}
-        onClick={handleSearch}
-        ></button>
+            className={styles.search_btn}
+            onClick={handleSearch}
+            ></button>
         )}
         
 
