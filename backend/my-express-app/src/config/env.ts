@@ -12,18 +12,18 @@ type envExample = {
 
     /// бд
 
-    HOST: string;
-    PORTDB: number;
-    DATABASE: string;
-    DB_USERNAME: string;
-    PASSWORD: string;
+    DATABASE_HOST: string;
+    DATABASE_PORT: number;
+    DATABASE_NAME: string;
+    DATABASE_USERNAME: string;
+    DATABASE_PASSWORD: string;
 }
 
 export function ensureEnv() {
     if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET 
         || !process.env.SESSION_SECRET || !process.env.GOOGLE_CALLBACK_URL 
         || !process.env.PORT || !process.env.FRONTHOST 
-        || !process.env.HOST || !process.env.PORTDB || !process.env.DATABASE || !process.env.DB_USERNAME || !process.env.PASSWORD) {
+        || !process.env.DATABASE_HOST || !process.env.DATABASE_PORT || !process.env.DATABASE_NAME || !process.env.DATABASE_USERNAME || !process.env.DATABASE_PASSWORD) {
         throw new Error('Missing required environment variables');
     };
 }
