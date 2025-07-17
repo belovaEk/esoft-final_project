@@ -27,7 +27,6 @@ function PersonalAccount(){
     const [client, setClient] = useState<ClientI>();
     const [formData, setFormData] = useState({
         name:'',
-        email: '',
         is_mailing: false,
     });
     
@@ -45,7 +44,6 @@ function PersonalAccount(){
             setClient(clientData);
             setFormData({
                 name: clientData?.name || '',
-                email: clientData?.email || '',
                 is_mailing: clientData?.is_mailing || false,
             })
         }
@@ -199,7 +197,7 @@ function PersonalAccount(){
                             <label htmlFor="name">Имя</label>
                             <input type="text" id='name' placeholder='name' value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}/>
                             <label htmlFor="email">Почта</label>
-                            <input type="email" placeholder='email' id='email' value={formData.email} disabled className={styles.form_email}/>
+                            <input type="email" placeholder='email' id='email' value={client?.email} disabled className={styles.form_email}/>
                             <button onClick={(e)=> changeClientData(e)}>Сохранить</button>
                         </form>
 

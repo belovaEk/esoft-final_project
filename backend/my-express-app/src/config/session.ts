@@ -1,6 +1,7 @@
 import session from 'express-session';
 
 export const configureSession = () => session({
+    name: 'TeaTime.sid',
     secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,

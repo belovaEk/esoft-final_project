@@ -33,6 +33,14 @@ clientRouter.patch('/', async(req, res)=> {
 clientRouter.delete('/', async(req, res) => {
     const client = req.user as cookieClient
     await deleteClient(Number(client?.id));
+    req.session.destroy((err) => {
+       if (err) {
+         console.log(err);
+       } else {
+         // Сессия успешно удалена
+       }
+     });
+     res.clearCookie('TeaTime.side')
     res.sendStatus(constants.HTTP_STATUS_OK)
 })
 

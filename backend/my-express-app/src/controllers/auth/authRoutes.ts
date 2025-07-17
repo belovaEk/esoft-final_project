@@ -19,7 +19,15 @@ authRouter.get('/auth/status', (req, res) => {
 });
 
 authRouter.get('/auth/logout', (req, res) => {
-  req.logout(() => {
-    res.redirect('/');
-  });
+  req.logout((err) => {
+  if (err) console.error("Error during logout:", err);
+  req.session.destroy((err) => {
+       if (err) {
+         console.log(err);
+       } else {
+         // Сессия успешно удалена
+       }
+     });
+  res.clearCookie('TeaTime.side')
+});
 })
