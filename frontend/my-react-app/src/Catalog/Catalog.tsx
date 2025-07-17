@@ -1,6 +1,6 @@
 import styles from './Catalog.module.scss'
 
-import ProductCart from './ProductCart'
+import ProductCart from '../ProductCart/ProductCart'
 
 import { fetchGet } from '../subFuncs'
 import { useEffect, useMemo, useState } from 'react';

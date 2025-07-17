@@ -27,7 +27,6 @@ function Cart(){
         if (clientStatus) {
             const data = await fetchGet(`cart/`);
             setCartItems(data)
-             console.log(data)
         }
        
     }

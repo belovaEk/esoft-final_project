@@ -1,6 +1,6 @@
 import styles from './Favourites.module.scss'
 
-import ProductCart from '../Catalog/ProductCart'
+import ProductCart from '../ProductCart/ProductCart'
 
 
 import { useState, useEffect } from 'react';
