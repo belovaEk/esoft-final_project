@@ -31,12 +31,6 @@ function SearchInput({onSearch} : SearchInputProps) {
     };
 
 
-    useEffect(() => {
-        console.log(searchQuery)
-
-    }, [searchQuery])
-
-
 
     return (
         <>

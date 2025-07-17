@@ -1,7 +1,7 @@
 import styles from './Cart.module.scss'
 
-import { useNavigate } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
+import {  useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { fetchGet, fetchPatch } from '../subFuncs'
 import { deleteInCart } from './cartFuncs'
 
@@ -14,20 +14,22 @@ function Cart(){
 
     const [cartItems, setCartItems] = useState([] as Tea[]);
 
-    const totalCartPrice = cartItems.reduce((sum, item) => sum + item.price*item.amount, 0);
+    const totalCartPrice = useMemo(() => {
+        return cartItems.reduce((sum, item) => sum + item.price*item.amount, 0);
+    }, [cartItems])
+    
 
     const [authStatus, setAuthStatus] = useState(false);
 
     const fetchCartItems = async () => {
         const clientStatus = await checkAuthStatus();
+        setAuthStatus(clientStatus)
         if (clientStatus) {
             const data = await fetchGet(`cart/`);
             setCartItems(data)
-            setAuthStatus(true)
-        } else {
-            setAuthStatus (false)
+             console.log(data)
         }
-         
+       
     }
 
     const updateCartItem = async (tea_id: number, newAmount: number) => {
@@ -38,36 +40,35 @@ function Cart(){
         }
     }
 
-    const increaseAmount = (teaId: number) => {
-        setCartItems(prevItems =>
-            prevItems.map(item =>
-                item.id === teaId
-                    ? { ...item, amount: item.amount + 1}
-                    : item
-            )
-        );
-        const newAmount = cartItems.find(item => item.id === teaId)!.amount + 1;
-        updateCartItem(teaId, newAmount);
-    };
-
-    const decreaseAmount = (teaId: number) => {
-        setCartItems(prevItems =>
-            prevItems.map(item =>
-                item.id === teaId && item.amount > 1
-                    ? { ...item, amount: item.amount - 1 }
-                    : item
-            )
-        );
-        const newAmount = cartItems.find(item => item.id === teaId)!.amount - 1;
-        if (newAmount >= 1) {
+    const increaseAmount = useCallback((teaId: number) => {
+        setCartItems(prevItems => {
+            const updatedItems = prevItems.map(item =>
+                item.id === teaId ? { ...item, amount: item.amount + 1 } : item
+            );
+            const newAmount = updatedItems.find(item => item.id === teaId)!.amount;
             updateCartItem(teaId, newAmount);
-        }
-    };
+            return updatedItems;
+        });
+    }, []); 
+
+    const decreaseAmount = useCallback((teaId: number) => {
+        setCartItems(prevItems => {
+            const updatedItems = prevItems.map(item =>
+                item.id === teaId && item.amount > 1 ? { ...item, amount: item.amount - 1 } : item
+            );
+            const newAmount = updatedItems.find(item => item.id === teaId)!.amount - 1;
+            if (newAmount >= 1) {
+                updateCartItem(teaId, newAmount);
+            }
+            return updatedItems
+        });
+       
+    }, []);
 
 
-    const onCartChange = (teaId: number) => {
+    const onCartChange = useCallback((teaId: number) => {
          setCartItems((prev) => prev.filter(item => item.id !== teaId));
-    }
+    }, [])
 
          
 
@@ -97,8 +98,8 @@ function Cart(){
                                amount={item.amount}
                                onIncrease={() => increaseAmount(item.id)}
                                onDecrease={() => decreaseAmount(item.id)}
-                               deleteInCart={() => deleteInCart(item.id)}
-                               onCartChange={() => onCartChange(item.id)}
+                               deleteInCart={deleteInCart}
+                               onCartChange={onCartChange}
                                /> 
                             ))
                             ) : (
