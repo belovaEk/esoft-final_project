@@ -1,7 +1,15 @@
+.main{
+    padding-top: 20vh;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+}
+
 .container{
     margin: 0 20%;
-    
+
     display: flex;
+    justify-content: center;
     
     .filters{
         border: 0.3px solid #54301934;
@@ -68,6 +76,7 @@
         padding: 0px 20px;
         flex-basis: 100%;
 
+
         .sort_container{
             padding-top: 10px;
             display: flex;
@@ -89,6 +98,7 @@
             display: grid;
             grid-template-columns: repeat(3, auto);
             gap: 30px;
+            max-width: 40vw;
         }
     }
 

@@ -212,7 +212,7 @@ function Catalog(){
 
 
     return (
-        <main>
+        <main className={styles.main}>
             <div className={styles.container}>
                 <div className={styles.filters}>
                     <div className={styles.filters_inner}>
