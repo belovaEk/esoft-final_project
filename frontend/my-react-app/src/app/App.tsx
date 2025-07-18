@@ -1,6 +1,5 @@
 import '/src/assets/styles/App.css'
-import Header from "../Header/Header"
-import Footer from '../Footer/Footer'
+import { MainLayout } from '../layout/MainLayot';
 
 import ScrollToTop from '../utils/scrollToTop'
 import { AppRoutes } from './appRoutes'
@@ -15,14 +14,13 @@ function App() {
 
   return (
     <>
-    
     <Router>
-      <ScrollToTop />
-      <Header />
-      <AppRoutes/>
-    <Footer />
-
+        <MainLayout>
+          <ScrollToTop />
+          <AppRoutes/>
+        </MainLayout>
     </Router>
+
     </>
   )
 }

@@ -2,7 +2,7 @@ import styles from './Articles.module.scss'
 
 function Contacts(){
     return(
-        <main>
+        <>
             <div className={styles.container}>
                 <h1>Контакты</h1>
                 <ContactCity city='Тюмень' 
@@ -32,7 +32,7 @@ function Contacts(){
                 </div>
             
             </div>
-        </main>
+        </>
     )
 }
 

@@ -2,7 +2,7 @@ import styles from './Articles.module.scss'
 
 function About(){
     return(
-        <main>
+        <>
             <div className={styles.container}>
                 <h1>О нас</h1>
                 <div className={styles.ContactCity_container}>
@@ -25,7 +25,7 @@ function About(){
                     <p><i>Ваш Teatime.</i></p>
                 </div>
             </div>
-        </main>
+        </>
     )
 }
 

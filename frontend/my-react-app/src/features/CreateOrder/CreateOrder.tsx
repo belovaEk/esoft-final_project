@@ -23,7 +23,7 @@ function Order(){
 
 
     return(
-        <main>
+        <div>
             <div className={styles.container}>
                 <h1>Оформление заказа</h1>
                 <div className={styles.content}>
@@ -133,7 +133,7 @@ function Order(){
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     )
 }
 

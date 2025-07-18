@@ -28,7 +28,7 @@ function Cart(){
 
 
     return (
-        <main>
+        <div>
              <div className={styles.container}>
                 <h1>Корзина</h1>
                 {authStatus ?  (
@@ -73,7 +73,7 @@ function Cart(){
                 )}
                 
              </div>
-        </main>
+        </div>
     )
 }
 

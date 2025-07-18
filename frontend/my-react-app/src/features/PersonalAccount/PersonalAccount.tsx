@@ -48,7 +48,6 @@ function PersonalAccount(){
 
     return (
         <>
-         <main>
             <div className={styles.main_container}>
                 <div className={styles.lk_container}>
                     <div className={styles.lk_aside}>
@@ -120,7 +119,6 @@ function PersonalAccount(){
                     </div>
                 </div>
             </div>
-        </main>
 
         {isUserModalOpen && client && (
             <UserSettingsModal

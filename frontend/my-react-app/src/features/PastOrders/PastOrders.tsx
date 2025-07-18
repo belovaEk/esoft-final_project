@@ -4,7 +4,7 @@ import { ROUTES } from '../../constants/routes';
 
 function PastOrders(){
     return(
-        <main>
+        <>
             <div className={styles.container}>
                 <nav className={styles.shopping_navigate}>
                     <ul>
@@ -19,7 +19,7 @@ function PastOrders(){
                 </nav>
                 <Outlet />
             </div>
-        </main>
+        </>
     )
 }
 

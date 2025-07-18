@@ -23,7 +23,7 @@ function ProductPage(){
 
 
     return (
-        <main>
+        <>
              <div className={styles.container}>
                 <h1>{tea?.name || "Загрузка..."}</h1>
 
@@ -108,7 +108,7 @@ function ProductPage(){
                 <AuthorizationModal
                 closeFun={()=> setAuthModal(false)}/>
             )}
-        </main>
+        </>
 
         
     )

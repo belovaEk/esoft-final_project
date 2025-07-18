@@ -1,7 +1,7 @@
 import styles from './Articles.module.scss'
 function Faq(){
     return (
-        <main>
+        <>
              <div className={styles.container}>
                 <h1>Частые вопросы</h1>
                 <div className={styles.faq_items}>
@@ -27,7 +27,7 @@ function Faq(){
                     </div>
                 </div>
              </div>
-        </main>
+        </>
     )
 }
 

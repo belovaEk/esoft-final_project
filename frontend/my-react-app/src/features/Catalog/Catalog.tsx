@@ -7,7 +7,6 @@ import SearchInput from '../../components/UI/SearchInput/SearchInput';
 import { useCatalog } from './hooks/useCatalog';
 import { itemsPerPage } from './constants/catalog';
 
-
 function Catalog(){
 
     const  {
@@ -45,7 +44,7 @@ function Catalog(){
 
 
     return (
-        <main className={styles.main}>
+        <div className={styles.main}>
             <div className={styles.container}>
                 <div className={styles.filters}>
                     <div className={styles.filters_inner}>
@@ -206,7 +205,7 @@ function Catalog(){
                 closeFun={() => setAuthModal(false)}
                 />
             )}
-        </main>
+        </div>
     )
 }
 

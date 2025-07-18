@@ -16,7 +16,7 @@ function Favourites(){
 
 
     return(
-        <main>
+        <>
             <div className={styles.container}>
                 <h1>Избранное</h1>
                 {authStatus && (
@@ -52,7 +52,7 @@ function Favourites(){
                     
                 )}
             </div>
-        </main>
+        </>
     )
 }
 

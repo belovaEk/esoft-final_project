@@ -2,7 +2,7 @@ import styles from './Articles.module.scss'
 
 function Vacancies(){
     return (
-        <main>
+        <>
              <div className={styles.container}>
                  <h1>Вакансии</h1>
                 <div className={styles.ContactCity_container}>
@@ -27,7 +27,7 @@ function Vacancies(){
                     </ul>
                 </div>
              </div>
-        </main>
+        </>
     )
 }
 

@@ -2,7 +2,7 @@ import styles from './Articles.module.scss'
 
 function  Delivery(){
     return (
-        <main>
+        <>
             <div className={styles.container}>
                 <h1>Доставка и оплата<br />Мы доставляем все заказы бесплатно. </h1>
                 <div className={[styles.ContactCity_container, styles.delivery_container].join(' ')}>
@@ -26,7 +26,7 @@ function  Delivery(){
                     <p>Доставка в Бизнес-центры или торговые центры до входа или до ресепшн.</p>
                 </div>
             </div>
-        </main>
+        </>
     )
 }
 

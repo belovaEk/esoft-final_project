@@ -8,7 +8,7 @@ function MainContent(){
     const navigate = useNavigate();
 
     return(
-        <main>
+        <>
             <section className={styles.top_section}>
                 <div className={styles.container}>
                     <div className={styles.top_inner}>
@@ -73,7 +73,7 @@ function MainContent(){
                  </div>
                 
             </section>
-        </main>
+        </>
     )
 }
 

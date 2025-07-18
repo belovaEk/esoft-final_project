@@ -2,7 +2,7 @@ import styles from './Footer.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
-import { ROUTES } from '../constants/routes';
+import { ROUTES } from '../../constants/routes';
 
 function Footer(){
 

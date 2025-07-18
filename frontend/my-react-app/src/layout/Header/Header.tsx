@@ -1,7 +1,7 @@
 import styles from './Header.module.scss'
 
 import { useNavigate } from 'react-router-dom'
-import { ROUTES } from '../constants/routes'
+import { ROUTES } from '../../constants/routes'
 
 function Header(){
     const navigate = useNavigate()
