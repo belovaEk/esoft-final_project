@@ -2,3 +2,25 @@
     font-family: 'Montserrat Alternates';
 }
 
+main {
+    padding-top: 20vh;
+    margin-bottom: 80px;
+
+}
+li, span, a{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+
+}
+
+
+
+input[type=radio]{
+    accent-color: #543019 ;
+}
+
+input[type=checkbox]{
+     accent-color: #757575
+} 

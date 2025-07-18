@@ -1,0 +1,169 @@
+.main{
+    padding-top: 20vh;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    margin: 0 20%;
+
+    display: flex;
+    justify-content: center;
+    
+    .filters{
+        border: 0.3px solid #54301934;
+        padding: 40px 30px;
+        min-width: 300px;
+        height: max-content;
+
+        .filters_inner{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .filters__btn{
+                height: 50px;
+                font-size: 0.7rem;
+                color: #543019;
+            }
+            .btn_show{
+                background-color: #543019;
+                color: white;  
+            }
+        }
+
+        
+
+        .filters__item{
+            min-height: 40px;
+            cursor: pointer;
+
+            details ul{
+                max-height: 150px;
+                overflow-y: scroll;
+            }
+
+            summary{
+            list-style: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+   
+            }
+
+            summary::after{
+                content: '';
+                display: inline-block;
+                width: 0.6rem;
+                height: 0.6rem;
+                background: url(/public/ico/down-arrow.png); 
+                background-size: contain;
+                background-repeat: no-repeat;
+                margin-left: 8px;
+                top: 2px;
+            }
+                
+            }
+        }
+        }
+    
+
+    .content{
+        padding: 0px 20px;
+        flex-basis: 100%;
+
+
+        .sort_container{
+            padding-top: 10px;
+            display: flex;
+            align-items: baseline;
+            font-size: 0.8rem;
+
+            h3{
+                margin-right: 20px;
+            }
+
+            ul{
+                display: flex;
+                gap: 15px;
+                color: #808080;
+                cursor: pointer;
+            }
+        }
+
+        .catalog_container{
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 30px;
+            max-width: 40vw;
+        }
+    }
+
+.filters__item_li label {
+    color: #543019;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+.active_sortASC, .active_sortDESC{
+    font-weight: 600;
+}
+
+.active_sortASC::after, .active_sortDESC::after{
+    content: '';
+    background: url(/ico/sort.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 3px;
+}
+
+.active_sortASC::after{
+    background: url(/ico/ascending-sort_DESC.png);
+}
+
+.active_sortDESC::after{
+    background: url(/ico/ascending-sort_ASC.png);
+}
+
+
+.filters__btn:disabled{
+    cursor: default;
+}
+
+.pag_container{
+    width: 100%;
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    align-items: flex-start;
+
+
+    .pag_btn{
+        font-weight: 300;
+        cursor: pointer;
+    }
+    .pag_btn:hover{
+        color:#543019;
+        font-weight: 500;
+    }
+
+    .pag_btnActive{
+        font-weight: 600;
+    }
+    .pagDis_btn{
+        color: #d3d3d3;
+    }    
+}
+
+
+.NoTeas{
+    min-width: 100%;
+}

@@ -4,25 +4,26 @@ import { type RouteObject } from "react-router-dom";
 import React from "react";
 import { ROUTES } from "../constants/routes";
 
-const MainContent = lazy(() => import( '../pages/MainContent/MainContent'));
-const PersonalAccount = lazy(() => import('../PersonalAccount/PersonalAccount'));
-const Catalog = lazy(() => import('../Catalog/Catalog'));
-const Favourites = lazy(() => import('../Favourites/Favourites'));
-const Shopping = lazy(() => import('../Shopping/Shopping'));
-const Orders = lazy(() => import('../Shopping/Orders'));
-const Purchases = lazy(() => import('../Favourites/Purchases'));
-const Faq = lazy(() => import('../pages/article_footer/Faq'));
-const Cart = lazy(() => import('../Cart/Cart'));
-const CreateOrder = lazy(() => import('../CreateOrder/CreateOrder'));
-const ProductPage = lazy(() => import('../ProductPage/ProductPage'));
-const Contacts = lazy(() => import('../pages/article_footer/Contacts'));
-const Vacancies = lazy(() => import('../pages/article_footer/Vacancies'));
-const About = lazy(() => import('../pages/article_footer/About'));
-const Supplier = lazy(() => import('../pages/article_footer/Supplier'));
-const Shops = lazy(() => import('../pages/article_footer/Shops'));
-const Delivery = lazy(() => import('../pages/article_footer/Delivery'));
-const ThanksOrder = lazy(() => import('../CreateOrder/ThanksOrder'));
+const MainContent = lazy(() => import( '../pages/MainContent/MainContent')); 
+const PersonalAccount = lazy(() => import('../features/PersonalAccount/PersonalAccount')); 
+const Catalog = lazy(() => import('../features/Catalog/Catalog'));
+const Favourites = lazy(() => import('../features/Favourites/Favourites')); 
+const PastOrders = lazy(() => import('../features/PastOrders/PastOrders')); 
+const Orders = lazy(() => import('../features/PastOrders/components/Orders/Orders')); 
+const Purchases = lazy(() => import('../features/PastOrders/components/Products/Purchases'));
+const Faq = lazy(() => import('../pages/article_footer/Faq')); 
+const Cart = lazy(() => import('../features/Cart/Cart')); 
+const CreateOrder = lazy(() => import('../features/CreateOrder/CreateOrder')); 
+const ProductPage = lazy(() => import('../features/ProductPage/ProductPage')); 
+const Contacts = lazy(() => import('../pages/article_footer/Contacts'));  
+const Vacancies = lazy(() => import('../pages/article_footer/Vacancies')); 
+const About = lazy(() => import('../pages/article_footer/About')); 
+const Supplier = lazy(() => import('../pages/article_footer/Supplier')); 
+const Shops = lazy(() => import('../pages/article_footer/Shops')); 
+const Delivery = lazy(() => import('../pages/article_footer/Delivery')); 
+const ThanksOrder = lazy(() => import('../features/CreateOrder/ThanksOrder')); 
 
+import { Navigate } from "react-router-dom";
 
 export const routes: RouteObject[] = [
   {
@@ -86,8 +87,12 @@ export const routes: RouteObject[] = [
   },
   {
     path: ROUTES.shopping,
-    element: React.createElement(Shopping),
+    element: React.createElement(PastOrders),
     children: [
+      {
+      index: true,
+      element: React.createElement(Navigate, {to: ROUTES.orders, replace: true}),
+      },
       {
         path: ROUTES.orders,
         element: React.createElement(Orders),

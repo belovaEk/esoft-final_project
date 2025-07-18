@@ -40,7 +40,7 @@ export default Contacts
 
 
 
-interface ContactCityProps {
+type ContactCityProps = {
     city: string,
     adress: string;
     phone_ofice: string;

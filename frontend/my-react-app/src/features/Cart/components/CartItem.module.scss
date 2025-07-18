@@ -1,0 +1,87 @@
+.item_container{
+    border: 1px solid #e1e1e1;
+    padding: 15px;
+    .item_heder{
+        display: flex;
+        justify-content: end;
+        button{
+            background-image: url(/ico/cross_color.png);
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .item_content{
+        padding: 10px;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        .img{
+            width: 110px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .description{
+
+            h2{
+                margin-bottom: 10px;
+                font-weight: 500;
+            }
+
+            max-width: 270px;
+            p{
+                font-size: 0.6rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .count{
+            display: flex;
+            align-items: center;
+
+            button{
+                font-size: 1.4rem;
+                font-weight: 200;
+                
+            }
+
+            input{
+                margin: 0 5px;
+                width: 40px;
+                height: 40px;
+                border: 1px solid #e1e1e1;
+                text-align: center;
+            }
+        }
+
+        .price{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            span{
+                margin-bottom: 2px;
+            }
+
+            span::after{
+                content: 'Р.';
+                margin-left: 5px;
+                
+            }
+            p{
+                font-weight: 300;
+                font-size: 0.7rem;
+            }
+
+            p::after{
+                content: 'Р/унц.';
+                font-size: 0.6rem;
+                margin-left: 3px;
+            }
+        }
+    }
+}

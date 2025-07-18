@@ -1,0 +1,79 @@
+.order_container{
+    margin-bottom: 30px;
+    border: 1px solid rgba(155, 155, 155, 0.521);
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    h2{
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .order_status__content{
+        display: flex;
+        gap: 10px;
+
+        .order_status{
+            background-color: rgb(126, 126, 126);
+            color: white;
+            padding: 3px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .created{
+            background-color: rgb(203 152 10);
+        }
+        .sent{
+            background-color: rgb(97, 165, 255);
+        }
+        .delivery{
+            background-color: rgb(62, 172, 53);
+        }
+        .received{
+            background-color: rgb(126, 126, 126);
+        }
+    }
+
+    button{
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: rgb(109, 109, 109);
+        }
+
+    .order_items{
+        display: flex;
+        gap: 10px;
+        max-width: 300px;
+        overflow-x: scroll;
+        cursor: pointer;
+        scrollbar-width: thin;
+
+
+        .order_item{
+            font-size: 0.6rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            .order_img{
+                max-width: 100px;
+                height: auto;
+            }
+
+            span{
+                max-width: 80px;
+            }
+        }
+
+       
+    }
+
+  
+}

@@ -1,6 +1,6 @@
 import styles from './Footer.module.scss'
 
-import { Route, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { ROUTES } from '../constants/routes';
 

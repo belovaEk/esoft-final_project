@@ -1,0 +1,81 @@
+.container{
+    margin: 0 13vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     h1{
+        text-align: center;
+        display: block;
+     }
+
+     .content{
+        margin-top: 60px;
+        display: grid;
+        grid-template-columns: (1.5fr 1fr);
+        gap: 30px;
+     }
+
+     .order_container{
+        border: 1px solid #e1e1e1;
+        padding: 20px;
+        max-height: 500px;
+
+        .mk_order_btn{
+            width: 100%;
+            height: 60px;
+            background-color: #543019;
+            padding: 20px;
+            color: #e1e1e1;
+            margin-bottom: 40px;
+        }
+        .mk_order_btn_disabled{
+            cursor: auto;
+            background-color: #9e9894;
+        }
+
+        .order_price{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            p{
+                font-weight: 300;
+                font-size: 0.8rem
+            }
+            span{
+                font-size: 1.2rem;
+            }
+           
+        }
+
+        .order_delivery{
+            font-size: 0.9rem;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .order_delivery::before{
+            content: '';
+            background-image: url(/ico/package.png); 
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 10px;
+        }
+     }
+}
+
+.conteinerNoItems{
+    display: flex;
+    justify-content: center;
+    .linkToCatalog{
+        color: #543019;
+        text-decoration: underline;
+        font-weight: 500;
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+}

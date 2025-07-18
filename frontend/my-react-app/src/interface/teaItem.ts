@@ -1,6 +1,6 @@
 
 
-export interface Tea {
+export type Tea = {
   id: number;
   name: string;
   type_name: string;

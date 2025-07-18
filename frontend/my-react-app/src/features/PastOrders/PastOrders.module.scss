@@ -1,0 +1,28 @@
+.container{
+    margin: 0 20%;
+    min-height: 300px;
+
+    .shopping_navigate{
+        ul {
+            display: flex;
+            gap: 30px;
+            font-weight: 600;
+            color: rgb(128, 128, 128);
+
+            .link{
+                color: rgb(128, 128, 128);
+
+                &.active{
+                    color: black;
+                }
+            }
+
+            .link:hover{
+                 color: rgb(0, 0, 0);
+            }
+        }
+    }
+}
+
+
+
