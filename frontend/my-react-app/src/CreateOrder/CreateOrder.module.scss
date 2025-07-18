@@ -1,0 +1,184 @@
+.container{
+    margin: 0 20%;
+     h1{
+        margin-bottom: 80px;
+        text-align: center;
+        display: block;
+     }
+
+     .content{
+        display: grid;
+        grid-template-columns: (1.5fr 1fr);
+        gap: 30px;
+     }
+      .order_container{
+        border: 1px solid #e1e1e1;
+        padding: 20px;
+        max-height: 500px;
+
+        .mk_order_btn{
+            width: 100%;
+            height: 60px;
+            background-color: #543019;
+            padding: 20px;
+            color: #e1e1e1;
+            margin-bottom: 40px;
+        }
+
+        .order_price{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            p{
+                font-weight: 300;
+                font-size: 0.8rem
+            }
+            span{
+                font-size: 1.2rem;
+            }
+           
+        }
+
+        .order_delivery{
+            font-size: 0.9rem;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .order_delivery::before{
+            content: '';
+            background: url(/ico/package.png); 
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 10px;
+        }
+     }
+
+     .forms_container{
+input{
+                height: 60px;
+                border: 1px solid #e1e1e1;
+                padding: 20px;
+                color: #543019;
+            }
+
+             input:focus{
+                border: 1px solid #543019;
+             }
+
+             input::placeholder{
+                font-size: 0.8rem;
+                color: #555555c4;
+             }
+
+    .order_userData{
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            
+        }
+    }
+
+    h2{
+        font-size: 1.4rem;
+        text-align: center;
+        margin: 40px 0;
+    }
+
+    .order_deliveryData{
+        button{
+            width: 50%;
+            height: 50px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .active_button{
+            background-color: #543019;
+            color: white;
+        }
+        .inactive_button{
+            border: 1px solid #e1e1e1;
+            color: #543019;
+            font-weight: 300;
+            transition: border-bottom 0.4s ease;
+        }
+        .inactive_button:hover{
+            border-bottom: 1px solid #543019;
+            
+        }
+
+        .order_address{
+            margin-top: 40px;
+            
+            p{
+                text-align: center;
+                color: #543019;
+                font-size: 0.7rem;
+                margin-bottom: 20px;
+            }
+
+             form{
+                    display: flex;
+                    flex-direction: column;
+                    
+                    input{
+                        margin-bottom: 20px;
+                    }
+
+                    label{
+                        margin-bottom: 10px;
+                        font-size: 0.7rem;
+                        font-weight: 300;
+                        color: #313131;
+                        
+                    }
+                }
+            .courier_container{
+                    display: flex;
+                    gap: 20px;
+
+                    div{
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    input{
+                        width: 100px;
+                    }
+                }
+               
+               
+        }
+
+        .order_delivery_payment, .order_delivery_confirmation{
+            input{
+                height: auto;
+            }
+
+            label{
+                margin-left: 10px;
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
+
+}
+
+
+.errorMessage{
+    color: red;
+    font-size: 0.6rem;
+}
+
+.errorInput{
+    border: 1px solid red !important;
+}
