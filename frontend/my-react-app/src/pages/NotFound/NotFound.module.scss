@@ -1,0 +1,19 @@
+.container{
+    margin: 0 20%;
+    text-align: center;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+     h1{
+        justify-content: center;
+        margin-bottom: 4vh;
+     }
+
+     span{
+        font-size: 2rem;
+        color: rgb(177, 177, 177);
+     }
+}

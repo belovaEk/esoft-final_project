@@ -22,6 +22,8 @@ const Supplier = lazy(() => import('../pages/article_footer/Supplier'));
 const Shops = lazy(() => import('../pages/article_footer/Shops')); 
 const Delivery = lazy(() => import('../pages/article_footer/Delivery')); 
 const ThanksOrder = lazy(() => import('../features/CreateOrder/ThanksOrder')); 
+const NotFound = lazy(() => import('../pages/NotFound/NotFound')); 
+
 
 import { Navigate } from "react-router-dom";
 
@@ -103,6 +105,11 @@ export const routes: RouteObject[] = [
       },
     ],
   },
+
+  {
+    path: "*",
+    element: React.createElement(NotFound)
+  }
 ];
 
 
