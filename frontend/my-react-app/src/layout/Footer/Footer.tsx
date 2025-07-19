@@ -1,31 +1,21 @@
 import styles from './Footer.module.scss'
 
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useFooter } from './useFooter';
 import { ROUTES } from '../../constants/routes';
+import { useEmailValidation } from "../../shared/hooks/useEmailValidation";
 
 function Footer(){
 
-    const navigate = useNavigate();
+    const {
+        navigate,
+        isChecked,
+        subscriptionButtonText,
+        setIsChecked,
+        isWarning,
+        handleSubmit,
+    } = useFooter();
 
-    const [subscriptionButtonText, setSubscriptionButtonText] = useState('Отправить');
-    const [isChecked, setIsChecked] = useState(false);
-    const [isWarning, setIsWarning] = useState(false);
-
-     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault(); 
-
-        if (!isChecked) {
-            setIsWarning(true)
-            setTimeout(() => setIsWarning(false), 2000)
-            return;
-            
-        }
-        setSubscriptionButtonText('Готово!');
-        setTimeout(() => setSubscriptionButtonText('Отправить'), 3000);
-        
-       
-    };
+    const { email, error, handleChange, setEmail } = useEmailValidation();
 
     return (
         <footer>
@@ -38,8 +28,18 @@ function Footer(){
                     </div>
                     <div className={styles.subscript_form}>
                         <form onSubmit={handleSubmit}>
-                            <input type="text" placeholder='e-mail' id='form_input' className={styles.subscript_form_input} />
-                            <button className={styles.subscript_form_btn}  type="submit">{subscriptionButtonText}</button>
+                            <input
+                            type="text"
+                            placeholder='e-mail'
+                            id='form_input'
+                            className={styles.subscript_form_input}
+                            style={error? {color: 'red'} : {color: 'white'}}
+                            value={email}
+                            onChange={handleChange}/>
+                            <button className={styles.subscript_form_btn} 
+                            onClick={() => {!error ? isChecked ? setEmail('Вы подписаны') : setEmail(email) : setEmail('Неправильный email')}}
+                            type="submit">{subscriptionButtonText}
+                            </button>
                         </form>
                         <div>
                             <input type="checkbox" id='approval' checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)}/>
