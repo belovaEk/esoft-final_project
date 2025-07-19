@@ -15,7 +15,7 @@ function Orders(){
         <section>
             {authStatus && (
                 <div>
-                {orders.map(order => (
+                {orders?.map(order => (
                     <OrderItem 
                     key={order.pretty_id}
                     pretty_id={order.pretty_id}

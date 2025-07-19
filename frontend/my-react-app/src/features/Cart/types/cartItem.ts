@@ -1,4 +1,4 @@
-export type CartItemT = {
+export type cartItemT = {
     amount:number,
     cartitem_id:number,
     description: string,
@@ -8,7 +8,7 @@ export type CartItemT = {
     price: number
 }
 
-export type itemCartProps = {
+export type ItemCartProps = {
     teaId: number;
     name: string;
     img_name: string;

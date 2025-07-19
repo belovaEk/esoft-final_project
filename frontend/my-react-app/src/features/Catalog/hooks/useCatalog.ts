@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react"
-import type { Tea } from "../../../interface/teaItem";
+import type { productCartT } from "../../../shared/types/productCart";
 import type { filterItem } from "../types/filter";
 import { itemsPerPage } from "../constants/catalog";
 import { checkAuthStatus } from "../../../shared/services/authService";
@@ -13,7 +13,7 @@ export const useCatalog = () => {
 
 
     
-const [teas, setTeas] = useState([] as Tea[]); 
+const [teas, setTeas] = useState([] as productCartT[]); 
     const [countries, setCountries] = useState([] as filterItem[]);
     const [types, setTypes] = useState([] as filterItem[]);
     const [ingredients, setIngredients] = useState([] as filterItem[]);
@@ -22,7 +22,7 @@ const [teas, setTeas] = useState([] as Tea[]);
     const [authModal, setAuthModal] = useState(false);
     const [authStatus, setAuthStatus] = useState(false);
 
-    const [currentTeas, setCurrentTeas] = useState([] as Tea[]);
+    const [currentTeas, setCurrentTeas] = useState([] as productCartT[]);
     const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0)
     const [currentPage, setCurrenPage] = useState(1);
@@ -31,7 +31,7 @@ const [teas, setTeas] = useState([] as Tea[]);
     
     const [searchQuery, setSearchQuery] = useState('');
 
-    function paginatedItems(teas: Tea[]){
+    function paginatedItems(teas: productCartT[]){
         const endOffset = itemOffset + itemsPerPage;
         const newPageCount = Math.ceil(teas.length / itemsPerPage);
         const newCurrentPage = Math.floor(itemOffset/itemsPerPage) + 1;
@@ -135,7 +135,7 @@ const [teas, setTeas] = useState([] as Tea[]);
             }
 
             const data = await fetchTeas(params.toString())
-            setTeas(data as Tea[]);
+            setTeas(data);
             setItemOffset(0);
         } catch (error) {
             console.error('Ошибка загрузки чаев:', error);

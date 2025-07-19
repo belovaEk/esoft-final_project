@@ -2,11 +2,11 @@ import { fetchFavourites } from "../services/favouritesService";
 
 import { useState, useEffect } from "react";
 import { checkAuthStatus } from "../../../shared/services/authService";
-import type { Tea } from "../../../interface/teaItem";
 import { useNavigate } from "react-router-dom";
+import type { productCartT } from "../../../shared/types/productCart";
 
 export const useFavourites = () => {
-    const [favouritesItems, setFavouritesItem] = useState([] as Tea[]);
+    const [favouritesItems, setFavouritesItem] =  useState<productCartT[]>();
 
     const [authStatus, setAuthStatus] = useState(false)
 
@@ -15,7 +15,8 @@ export const useFavourites = () => {
     const fetchFavouriteItems = async () => {
         const clientStatus = await checkAuthStatus()
         if (clientStatus) {
-            const data = await fetchFavourites() as [Tea];
+            const data = await fetchFavourites();
+            console.log(data)
             setFavouritesItem(data)
             setAuthStatus(true)
         }
@@ -25,7 +26,7 @@ export const useFavourites = () => {
     }
 
     const deleteFavouriteItem = (id: number) => {
-        setFavouritesItem(prev => prev.filter(item => item.id !== id))
+        setFavouritesItem(prev => prev?.filter(item => item.id !== id))
     }
 
     useEffect(()=> {

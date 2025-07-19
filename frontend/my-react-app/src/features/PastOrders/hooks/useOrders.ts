@@ -2,10 +2,10 @@ import { fetchOrders } from "../services/pastOrdersService";
 
 import { useState, useEffect } from "react";
 import { checkAuthStatus } from "../../../shared/services/authService";
-import type { OrderProps } from "../types/pastOrder";
+import type { orderT} from "../types/pastOrder";
 
 export const useOrders = () =>{
-    const [orders, setOrders] = useState([] as OrderProps[])
+    const [orders, setOrders] = useState<orderT[]>()
     
     const [authStatus, setAuthStatus] = useState(false);
     
@@ -14,7 +14,8 @@ export const useOrders = () =>{
         setAuthStatus(clientStatus);
 
         if(clientStatus) {
-            const ordersData = await fetchOrders() as OrderProps[];
+            const ordersData = await fetchOrders();
+            console.log(ordersData)
             setOrders(ordersData)
         }     
     }

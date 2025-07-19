@@ -1,5 +1,7 @@
 import { fetchGet } from "../../../shared/api/http";
 
-export const fetchFavourites = async () => {
+import type { ProductCart } from "../../../shared/types/productCart";
+
+export const fetchFavourites = async () :Promise<ProductCart[]> => {
     return await fetchGet(`favourites/`)
 }

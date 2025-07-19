@@ -1,14 +1,14 @@
-export type DeliveryData {
+export type deliveryDataT = {
   method: 'courier' | 'post';
   address: string;
 }
 
-export type OrderClientData {
+export type orderClientDataT = {
   name: string;
   phone: string;
 }
 
-export type OrderDataT = {
+export type orderDataT = {
     customer_name: string,
     customer_phone: string,
     payment_method_id: number,
@@ -17,7 +17,7 @@ export type OrderDataT = {
     confirmation_method_id: number,
 }
 
-export type ClientDataT = {
+export type clientDataT = {
     id: number,
     name: string,
     email: string

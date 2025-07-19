@@ -16,7 +16,7 @@ function Purchases(){
              <div className={styles.container}>
                 {authStatus && (
                     <div className={styles.content}>
-                        {teas.map(tea => (
+                        {teas?.map(tea => (
                             <ProductCart 
                             key={tea.id}
                             id={tea.id}

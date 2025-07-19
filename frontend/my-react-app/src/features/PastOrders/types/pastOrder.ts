@@ -7,9 +7,9 @@ export type OrderItemProps = {
     isCart: boolean;
 }
 
+export type OrdersProps = orderT
 
-
-export type OrderProps = {
+export type orderT = {
     pretty_id: string;
     date: Date;
     status_name: string;

@@ -18,7 +18,7 @@ interface GetTeasOptions {
 
 export async function getTeas(options?: GetTeasOptions) {
     let query = sql`
-        SELECT tea.*,
+        SELECT tea.id, tea.name, tea.description, tea.img_name, tea.price,
                type.name AS type_name,
                country.name as country_name,
                CASE WHEN fav.tea_id IS NOT NULL THEN true ELSE false END as isFav,
@@ -87,7 +87,7 @@ export async function getFilterOptions(table: 'type' | 'country' | 'ingredient' 
 
 export async function getTea(id: number, clientId?: number) {
     let teaQuery = sql`
-        SELECT tea.*,
+        SELECT tea.id, tea.name, tea.description, tea.img_name, tea.price,
                type.name AS type_name,
                country.name as country_name,
             CASE WHEN fav.tea_id IS NOT NULL THEN true ELSE false END as isFav,

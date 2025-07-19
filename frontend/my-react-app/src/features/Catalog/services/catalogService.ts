@@ -1,7 +1,7 @@
 import { fetchGet } from '../../../shared/api/http';
+import type { productCartT } from '../../../shared/types/productCart';
 
-
-export const fetchTeas = async (params: string) => {
+export const fetchTeas = async (params: string): Promise<productCartT[]> => {
   return await fetchGet(`teas?${params}`);
 };
 

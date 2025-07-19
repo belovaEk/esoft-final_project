@@ -2,7 +2,7 @@ import { fetchTea } from "../services/productPageService";
 
 import { useState, useEffect } from "react";
 import { checkAuthStatus } from "../../../shared/services/authService";
-import type { Tea } from "../../../type/teaItem";
+import type { productPageT } from "../types/productPage";
 
 
 import { postInFavourite, deleteInFavourite } from "../../../shared/services/favouriteService";
@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 
 export const useProductPage = () => {
     const { id } = useParams();
-    const [tea, setTea] = useState<Tea | null>(null);
+    const [tea, setTea] = useState<productPageT | null>(null);
     const [isFavourite, setIsFavourite ] = useState(false);
     const [isInCart, setIsInCart] = useState(tea?.iscart);
     
@@ -25,7 +25,8 @@ export const useProductPage = () => {
         const clientStatus = await checkAuthStatus()
         setAuthStatus(clientStatus)
         try {
-            const teaData = await fetchTea(id) as Tea;
+            const teaData = await fetchTea(id);
+            console.log(teaData)
             setTea(teaData);
             setIsFavourite(teaData.isfav);
             setIsInCart(teaData.iscart);
