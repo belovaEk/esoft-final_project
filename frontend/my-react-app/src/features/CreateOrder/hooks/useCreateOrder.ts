@@ -4,9 +4,12 @@ import { fetchClient } from "../../../shared/services/clientService";
 import type { orderClientDataT, deliveryDataT } from "../types/formType";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
+import { createPayment } from "../../../shared/api/yooKassa/yooKassaService";
 
 export const useCreateOrder = () => {
     const navigate = useNavigate();
+
+    const totalCartPrice = localStorage.getItem('totalCartPrice'); // да, я каюсь за это
 
     const [deliveryMethod, setDeliveryMethod] = useState<'post' | 'courier'>('courier')
     const [confirmationMethod, setConfirmationMethod] = useState<number | null>(null);
@@ -74,8 +77,11 @@ export const useCreateOrder = () => {
           
         if (validateForm()) {
             try {
-                postOrder(orderData)
-                navigate(ROUTES.thanks);
+                if (totalCartPrice){
+                     createPayment(totalCartPrice)
+                     postOrder(orderData)
+                }
+            
             } catch (error) {
                 console.error('Ошибка:', error);
             }
@@ -100,6 +106,7 @@ export const useCreateOrder = () => {
         setConfirmationMethod,
         setClientFormData,
         setDeliveryData,
-        handleSubmit
+        handleSubmit,
+        totalCartPrice
     }
 }

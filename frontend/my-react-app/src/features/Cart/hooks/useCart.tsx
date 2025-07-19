@@ -11,7 +11,9 @@ export const useCart = () => {
   const [authStatus, setAuthStatus] = useState(false);
 
   const totalCartPrice = useMemo((): number => {
-    return cartItems.reduce((sum, item) => sum + item.price * item.amount, 0);
+    const totalCartPrice = cartItems.reduce((sum, item) => sum + item.price * item.amount, 0);
+    localStorage.setItem('totalCartPrice', `${totalCartPrice}`); // да, я каюсь за это
+    return totalCartPrice
   }, [cartItems]);
 
   const fetchItems = async (): Promise<void> => {

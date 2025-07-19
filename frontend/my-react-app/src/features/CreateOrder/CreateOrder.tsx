@@ -3,6 +3,8 @@ import styles from './CreateOrder.module.scss'
 import PhoneInput from './components/PhoneInput';
 import { useCreateOrder } from './hooks/useCreateOrder';
 
+
+
 function Order(){
 
     const {
@@ -16,11 +18,11 @@ function Order(){
         setConfirmationMethod,
         setClientFormData,
         setDeliveryData,
-        handleSubmit
+        handleSubmit,
+        totalCartPrice
     } = useCreateOrder();
 
     
-
 
     return(
         <div>
@@ -126,7 +128,7 @@ function Order(){
                         <button className={styles.mk_order_btn} onClick={handleSubmit}>оформить заказ</button>
                         <div className={styles.order_price}>
                             <p>Общая стоимость</p>
-                            <span><i>1000 P</i></span>
+                            <span><i>{totalCartPrice} P</i></span>
                         </div>
                         <div className={styles.order_delivery}>Доставим бесплатно</div>
                         

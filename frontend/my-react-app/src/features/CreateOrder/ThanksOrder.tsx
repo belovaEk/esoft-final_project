@@ -4,7 +4,7 @@ import { ROUTES } from '../../constants/routes';
 function ThanksOrder(){
     const navigte = useNavigate();
     setTimeout(() => {
-        navigte(ROUTES.main)
+        navigte(ROUTES.catalog)
     }, 1000);
     return(
         <>
