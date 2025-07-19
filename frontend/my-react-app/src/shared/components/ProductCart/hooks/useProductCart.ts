@@ -14,7 +14,7 @@ export const useProductCart = (isFav: boolean, isCart: boolean, authStatus: bool
     const isOnFavouritesPage = useLocation().pathname === ROUTES.favourites
     const navigate = useNavigate();
     
-    const changeFavourite = async( teaId: number, e: React.MouseEvent) =>{
+    const changeFavourite = async( teaId: number, e: React.MouseEvent): Promise<void> =>{
         e.stopPropagation();
         if (!authStatus ) {
             authModal?.()
@@ -31,7 +31,7 @@ export const useProductCart = (isFav: boolean, isCart: boolean, authStatus: bool
         }   
     }
 
-    const deleteInFavourite = async(teaId: number, e: React.MouseEvent) =>{
+    const deleteInFavourite = async(teaId: number, e: React.MouseEvent): Promise<void> =>{
         e.stopPropagation();
         if(onFavouriteChange){
             onFavouriteChange(teaId);
@@ -41,7 +41,7 @@ export const useProductCart = (isFav: boolean, isCart: boolean, authStatus: bool
     }
 
 
-    const addToCart = (e: React.MouseEvent, teaId: number) => {
+    const addToCart = (e: React.MouseEvent, teaId: number): void => {
          e.stopPropagation();
          if (!authStatus) {
             authModal?.()

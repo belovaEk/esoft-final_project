@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ClientI } from "../../../shared/types/client";
+import type { clientT } from "../../../shared/types/client";
 import { checkAuthStatus } from "../../../shared/services/authService";
 
 import { fetchClient } from "../../../shared/services/clientService";
@@ -20,7 +20,7 @@ export const usePersonalAccount = () => {
     
     
     const [favQuantity, setfavQuantity] = useState(0);
-    const [client, setClient] = useState<ClientI>();
+    const [client, setClient] = useState<clientT>();
 
     const [formData, setFormData] = useState({
         name:'',
@@ -34,7 +34,7 @@ export const usePersonalAccount = () => {
         setAuthStatus(clientStatus)
         if (clientStatus) {
             const quantity = await fetchGet(`favourites/count`) as [{count: number}]; /// Изменить
-            let clientData = await fetchClient() as [ClientI];
+            let clientData = await fetchClient();
     
             setfavQuantity(Number(quantity[0]?.count) || 0);
             setClient(clientData[0]);
@@ -49,7 +49,7 @@ export const usePersonalAccount = () => {
     const changeClientData = async (e: React.FormEvent) => {
         e.preventDefault();
             
-        const dataToSend: Partial<ClientI> = {};
+        const dataToSend: Partial<clientT> = {};
             
         if (formData.name.trim() && formData.name.trim() !== client?.name) {
             dataToSend.name = formData.name.trim();

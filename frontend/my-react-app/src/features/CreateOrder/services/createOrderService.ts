@@ -1,6 +1,6 @@
 import { fetchPost } from "../../../shared/api/http";
-import type { OrderDataT } from "../types/formType";
+import type { orderDataT } from "../types/formType";
 
-export const postOrder =  async(orderData: OrderDataT) => {
+export const postOrder =  async(orderData: orderDataT): Promise<void> => {
     return await fetchPost('orders/', orderData)
 }

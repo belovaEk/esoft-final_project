@@ -1,31 +1,31 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { fetchCartItems, updateCartItem  } from '../services/cartService';
 import { checkAuthStatus } from '../../../shared/services/authService';
-import type { CartItemT } from '../types/cartItem';
+import type { cartItemT } from '../types/cartItem';
 import { useNavigate } from 'react-router-dom';
 
 export const useCart = () => {
 
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState<CartItemT[]>([]);
+  const [cartItems, setCartItems] = useState<cartItemT[]>([]);
   const [authStatus, setAuthStatus] = useState(false);
 
-  const totalCartPrice = useMemo(() => {
+  const totalCartPrice = useMemo((): number => {
     return cartItems.reduce((sum, item) => sum + item.price * item.amount, 0);
   }, [cartItems]);
 
-  const fetchItems = async () => {
+  const fetchItems = async (): Promise<void> => {
     const status = await checkAuthStatus();
     setAuthStatus(status);
     if (status) {
-      const data = await fetchCartItems() as [CartItemT];
+      const data = await fetchCartItems();
       setCartItems(data);
     }
   };
 
 
 
-  const updateAmount = async (tea_id: number, newAmount: number) => {
+  const updateAmount = async (tea_id: number, newAmount: number): Promise<void> => {
     try {
       await updateCartItem(tea_id, newAmount);
     } catch (error) {
@@ -33,7 +33,7 @@ export const useCart = () => {
     }
   };
 
-  const increaseAmount = useCallback((teaId: number) => {
+  const increaseAmount = useCallback((teaId: number): void => {
     setCartItems(prevItems => {
       const updatedItems = prevItems.map(item =>
         item.id === teaId ? { ...item, amount: item.amount + 1 } : item
@@ -44,7 +44,7 @@ export const useCart = () => {
     });
   }, []); 
 
-  const decreaseAmount = useCallback((teaId: number) => {
+  const decreaseAmount = useCallback((teaId: number): void => {
     setCartItems(prevItems => {
       const updatedItems = prevItems.map(item =>
         item.id === teaId && item.amount > 1 ? { ...item, amount: item.amount - 1 } : item
@@ -57,7 +57,7 @@ export const useCart = () => {
     });
   }, []);
 
-  const onCartChange = useCallback((teaId: number) => {
+  const onCartChange = useCallback((teaId: number): void => {
     setCartItems((prev) => prev.filter(item => item.id !== teaId));
   }, []);
 

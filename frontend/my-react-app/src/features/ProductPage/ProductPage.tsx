@@ -2,7 +2,7 @@
 
 import styles from './ProductPage.module.scss'
 
-import AuthorizationModal from '../../components/UI/auth/AuthModal';
+import AuthorizationModal from '../../shared/components/auth/AuthModal';
 import { useProductPage } from './hooks/useProductPage';
 
 

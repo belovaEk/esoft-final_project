@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from "react"
 import type { productCartT } from "../../../shared/types/productCart";
-import type { filterItem } from "../types/filter";
+import type { filterItemT } from "../types/filter";
 import { itemsPerPage } from "../constants/catalog";
 import { checkAuthStatus } from "../../../shared/services/authService";
 import { fetchTeas, fetchFilterOptions } from "../services/catalogService";
-import type { PriceRange } from "../types/filter";
+import type { priceRangeT } from "../types/filter";
 
 
 
@@ -13,16 +13,16 @@ export const useCatalog = () => {
 
 
     
-const [teas, setTeas] = useState([] as productCartT[]); 
-    const [countries, setCountries] = useState([] as filterItem[]);
-    const [types, setTypes] = useState([] as filterItem[]);
-    const [ingredients, setIngredients] = useState([] as filterItem[]);
-    const [tastes, setTastes] = useState([] as filterItem[]);
+    const [teas, setTeas] = useState<productCartT[]>([]); 
+    const [countries, setCountries] = useState<filterItemT[]>([]);
+    const [types, setTypes] = useState<filterItemT[]>([]);
+    const [ingredients, setIngredients] = useState<filterItemT[]>([]);
+    const [tastes, setTastes] = useState<filterItemT[]>([]);
 
     const [authModal, setAuthModal] = useState(false);
     const [authStatus, setAuthStatus] = useState(false);
 
-    const [currentTeas, setCurrentTeas] = useState([] as productCartT[]);
+    const [currentTeas, setCurrentTeas] = useState<productCartT[]>([]);
     const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0)
     const [currentPage, setCurrenPage] = useState(1);
@@ -31,7 +31,7 @@ const [teas, setTeas] = useState([] as productCartT[]);
     
     const [searchQuery, setSearchQuery] = useState('');
 
-    function paginatedItems(teas: productCartT[]){
+    function paginatedItems(teas: productCartT[]): void{
         const endOffset = itemOffset + itemsPerPage;
         const newPageCount = Math.ceil(teas.length / itemsPerPage);
         const newCurrentPage = Math.floor(itemOffset/itemsPerPage) + 1;
@@ -39,10 +39,9 @@ const [teas, setTeas] = useState([] as productCartT[]);
         setCurrentTeas(teas.slice(itemOffset, endOffset));
         setPageCount(newPageCount);
         setCurrenPage(newCurrentPage);
-
     }
 
-    const visiblePages = useMemo(() => {
+    const visiblePages = useMemo((): number[] => {
         const start = Math.max(1, currentPage - 2);
         setStartPage(start);
     
@@ -52,23 +51,23 @@ const [teas, setTeas] = useState([] as productCartT[]);
         return Array.from({ length: end - start + 1 }, (_, i) => start + i);
     }, [currentPage, pageCount]);
 
-    const handlePageClickNext = () => {
+    const handlePageClickNext = (): void => {
             setItemOffset(prev => prev + itemsPerPage)
             window.scrollTo(0, 0);
 
     }
-    const handlePageClickBack = () => {
+    const handlePageClickBack = (): void => {
         setItemOffset(prev => prev - itemsPerPage)
         window.scrollTo(0, 0);
     }
 
 
-    const handlePageClickNum = (num: number) => {
+    const handlePageClickNum = (num: number): void => {
         setItemOffset((num - 1) * itemsPerPage)
         window.scrollTo(0, 0);
     }
 
-    function changeAuthModal() {
+    function changeAuthModal(): void {
         setAuthModal(prev => !prev)
     }
 
@@ -86,14 +85,14 @@ const [teas, setTeas] = useState([] as productCartT[]);
 
     const [priceFilter, setPriceFilter] = useState<string | null>(null);
 
-    const priceRanges: PriceRange[] = [
+    const priceRanges: priceRangeT[] = [
         { label: "До 250 Р", min: 0, max: 250 },
         { label: "От 250 Р до 500 Р", min: 250, max: 500 },
         { label: "От 500 Р до 1000 Р", min: 500, max: 1000 },
         { label: "От 1000 Р", min: 1000 },
     ];
 
-    const getTeas = async (reset = false) => {
+    const getTeas = async (reset = false): Promise<void> => {
         const clientStatus = await checkAuthStatus()
         setAuthStatus(clientStatus)
         try {
@@ -143,11 +142,11 @@ const [teas, setTeas] = useState([] as productCartT[]);
 
     };
 
-    const handleSearch = (query: string) => {
+    const handleSearch = (query: string): void => {
         setSearchQuery(query);
     };
 
-    const handleSort = (sortBy: 'popular' | 'price') => {
+    const handleSort = (sortBy: 'popular' | 'price'): void => {
         const newDirection = sortOptions.sortBy === sortBy 
             ? sortOptions.direction === 'ASC' ? 'DESC' : 'ASC'
             : 'DESC';
@@ -156,7 +155,7 @@ const [teas, setTeas] = useState([] as productCartT[]);
         
     };
 
-    const toggleFilter = (type: 'typeIds' | 'countryIds' | 'ingredientIds' | 'tasteIds', id: number) => {
+    const toggleFilter = (type: 'typeIds' | 'countryIds' | 'ingredientIds' | 'tasteIds', id: number): void => {
         setFilterOptions(prev => {
             const currentIds = prev[type] || [];
             const newIds = currentIds.includes(id)
@@ -167,7 +166,7 @@ const [teas, setTeas] = useState([] as productCartT[]);
         });
     };
 
-    const resetFilter = () => {
+    const resetFilter = (): void => {
         setFilterOptions({});
         setPriceFilter(null);
         setSearchQuery('');

@@ -1,4 +1,4 @@
-import AuthProposal from '../../../../components/UI/auth/AuthProposal';
+import AuthProposal from '../../../../shared/components/auth/AuthProposal';
 
 import { useOrders } from '../../hooks/useOrders';
 

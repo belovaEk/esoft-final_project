@@ -2,10 +2,10 @@ import styles from './CartItem.module.scss'
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
-import type { itemCartProps } from '../types/cartItem';
+import type { CartItemProps } from '../types/cartItem';
 
 
-const CartItem = React.memo(({teaId, name, img_name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: itemCartProps) => {
+const CartItem = React.memo(({teaId, name, img_name, description, price, amount, onIncrease, onDecrease, deleteInCart, onCartChange}: CartItemProps) => {
     const navigate = useNavigate()
     return(
         <article className={styles.item_container}>

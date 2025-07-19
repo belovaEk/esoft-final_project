@@ -6,7 +6,7 @@ import { ROUTES } from "../../../constants/routes";
 export const useOrderItem = () => {
     const navigate = useNavigate();
 
-    async function repeatOrder(items: OrderItemProps[]) {
+    async function repeatOrder(items: OrderItemProps[]): Promise<void> {
         try {
             const itemsToAdd = items.filter(item => !item.isCart);
         

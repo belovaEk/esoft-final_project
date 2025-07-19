@@ -1,15 +1,12 @@
 import styles from './Cart.module.scss'
 
-import { useNavigate } from 'react-router-dom'
-import {useEffect } from 'react'
-
 import { ROUTES } from '../../constants/routes'
 
 import { useCart } from './hooks/useCart'
 import CartItem from './components/CartItem'
 import { deleteInCart } from '../../shared/services/cartService'
 
-import AuthProposal from '../../components/UI/auth/AuthProposal'
+import AuthProposal from '../../shared/components/auth/AuthProposal'
 
 function Cart(){
 

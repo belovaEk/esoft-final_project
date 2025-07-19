@@ -1,7 +1,7 @@
 import styles from './Favourites.module.scss'
 import ProductCart from '../../shared/components/ProductCart/ProductCart';
 
-import AuthProposal from '../../components/UI/auth/AuthProposal';
+import AuthProposal from '../../shared/components/auth/AuthProposal';
 import { ROUTES } from '../../constants/routes';
 import { useFavourites } from './hooks/useFavourites';
 

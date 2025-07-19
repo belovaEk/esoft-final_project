@@ -6,17 +6,16 @@ import { useNavigate } from "react-router-dom";
 import type { productCartT } from "../../../shared/types/productCart";
 
 export const useFavourites = () => {
-    const [favouritesItems, setFavouritesItem] =  useState<productCartT[]>();
+    const [favouritesItems, setFavouritesItem] =  useState<productCartT[]>([]);
 
     const [authStatus, setAuthStatus] = useState(false)
 
     const navigate = useNavigate()
 
-    const fetchFavouriteItems = async () => {
+    const fetchFavouriteItems = async (): Promise<void> => {
         const clientStatus = await checkAuthStatus()
         if (clientStatus) {
             const data = await fetchFavourites();
-            console.log(data)
             setFavouritesItem(data)
             setAuthStatus(true)
         }
@@ -25,7 +24,7 @@ export const useFavourites = () => {
         }
     }
 
-    const deleteFavouriteItem = (id: number) => {
+    const deleteFavouriteItem = (id: number): void => {
         setFavouritesItem(prev => prev?.filter(item => item.id !== id))
     }
 

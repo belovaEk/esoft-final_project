@@ -9,13 +9,12 @@ export const useOrders = () =>{
     
     const [authStatus, setAuthStatus] = useState(false);
     
-    const getOrders = async() => {
+    const getOrders = async(): Promise<void> => {
         const clientStatus = await checkAuthStatus();
         setAuthStatus(clientStatus);
 
         if(clientStatus) {
             const ordersData = await fetchOrders();
-            console.log(ordersData)
             setOrders(ordersData)
         }     
     }

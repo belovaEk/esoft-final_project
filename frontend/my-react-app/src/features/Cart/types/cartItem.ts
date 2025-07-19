@@ -8,7 +8,7 @@ export type cartItemT = {
     price: number
 }
 
-export type ItemCartProps = {
+export type CartItemProps = {
     teaId: number;
     name: string;
     img_name: string;

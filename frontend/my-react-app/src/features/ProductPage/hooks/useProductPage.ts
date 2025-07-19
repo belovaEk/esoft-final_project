@@ -20,7 +20,7 @@ export const useProductPage = () => {
     const [authModal, setAuthModal] = useState(false);
     const [authStatus, setAuthStatus] = useState(false);
     
-    async function getTea(id: number) {
+    async function getTea(id: number): Promise<void> {
     
         const clientStatus = await checkAuthStatus()
         setAuthStatus(clientStatus)
@@ -35,7 +35,7 @@ export const useProductPage = () => {
         }
     }
     
-    const changeFavourite = async( teaId: number, e: React.MouseEvent) =>{
+    const changeFavourite = async( teaId: number, e: React.MouseEvent): Promise<void> =>{
         e.stopPropagation()
         if (isFavourite) {
             setIsFavourite(false);

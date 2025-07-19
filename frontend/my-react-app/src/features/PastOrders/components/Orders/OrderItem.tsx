@@ -1,5 +1,5 @@
 import styles from './OrderItem.module.scss'
-import type { OrderProps } from '../../types/pastOrder';
+import type { OrdersProps } from '../../types/pastOrder';
 
 import { statusStyles } from '../../constants/status';
 
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../../../constants/routes';
 import { useOrderItem } from '../../hooks/useOrderItems';
 
-function OrderItem({pretty_id, date, status_name, items} : OrderProps){
+function OrderItem({pretty_id, date, status_name, items} : OrdersProps){
 
     const navigate = useNavigate()
     const statusClass = statusStyles[status_name as keyof typeof statusStyles] || '';

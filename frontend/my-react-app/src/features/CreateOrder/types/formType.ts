@@ -16,9 +16,3 @@ export type orderDataT = {
     shipping_address: string,
     confirmation_method_id: number,
 }
-
-export type clientDataT = {
-    id: number,
-    name: string,
-    email: string
-}

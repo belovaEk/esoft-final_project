@@ -1,9 +1,9 @@
 import styles from './Catalog.module.scss'
 
 import ProductCart from '../../shared/components/ProductCart/ProductCart'
-import AuthorizationModal from '../../components/UI/auth/AuthModal';
+import AuthorizationModal from '../../shared/components/auth/AuthModal';
 
-import SearchInput from '../../components/UI/SearchInput/SearchInput';
+import SearchInput from '../../shared/components/SearchInput/SearchInput';
 import { useCatalog } from './hooks/useCatalog';
 import { itemsPerPage } from './constants/catalog';
 

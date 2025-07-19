@@ -1,10 +1,7 @@
 import styles from './PersonalAccount.module.scss'
-
-import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../constants/routes';
-
 import { useEffect } from 'react';
-import AuthorizationModal from '../../components/UI/auth/AuthModal';
+import AuthorizationModal from '../../shared/components/auth/AuthModal';
 
 import DeleteAccount from './components/modal/DaleteAccount';
 import UserSettingsModal from './components/modal/UserSettings';

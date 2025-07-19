@@ -1,7 +1,7 @@
 
 import styles from './Purchases.module.scss'
 import ProductCart from '../../../../shared/components/ProductCart/ProductCart'
-import AuthProposal from '../../../../components/UI/auth/AuthProposal'
+import AuthProposal from '../../../../shared/components/auth/AuthProposal'
 import { usePurchases } from '../../hooks/usePurchases'
 
 function Purchases(){

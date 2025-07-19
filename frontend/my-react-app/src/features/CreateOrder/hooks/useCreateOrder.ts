@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { postOrder } from "../services/createOrderService";
 import { fetchClient } from "../../../shared/services/clientService";
-import type { OrderClientData, DeliveryData, ClientDataT } from "../types/formType";
+import type { orderClientDataT, deliveryDataT } from "../types/formType";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 
@@ -10,29 +10,29 @@ export const useCreateOrder = () => {
 
     const [deliveryMethod, setDeliveryMethod] = useState<'post' | 'courier'>('courier')
     const [confirmationMethod, setConfirmationMethod] = useState<number | null>(null);
-    const [clientFormData, setClientFormData] = useState<OrderClientData>({
+    const [clientFormData, setClientFormData] = useState<orderClientDataT>({
         name: '',         
         phone: '',        
     });
 
-    const [deliveryData, setDeliveryData] = useState<DeliveryData>({
+    const [deliveryData, setDeliveryData] = useState<deliveryDataT>({
         method: deliveryMethod,
         address: ''
     });
     
     const [paymentMethod, setPaymentMethod] = useState<number>(1);
 
-    function changeDeliveryMethod() {
+    function changeDeliveryMethod(): void {
         deliveryMethod === 'post' ? setDeliveryMethod('courier') : setDeliveryMethod('post')
     }
             
     
-    const changePaymentMethod = (id: number) =>{
+    const changePaymentMethod = (id: number): void =>{
         setPaymentMethod(id)
     }
 
-    const getClientInfo = async() => {
-        const data = await fetchClient() as [ClientDataT]
+    const getClientInfo = async(): Promise<void> => {
+        const data = await fetchClient()
         setClientFormData(prev => ({
             ...prev,
             name: data[0].name
@@ -57,7 +57,7 @@ export const useCreateOrder = () => {
     });
 
 
-    const validateForm = () => {
+    const validateForm = (): boolean  => {
         const newErrors = {
             name: !clientFormData.name.trim(),
             phone: !clientFormData.phone || clientFormData.phone.includes('_'), 
@@ -69,7 +69,7 @@ export const useCreateOrder = () => {
         return !Object.values(newErrors).some(error => error);
     };
     
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
           
         if (validateForm()) {
