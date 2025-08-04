@@ -5,6 +5,8 @@ import type { orderClientDataT, deliveryDataT } from "../types/formType";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../constants/routes";
 import { createPayment } from "../../../shared/api/yooKassa/yooKassaService";
+import { string } from "prop-types";
+import { fetchAdress } from "../../../shared/api/yandex/yandexService";
 
 export const useCreateOrder = () => {
     const navigate = useNavigate();
@@ -90,6 +92,16 @@ export const useCreateOrder = () => {
     
     }
 
+    
+
+    const changeAdress = async(text: string): Promise<void> => {
+        
+        const res = await fetchAdress(text);
+        setSuggestionsAdress(res)
+    }
+    
+    const [suggestionsAdress, setSuggestionsAdress] = useState<string[]>([]);
+
     useEffect(() => {
         getClientInfo();
     }, [])
@@ -107,6 +119,9 @@ export const useCreateOrder = () => {
         setClientFormData,
         setDeliveryData,
         handleSubmit,
-        totalCartPrice
+        totalCartPrice,
+        changeAdress,
+        suggestionsAdress,
+        setSuggestionsAdress
     }
 }

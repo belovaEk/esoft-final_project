@@ -182,3 +182,22 @@ input{
 .errorInput{
     border: 1px solid red !important;
 }
+
+.suggestions_list {
+    border: solid 1px #858585;
+    padding: 10px;
+
+    .suggestions_item{
+        margin-bottom: 10px;
+        color: #858585;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+
+    .suggestions_item:hover{
+        color: black;
+    }
+}
+
+
+

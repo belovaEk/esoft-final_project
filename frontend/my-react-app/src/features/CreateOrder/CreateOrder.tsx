@@ -19,7 +19,10 @@ function Order(){
         setClientFormData,
         setDeliveryData,
         handleSubmit,
-        totalCartPrice
+        totalCartPrice,
+        changeAdress,
+        suggestionsAdress,
+        setSuggestionsAdress
     } = useCreateOrder();
 
     
@@ -65,9 +68,22 @@ function Order(){
                                     Для уточнения даты доставки с вами свяжется наш оператор.</p>
                                     <form action="">
                                         <label htmlFor="address">Адрес доставки</label>
-                                        <input type="text" placeholder='Адрес доставки' id='address' onChange={(e) => setDeliveryData({...deliveryData, address: e.target.value})} className={errors.address ? styles.errorInput : ''}/>
+                                        <input type="text" placeholder='Адрес доставки' id='address' onChange={(e) => {
+                                            changeAdress(e.target.value)
+                                             setDeliveryData({...deliveryData, address: e.target.value})
+                                            }} className={errors.address ? styles.errorInput : ''} value={deliveryData.address}/>
+                                        {suggestionsAdress.length != 0 && 
+                                        <ul id="suggestions" className={styles.suggestions_list}>
+                                        {suggestionsAdress.map(adress => (
+                                                <li className={styles.suggestions_item} onClick={() => {
+                                                    setDeliveryData({...deliveryData, address: adress})
+                                                    changeAdress(adress)
+                                                }} >{adress}</li>
+                                        ))}
+                                        </ul>
+                                        }
                                         {errors.address && <div className={styles.errorMessage}>Пожалуйста, укажите адрес</div>}
-                                        
+
                                     </form>
                                 </div>
                         

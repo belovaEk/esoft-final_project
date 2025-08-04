@@ -6,7 +6,21 @@ export const http = axios.create({
   baseURL: api,
   withCredentials: true,
 });
-    
+
+export const yandexHttp = axios.create({
+  baseURL: "https://suggest-maps.yandex.ru/v1/",
+  withCredentials: false,
+});
+
+export async function yandexGet <T>(url: string): Promise<T> {
+  try {
+    const response = await yandexHttp.get<T>(url);
+    return response.data;
+  } catch (error) {
+    console.error('GET request failed:', error);
+    throw error;
+  }
+};
 
 
 export async function fetchGet <T>(url: string): Promise<T> {
